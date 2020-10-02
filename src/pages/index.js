@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import DevicesPage from './DevicesPage';
+import ItemsPage from './ItemsPage';
 import HomePage from './HomePage';
 import MapPage from './MapPage';
 
 export default function MainSwitch(props) {
   return (
     <Switch>
-      <Route path="/devices">
-        <DevicesPage />
+      <Route path="/items">
+        <ItemsPage />
       </Route>
 
       <Route path="/map">
