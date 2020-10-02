@@ -1,27 +1,21 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { ReactQueryDevtools } from 'react-query-devtools';
+import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { HashRouter } from 'react-router-dom';
 
-import logo from './logo.svg';
-import './App.css';
+import MainSwitch from './pages';
+
+const queryCache = new QueryCache();
 
 export default function App() {
   return (
-    <div className="App">
+    <ReactQueryCacheProvider queryCache={queryCache}>
       <CssBaseline />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <HashRouter>
+        <MainSwitch />
+      </HashRouter>
+      <ReactQueryDevtools initialIsOpen />
+    </ReactQueryCacheProvider>
   );
 }
