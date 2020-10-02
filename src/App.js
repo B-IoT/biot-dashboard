@@ -1,10 +1,13 @@
 import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
+      <CssBaseline />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -22,5 +25,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
