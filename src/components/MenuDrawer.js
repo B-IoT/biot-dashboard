@@ -14,6 +14,8 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import { drawerWidth } from '../utils/constants';
 
+// TODO add prop types
+
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,

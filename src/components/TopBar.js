@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { drawerWidth } from '../utils/constants';
 
+// TODO add prop types
+
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
