@@ -1,4 +1,7 @@
+// @ts-nocheck
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,8 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { drawerWidth } from '../utils/constants';
-
-// TODO add prop types
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -37,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * @param {object} props
+ * @param {boolean} props.isMenuDrawerOpen
+ * @param {function} props.onMenuButtonClick
+ */
 export default function TopBar({ isMenuDrawerOpen, onMenuButtonClick }) {
   const classes = useStyles();
 
@@ -64,3 +70,8 @@ export default function TopBar({ isMenuDrawerOpen, onMenuButtonClick }) {
     </AppBar>
   );
 }
+
+TopBar.propTypes = {
+  isMenuDrawerOpen: PropTypes.bool.isRequired,
+  onMenuButtonClick: PropTypes.func.isRequired,
+};

@@ -1,7 +1,7 @@
-import { Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { Typography } from '@material-ui/core';
 
 export default function HomePage() {
  
-  return (<Typography >sefwinnefjwfejfwejf</Typography>);
+  return (<Typography >Home</Typography>);
 }
