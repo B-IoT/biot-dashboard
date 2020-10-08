@@ -1,34 +1,33 @@
 import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import * as mapwize from 'mapwize-ui';
 
-export default function MapPage(props) {
-  //   useEffect(() => {
-  //     const script = document.createElement('script');
+const useStyles = makeStyles((theme) => ({
+  map: {
+    width: '400px',
+    height: '400px',
+  },
+}));
 
-  //     // script.src = 'showMap.js';
-  //     script.async = true;
-  //     script.innerHTML = `
-  //     Mapwize.apiKey('1f04d780dc30b774c0c10f53e3c7d4ea');
+export default function MapPage() {
+  const classes = useStyles();
 
-  // Mapwize.map({
-  //   container: 'mapwize',
-  // })
-  //   .then((mapInstance) => {
-  //     console.log('Maps is now ready to be used');
-  //   })
-  //   .catch((err) => {
-  //     // Something bad happened during Mapwize loading
-  //     console.error(err);
-  //   });
-  // `;
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.innerHTML = `
+    var API_KEY = "4f651477cbc907c5bd6e5b4a84a27a57";
 
-  //     document.body.appendChild(script);
-
-  //     return () => {
-  //       document.body.removeChild(script);
-  //     };
-  //   }, []);
-
-  return <div id="mapwize">
+    window.onload = function () {
+      MapwizeUI.map(API_KEY);
+    }
+    `;
     
-  </div>;
+    document.body.appendChild(script);
+
+    return () => document.body.removeChild(script);
+  }, []);
+
+  return <div className={classes.map} id="mapwize"></div>;
 }

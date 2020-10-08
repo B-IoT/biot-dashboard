@@ -15,6 +15,7 @@
     "fontsource-roboto": "^3.0.3",
     "lodash": "^4.17.20",
     "mapwize": "^4.3.0",
+    "mapwize-ui": "^2.6.1",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
