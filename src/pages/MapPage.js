@@ -1,33 +1,24 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import * as mapwize from 'mapwize-ui';
-
-const useStyles = makeStyles((theme) => ({
-  map: {
-    width: '400px',
-    height: '400px',
-  },
-}));
+import React from 'react';
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
 export default function MapPage() {
-  const classes = useStyles();
+  const Map = ReactMapboxGl({
+    accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+  });
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.innerHTML = `
-    var API_KEY = "4f651477cbc907c5bd6e5b4a84a27a57";
-
-    window.onload = function () {
-      MapwizeUI.map(API_KEY);
-    }
-    `;
-    
-    document.body.appendChild(script);
-
-    return () => document.body.removeChild(script);
-  }, []);
-
-  return <div className={classes.map} id="mapwize"></div>;
+  return (
+    <Map
+      style="mapbox://styles/gondolav/ckg3j2q4h1qg019k8sdyhkvvy"
+      containerStyle={{
+        width: '90vw',
+        height: '80vh',
+        margin: 'auto',
+      }}
+      center={[6.6323, 46.5197]}
+    >
+      <Layer type="symbol" id="marker" layout={{ 'icon-image': 'hospital-15' }}>
+        <Feature coordinates={[6.6424, 46.5249]} />
+      </Layer>
+    </Map>
+  );
 }
