@@ -10,6 +10,7 @@ import TopBar from '../components/TopBar';
 
 import ItemsPage from './ItemsPage';
 import HomePage from './HomePage';
+import ItemPage from './ItemPage';
 import MapPage from './MapPage';
 import MaintenancePage from './MaintenancePage';
 
@@ -91,11 +92,17 @@ export default function MainSwitch() {
       >
         <div className={classes.drawerHeader} />
         <Switch>
-        <Route path="/maintenance">
+          <Route path="/maintenance">
             <MaintenancePage />
           </Route>
+
           <Route path="/items">
             <ItemsPage />
+          </Route>
+
+          {/* TODO */}
+          <Route path="/item:id">
+            <ItemPage />
           </Route>
 
           <Route path="/map">

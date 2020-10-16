@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * @param {object} props
+ * @param {string} props.title the title to display for the card
+ * @param {object[]} props.items the items to display
+ */
 export default function ItemsCard({ title, items }) {
   const classes = useStyles();
   return (

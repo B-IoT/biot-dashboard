@@ -3,25 +3,43 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   list: {
     maxHeight: 300,
     overflow: 'scroll',
     marginBottom: 8,
-    marginTop: -4
+    marginTop: -4,
   },
 }));
 
-function Item({ value, ...otherProps }) {
-  const classes = useStyles();
+/**
+ * @param {object} props
+ * @param {object} props.value the object representing the item
+ */
+function Item({ value }) {
+  const destination = `/item${value.id}`;
+  // TODO
+  const renderLink = React.useMemo(
+    () =>
+      React.forwardRef((itemProps, ref) => (
+        <RouterLink to={destination} ref={ref} {...itemProps} />
+      )),
+    [destination]
+  );
+
   return (
-    <ListItem className={classes.listItem} button key={value.type}>
+    <ListItem button key={value.type} component={renderLink}>
       <ListItemText primary={value.type} secondary={'Niveau batterie: 70%'} />
     </ListItem>
   );
 }
 
+/**
+ * @param {object} props
+ * @param {object[]} props.items the items in the list
+ */
 export default function ItemsList({ items }) {
   const classes = useStyles();
   // TODO: potentially use react-window to increase performance
