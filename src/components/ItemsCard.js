@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
     height: 350,
+    borderRadius: theme.borderRadius,
   },
   title: {
     fontSize: 22,

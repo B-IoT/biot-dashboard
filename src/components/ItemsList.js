@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   list: {
     maxHeight: 300,
     overflow: 'scroll',
-    marginBottom: 4,
+    marginBottom: 8,
     marginTop: -4
   },
 }));
