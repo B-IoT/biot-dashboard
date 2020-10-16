@@ -11,6 +11,7 @@ import TopBar from '../components/TopBar';
 import ItemsPage from './ItemsPage';
 import HomePage from './HomePage';
 import MapPage from './MapPage';
+import MaintenancePage from './MaintenancePage';
 
 import { drawerWidth } from '../utils/constants';
 
@@ -90,6 +91,9 @@ export default function MainSwitch() {
       >
         <div className={classes.drawerHeader} />
         <Switch>
+        <Route path="/maintenance">
+            <MaintenancePage />
+          </Route>
           <Route path="/items">
             <ItemsPage />
           </Route>

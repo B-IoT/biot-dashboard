@@ -100,6 +100,7 @@ export default function MenuDrawer({ isOpen, handleDrawerClose }) {
         <DrawerItem name="Accueil" to="/" icon={<HomeIcon />} />
         <DrawerItem name="Carte" to="/map" icon={<RoomIcon />} />
         <DrawerItem name="Objets" to="/items" icon={<StorageIcon />} />
+        <DrawerItem name="Maintenance" to="/maintenance" icon={<StorageIcon />} />
       </List>
     </Drawer>
   );

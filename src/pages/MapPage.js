@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import { usePosition } from 'use-position';
 
 export default function MapPage() {
+  const { latitude, longitude, errorMessage } = usePosition(true);
+
+  console.log(errorMessage);
+  console.log(latitude);
+  console.log(longitude);
+
   const Map = ReactMapboxGl({
     accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
   });

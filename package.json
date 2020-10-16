@@ -24,8 +24,10 @@
     "react-query-devtools": "^2.5.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "recharts": "^1.8.5",
     "sass": "^1.26.11",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "use-position": "0.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
