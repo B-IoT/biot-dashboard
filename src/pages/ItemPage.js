@@ -21,30 +21,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * @param {object} props
+ * @param {object} props.item the item described in the page
+ */
 function InfoCard({ item }) {
   const classes = useStyles();
+  // TODO if item is undefined, take it from React Query cache
   const { type, battery, status, latitude, longitude } = item;
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} gutterBottom>
-          "Materiel"
+          Materiel
         </Typography>
         <Typography className={classes.text}>{type}</Typography>
         <Typography className={classes.text}>
-          "Niveau de la batterie: {battery}"
+          Niveau de la batterie: {battery}
         </Typography>
         <Typography className={classes.text}>{status}</Typography>
         <Typography className={classes.text}>
-          "Position: ({latitude}, {longitude})"
+          Position: ({latitude}, {longitude})
         </Typography>
       </CardContent>
     </Card>
   );
 }
 
-export default function ItemPage({ item, ...otherProps }) {
+/**
+ * @param {object} props
+ * @param {object} props.item the item described in the page
+ */
+export default function ItemPage( { item }) {
   return (
     <Grid container direction="row" justify="space-around" alignItems="center">
       <InfoCard item={item} />
