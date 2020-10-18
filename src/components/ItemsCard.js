@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
-import Card from './Card';
+import CustomCard from './CustomCard';
 import ItemsList from './ItemsList';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.borderRadius,
   },
   title: {
-    fontSize: 22,
+    fontWeight: 'bold',
+    fontSize: 20,
     textAlign: 'center',
   },
 }));
@@ -25,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
 export default function ItemsCard({ title, items }) {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
+    <CustomCard className={classes.root}>
       <Typography className={classes.title} gutterBottom>
         {title}
       </Typography>
       <ItemsList items={items} />
-    </Card>
+    </CustomCard>
   );
 }
