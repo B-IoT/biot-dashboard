@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
+import Card from './Card';
 import ItemsList from './ItemsList';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,12 +26,10 @@ export default function ItemsCard({ title, items }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardContent>
-        <Typography className={classes.title} gutterBottom>
-          {title}
-        </Typography>
-        <ItemsList items={items} />
-      </CardContent>
+      <Typography className={classes.title} gutterBottom>
+        {title}
+      </Typography>
+      <ItemsList items={items} />
     </Card>
   );
 }
