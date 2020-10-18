@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 
 import CustomCard from './CustomCard';
 import ItemsList from './ItemsList';
+import ItemsMaintenanceTable from './ItemsMaintenanceTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,12 +26,5 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function ItemsCard({ title, items }) {
   const classes = useStyles();
-  return (
-    <CustomCard className={classes.root}>
-      <Typography className={classes.title} gutterBottom>
-        {title}
-      </Typography>
-      <ItemsList items={items} />
-    </CustomCard>
-  );
+  return <ItemsMaintenanceTable items={items} />;
 }
