@@ -100,9 +100,9 @@ export default function MainSwitch() {
             <ItemsPage />
           </Route>
 
-          {/* TODO */}
-          <Route path="/item:id">
-            <ItemPage />
+          <Route path="/item/:id" render={( {location} ) =>
+            <ItemPage item={location.item}/>
+          }>
           </Route>
 
           <Route path="/map">

@@ -19,14 +19,20 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props.value the object representing the item
  */
 function Item({ value }) {
-  const destination = `/item${value.id}`;
-  // TODO
+  const destination = `/item/${value.id}`;
   const renderLink = React.useMemo(
     () =>
       React.forwardRef((itemProps, ref) => (
-        <RouterLink to={destination} ref={ref} {...itemProps} />
+        <RouterLink
+          to={{
+            pathname: destination,
+            item: value,
+          }}
+          ref={ref}
+          {...itemProps}
+        />
       )),
-    [destination]
+    [destination, value]
   );
 
   return (

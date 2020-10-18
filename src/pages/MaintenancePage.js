@@ -42,7 +42,25 @@ export default function MaintenancePage() {
     { type: 'Oxygen' },
     { type: 'Oxygen' },
   ];
-  const items2 = [{ type: 'X' }, { type: 'Y' }];
+
+  const items2 = [
+    {
+      type: 'X',
+      id: 1,
+      battery: 50,
+      status: 'Available',
+      latitude: 6.6,
+      longitude: 46.5,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      battery: 30,
+      status: 'Available',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+  ];
 
   const typeSummaries = [
     { type: 'Indisponible', count: 50, color: theme.items.unavailable },

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Source } from 'react-mapbox-gl';
 
 /**
  * @param {object} props
@@ -9,6 +9,24 @@ export default function ItemsMap({ items }) {
   const Map = ReactMapboxGl({
     accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
   });
+
+  const source = {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: items.map((item) => ({
+        type: 'Feature',
+        properties: {
+          ...item,
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [item.longitude, item.latitude],
+        },
+      })),
+    },
+  };
+  console.log(JSON.stringify(source));
 
   return (
     <Map
@@ -20,9 +38,13 @@ export default function ItemsMap({ items }) {
       }}
       center={[6.6323, 46.5197]}
     >
-      <Layer type="symbol" id="marker" layout={{ 'icon-image': 'hospital-15' }}>
-        <Feature coordinates={[6.6424, 46.5249]} />
-      </Layer>
+      {/* <Source id="items" geoJsonSource={JSON.stringify(source)} /> */}
+      <Layer
+        type="symbol"
+        id="items"
+        geoJSONSourceOptions={JSON.stringify(source)}
+        layout={{ 'icon-image': 'hospital-15', 'icon-allow-overlap': true }}
+      />
     </Map>
   );
 }
