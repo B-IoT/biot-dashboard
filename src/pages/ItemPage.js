@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props.item the item described in the page
  */
 function InfoCard({ item }) {
+  console.log(item);
   const classes = useStyles();
   // TODO if item is undefined, take it from React Query cache
   const { type, battery, status, latitude, longitude } = item;
@@ -53,7 +54,7 @@ function InfoCard({ item }) {
  * @param {object} props
  * @param {object} props.item the item described in the page
  */
-export default function ItemPage( { item }) {
+export default function ItemPage({item}) {
   return (
     <Grid container direction="row" justify="space-around" alignItems="center">
       <InfoCard item={item} />

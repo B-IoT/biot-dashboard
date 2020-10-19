@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import orange from '@material-ui/core/colors/orange';
@@ -28,9 +28,9 @@ export default function App() {
     <ReactQueryCacheProvider queryCache={queryCache}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <HashRouter>
+        <BrowserRouter>
           <MainSwitch />
-        </HashRouter>
+        </BrowserRouter>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen />
     </ReactQueryCacheProvider>

@@ -23,8 +23,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
+import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';
 import CustomCard from '../components/CustomCard';
-import ItemsCard from '../components/ItemsCard';
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -60,9 +60,42 @@ const useStyles = makeStyles((theme) => ({
  * @param {object[]} props.data
  */
 function StatusPieChart({ data }) {
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
   return (
     <PieChart width={350} height={350}>
-      <Pie data={data} dataKey="count" nameKey="type" label>
+      <Pie
+        data={data}
+        dataKey="count"
+        nameKey="type"
+        labelLine={false}
+        label={renderCustomizedLabel}
+      >
         {data.map((summary) => (
           <Cell fill={summary.color} />
         ))}
@@ -166,7 +199,7 @@ export default function MaintenancePage() {
       service: 'Bloc 1',
       id: 1,
       battery: 50,
-      status: 'Available',
+      status: 'Indisponible',
       latitude: 6.6,
       longitude: 46.5,
     },
@@ -175,7 +208,7 @@ export default function MaintenancePage() {
       id: 2,
       service: 'Bloc 2',
       battery: 30,
-      status: 'Available',
+      status: 'Indisponible',
       latitude: 6.6,
       longitude: 46.4,
     },
@@ -241,7 +274,7 @@ export default function MaintenancePage() {
         style={{ marginBottom: 32 }}
       >
         <StatusPieChart data={typeSummaries} />
-        <ItemsCard title="Maintenance du matériel" items={items} />
+        <ItemsMaintenanceTable items={items} />
         <ServicesBarChart data={services} />
       </Grid>
 
