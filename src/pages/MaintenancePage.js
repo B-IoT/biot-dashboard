@@ -21,6 +21,7 @@ import {
   Line,
   Legend,
   ResponsiveContainer,
+  Label,
 } from 'recharts';
 
 import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';
@@ -39,6 +40,16 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     marginLeft: theme.spacing(0.8),
   },
+  chartCard: {
+    borderRadius: theme.borderRadius,
+    alignItems: 'center',
+  },
+  bottomChartCard: {
+    borderRadius: theme.borderRadius,
+    alignItems: 'center',
+    width: '100%',
+    height: 'auto',
+  },
   bottomCard: {
     width: 300,
     height: theme.spacing(10),
@@ -46,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     alignItems: 'center',
   },
-  bottomCardTitle: {
+  cardTitle: {
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -58,8 +69,11 @@ const useStyles = makeStyles((theme) => ({
 /**
  * @param {object} props
  * @param {object[]} props.data
+ * @param {string} props.title
  */
-function StatusPieChart({ data }) {
+function StatusPieChart({ data, title }) {
+  const classes = useStyles();
+
   const renderCustomizedLabel = ({
     cx,
     cy,
@@ -67,7 +81,6 @@ function StatusPieChart({ data }) {
     innerRadius,
     outerRadius,
     percent,
-    index,
   }) => {
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -88,81 +101,102 @@ function StatusPieChart({ data }) {
   };
 
   return (
-    <PieChart width={350} height={350}>
-      <Pie
-        data={data}
-        dataKey="count"
-        nameKey="type"
-        labelLine={false}
-        label={renderCustomizedLabel}
-      >
-        {data.map((summary) => (
-          <Cell fill={summary.color} />
-        ))}
-      </Pie>
-      <Tooltip />
-    </PieChart>
-  );
-}
-
-/**
- * @param {object} props
- * @param {object[]} props.data
- */
-function ServicesBarChart({ data }) {
-  const theme = useTheme();
-  return (
-    <BarChart width={350} height={350} data={data} layout="vertical">
-      <XAxis type="number" hide={true} domain={[0, 100]} />
-      <YAxis type="category" dataKey="name" />
-      <Tooltip />
-      <Bar
-        dataKey="available"
-        fill={theme.items.available}
-        layout="vertical"
-        label
-      />
-      <Bar
-        dataKey="unavailable"
-        fill={theme.items.unavailable}
-        layout="vertical"
-        label
-      />
-      <Bar
-        dataKey="needMaintenance"
-        fill={theme.palette.secondary.main}
-        layout="vertical"
-        label
-      />
-    </BarChart>
-  );
-}
-
-/**
- * @param {object} props
- * @param {object[]} props.data
- */
-function StatusLineChart({ data }) {
-  const theme = useTheme();
-  return (
-    <ResponsiveContainer width="100%" height={350}>
-      <LineChart data={data} margin={{ left: 0, right: 20 }}>
-        <XAxis dataKey="date" />
-        <YAxis />
+    <CustomCard className={classes.chartCard}>
+      <Typography className={classes.cardTitle} variant="subtitle1">
+        {title}
+      </Typography>
+      <PieChart width={350} height={350}>
+        <Pie
+          data={data}
+          dataKey="count"
+          nameKey="type"
+          labelLine={false}
+          label={renderCustomizedLabel}
+        >
+          {data.map((summary) => (
+            <Cell fill={summary.color} />
+          ))}
+        </Pie>
         <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="nbItemsDamaged"
-          stroke={theme.items.unavailable}
+      </PieChart>
+    </CustomCard>
+  );
+}
+
+/**
+ * @param {object} props
+ * @param {object[]} props.data
+ * @param {string} props.title
+ */
+function ServicesBarChart({ data, title }) {
+  const theme = useTheme();
+  const classes = useStyles();
+
+  return (
+    <CustomCard className={classes.chartCard}>
+      <Typography className={classes.cardTitle} variant="subtitle1">
+        {title}
+      </Typography>
+      <BarChart width={350} height={350} data={data} layout="vertical">
+        <XAxis type="number" hide={true} domain={[0, 100]} />
+        <YAxis type="category" dataKey="name" />
+        <Tooltip />
+        <Bar
+          dataKey="available"
+          fill={theme.items.available}
+          layout="vertical"
+          label
         />
-        <Line
-          type="monotone"
-          dataKey="nbItemsRepaired"
-          stroke={theme.items.available}
+        <Bar
+          dataKey="unavailable"
+          fill={theme.items.unavailable}
+          layout="vertical"
+          label
         />
-      </LineChart>
-    </ResponsiveContainer>
+        <Bar
+          dataKey="needMaintenance"
+          fill={theme.palette.secondary.main}
+          layout="vertical"
+          label
+        />
+      </BarChart>
+    </CustomCard>
+  );
+}
+
+/**
+ * @param {object} props
+ * @param {object[]} props.data
+ * @param {string} props.title
+ */
+function StatusLineChart({ data, title }) {
+  const theme = useTheme();
+  const classes = useStyles();
+
+  return (
+    <CustomCard className={classes.bottomChartCard}>
+      <Typography className={classes.cardTitle} variant="subtitle1">
+        {title}
+      </Typography>
+      <ResponsiveContainer width="100%" height={350}>
+        <LineChart data={data} margin={{ left: 0, right: 20 }}>
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="nbItemsDamaged"
+            stroke={theme.items.unavailable}
+          />
+          <Line
+            type="monotone"
+            dataKey="nbItemsRepaired"
+            stroke={theme.items.available}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </CustomCard>
   );
 }
 
@@ -177,7 +211,7 @@ function BottomCard({ title, value, color }) {
 
   return (
     <CustomCard className={classes.bottomCard}>
-      <Typography className={classes.bottomCardTitle} variant="subtitle1">
+      <Typography className={classes.cardTitle} variant="subtitle1">
         {title}
       </Typography>
       <Typography className={classes.bottomCardText} style={{ color }}>
@@ -202,6 +236,42 @@ export default function MaintenancePage() {
       status: 'Indisponible',
       latitude: 6.6,
       longitude: 46.5,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
     },
     {
       type: 'Y',
@@ -273,12 +343,15 @@ export default function MaintenancePage() {
         alignItems="center"
         style={{ marginBottom: 32 }}
       >
-        <StatusPieChart data={typeSummaries} />
+        <StatusPieChart data={typeSummaries} title="État du materiel" />
         <ItemsMaintenanceTable items={items} />
-        <ServicesBarChart data={services} />
+        <ServicesBarChart data={services} title="État des services" />
       </Grid>
 
-      <StatusLineChart data={dataForTimeSeries} />
+      <StatusLineChart
+        data={dataForTimeSeries}
+        title="Évolution de la maintenance"
+      />
 
       <Grid
         container
@@ -302,7 +375,7 @@ export default function MaintenancePage() {
           value="Risque d'accumulation"
           color={theme.items.unavailable}
         />
-        {/* TODO: change value and color based on unavailable > available */}
+        {/* TODO: change value and color based on unavailable > available for last card */}
       </Grid>
     </Grid>
   );

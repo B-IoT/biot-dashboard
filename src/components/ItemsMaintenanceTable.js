@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: theme.borderRadius,
     maxHeight: 600,
+    minHeight: 400,
     maxWidth: 600,
   },
 }));
@@ -100,8 +101,8 @@ export default function ItemsMaintenanceTable({ items }) {
 
   const options = {
     filterType: 'checkbox',
-    elevation: 2,
-    tableBodyMaxHeight: 300,
+    elevation: 1,
+    tableBodyHeight: 330,
     download: false,
     print: false,
     rowsPerPage: 5,
