@@ -1,24 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: theme.borderRadius,
-    maxHeight: 600,
-    minHeight: 400,
-    maxWidth: 600,
   },
 }));
 
 /**
  * @param {object} props
  * @param {object[]} props.items the items to display
+ * @param {function} props.onItemClick callback when an item is clicked
  */
-export default function ItemsMaintenanceTable({ items }) {
+export default function ItemsTable({ items, onItemClick }) {
   const classes = useStyles();
-  const history = useHistory();
 
   const columns = [
     {
@@ -83,25 +79,12 @@ export default function ItemsMaintenanceTable({ items }) {
   ];
 
   const handleRowClick = (rowData, { dataIndex, rowIndex }) => {
-    const item = {
-      id: rowData[0],
-      type: rowData[1],
-      service: rowData[2],
-      battery: rowData[3],
-      status: rowData[4],
-      latitude: rowData[5],
-      longitude: rowData[6],
-    };
-    const destination = `/items`;
-    history.push({ pathname: destination, id: item.id });
+    onItemClick(dataIndex);
   };
 
   const options = {
     filterType: 'checkbox',
     elevation: 1,
-    tableBodyHeight: 330,
-    download: false,
-    print: false,
     rowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 20],
     selectableRows: 'none',
@@ -114,7 +97,7 @@ export default function ItemsMaintenanceTable({ items }) {
   return (
     <MUIDataTable
       className={classes.table}
-      title={'Maintenance du matériel'}
+      title={'Objets'}
       data={items}
       columns={columns}
       options={options}

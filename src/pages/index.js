@@ -11,7 +11,6 @@ import TopBar from '../components/TopBar';
 import ItemsPage from './ItemsPage';
 import HomePage from './HomePage';
 import AddItemPage from './AddItemPage';
-import ItemPage from './ItemPage';
 import MapPage from './MapPage';
 import MaintenancePage from './MaintenancePage';
 
@@ -98,16 +97,11 @@ export default function MainSwitch() {
           </Route>
 
           <Route path="/items">
-            <ItemsPage />
+            <ItemsPage/>
           </Route>
 
-          <Route path="/item/add">
+          <Route path="/items/add">
             <AddItemPage />
-          </Route>
-
-          <Route path="/item/:id" render={( {location} ) =>
-            <ItemPage item={location.item}/>
-          }>
           </Route>
 
           <Route path="/map">

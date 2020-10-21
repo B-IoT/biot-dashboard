@@ -26,6 +26,7 @@ import {
 
 import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';
 import CustomCard from '../components/CustomCard';
+import { useQueryCache } from 'react-query';
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -224,65 +225,10 @@ function BottomCard({ title, value, color }) {
 export default function MaintenancePage() {
   const theme = useTheme();
   const classes = useStyles();
-
+  const queryCache = useQueryCache();
   const [query, setQuery] = useState('');
 
-  const items = [
-    {
-      type: 'X',
-      service: 'Bloc 1',
-      id: 1,
-      battery: 50,
-      status: 'Indisponible',
-      latitude: 6.6,
-      longitude: 46.5,
-    },
-    {
-      type: 'Y',
-      id: 2,
-      service: 'Bloc 2',
-      battery: 30,
-      status: 'Indisponible',
-      latitude: 6.6,
-      longitude: 46.4,
-    },
-    {
-      type: 'Y',
-      id: 2,
-      service: 'Bloc 2',
-      battery: 30,
-      status: 'Indisponible',
-      latitude: 6.6,
-      longitude: 46.4,
-    },
-    {
-      type: 'Y',
-      id: 2,
-      service: 'Bloc 2',
-      battery: 30,
-      status: 'Indisponible',
-      latitude: 6.6,
-      longitude: 46.4,
-    },
-    {
-      type: 'Y',
-      id: 2,
-      service: 'Bloc 2',
-      battery: 30,
-      status: 'Indisponible',
-      latitude: 6.6,
-      longitude: 46.4,
-    },
-    {
-      type: 'Y',
-      id: 2,
-      service: 'Bloc 2',
-      battery: 30,
-      status: 'Indisponible',
-      latitude: 6.6,
-      longitude: 46.4,
-    },
-  ];
+  const items = queryCache.getQueryData('items');
 
   const services = [
     { name: 'Bloc 1', available: 75, needMaintenance: 20, unavailable: 5 },
@@ -330,7 +276,7 @@ export default function MaintenancePage() {
           color="primary"
           startIcon={<AddIcon />}
           component={RouterLink}
-          to="/item/add"
+          to="/items/add"
         >
           Ajouter
         </Button>

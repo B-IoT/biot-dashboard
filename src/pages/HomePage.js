@@ -5,7 +5,66 @@ import { useQuery } from 'react-query';
 import { getItems, getItem } from '../api/items';
 
 export default function HomePage() {
-  const { data: items } = useQuery('items', getItems);
+  const initialItems = [
+    {
+      type: 'X',
+      service: 'Bloc 1',
+      id: 1,
+      battery: 50,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.5,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+    {
+      type: 'Y',
+      id: 2,
+      service: 'Bloc 2',
+      battery: 30,
+      status: 'Indisponible',
+      latitude: 6.6,
+      longitude: 46.4,
+    },
+  ];
+
+  const { data: items } = useQuery('items', getItems, {
+    initialData: initialItems,
+  });
 
   const { data: item, error, isError } = useQuery(['item', 2], getItem);
 
