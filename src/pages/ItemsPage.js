@@ -1,56 +1,66 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 
 import { useQueryCache } from 'react-query';
 
 import { useLocation } from 'react-router-dom';
 
+import CustomCard from '../components/CustomCard';
 import ItemsMap from '../components/ItemsMap';
 import ItemsTable from '../components/ItemsTable';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 300,
+  infoCardRoot: {
+    minWidth: 300,
     height: '90vh',
+    marginLeft: 16,
+    marginRight: 16,
     borderRadius: theme.borderRadius,
   },
-  title: {
+  infoCardTitle: {
     fontSize: 18,
   },
-  text: {
+  infoCardText: {
     fontSize: 14,
   },
 }));
 
 /**
  * @param {object} props
- * @param {object} props.item the item described in the page
+ * @param {object[]} props.items
+ * @param {number} props.index
  */
-function InfoCard({ item }) {
+function InfoCard({ items, index }) {
   const classes = useStyles();
-  const { type, battery, status, latitude, longitude } = item;
+  if (index !== -1) {
+    const { type, battery, status, latitude, longitude } = items[index];
 
-  return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography className={classes.title} gutterBottom>
-          Materiel
+    return (
+      <CustomCard className={classes.infoCardRoot}>
+        <Typography className={classes.infoCardTitle} gutterBottom>
+          Détails de l'objet
         </Typography>
-        <Typography className={classes.text}>{type}</Typography>
-        <Typography className={classes.text}>
+        <Typography className={classes.infoCardText}>{type}</Typography>
+        <Typography className={classes.infoCardText}>
           Niveau de la batterie: {battery}
         </Typography>
-        <Typography className={classes.text}>{status}</Typography>
-        <Typography className={classes.text}>
+        <Typography className={classes.infoCardText}>{status}</Typography>
+        <Typography className={classes.infoCardText}>
           Position: ({latitude}, {longitude})
         </Typography>
-      </CardContent>
-    </Card>
-  );
+      </CustomCard>
+    );
+  } else {
+    return (
+      <CustomCard className={classes.infoCardRoot}>
+        <Typography className={classes.infoCardTitle} gutterBottom>
+          Choisir un objet pour avoir plus d'information
+        </Typography>
+      </CustomCard>
+    );
+  }
 }
 
 export default function ItemsPage() {
@@ -67,11 +77,16 @@ export default function ItemsPage() {
   // }
 
   return (
-    <Grid container direction="row" justify="space-around" alignItems="center">
+    <Grid
+      container
+      direction="row"
+      justify="space-around"
+      alignItems="center"
+      wrap={'nowrap'}
+    >
       <ItemsTable items={items} onItemClick={setItemToShowIndex} />
-      {itemToShowIndex !== -1 && <InfoCard item={items[itemToShowIndex]} />}
-      {/*  */}
-      {/* <ItemsMap items={items} /> */}
+      <InfoCard items={items} index={itemToShowIndex} />
+      <ItemsMap items={items} index={itemToShowIndex} />
     </Grid>
   );
 }

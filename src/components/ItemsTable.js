@@ -5,6 +5,7 @@ import MUIDataTable from 'mui-datatables';
 const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: theme.borderRadius,
+    height: '90vh'
   },
 }));
 
@@ -85,8 +86,8 @@ export default function ItemsTable({ items, onItemClick }) {
   const options = {
     filterType: 'checkbox',
     elevation: 1,
-    rowsPerPage: 5,
-    rowsPerPageOptions: [5, 10, 20],
+    rowsPerPage: 20,
+    rowsPerPageOptions: [5, 10, 20, 40],
     selectableRows: 'none',
     selectableRowsHeader: false,
     onRowClick: handleRowClick,

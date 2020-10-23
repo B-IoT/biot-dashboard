@@ -60,8 +60,17 @@ export default function HomePage() {
       latitude: 6.6,
       longitude: 46.4,
     },
+    {
+      type: 'Z',
+      id: 2,
+      service: 'Bloc 1',
+      battery: 100,
+      status: 'Disponible',
+      latitude: 6.5668,
+      longitude: 46.5191,
+    },
   ];
-
+  
   const { data: items } = useQuery('items', getItems, {
     initialData: initialItems,
   });

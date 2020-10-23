@@ -262,6 +262,7 @@ export default function MaintenancePage() {
         direction="row"
         justify="space-around"
         alignItems="center"
+        wrap={"nowrap"}
       >
         <SearchBar
           placeholder="Rechercher"
@@ -288,6 +289,7 @@ export default function MaintenancePage() {
         justify="space-around"
         alignItems="center"
         style={{ marginBottom: 32 }}
+        wrap={"nowrap"}
       >
         <StatusPieChart data={typeSummaries} title="État du materiel" />
         <ItemsMaintenanceTable items={items} />
