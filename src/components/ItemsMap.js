@@ -61,7 +61,7 @@ export default function ItemsMap({ items, index }) {
     <Map
       style="mapbox://styles/gondolav/ckg3j2q4h1qg019k8sdyhkvvy"
       containerStyle={{
-        width: '30vw',
+        width: '40vw',
         height: '90vh',
       }}
       center={[6.6323, 46.5197]}

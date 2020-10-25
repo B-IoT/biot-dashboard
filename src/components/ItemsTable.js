@@ -5,7 +5,7 @@ import MUIDataTable from 'mui-datatables';
 const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: theme.borderRadius,
-    height: '90vh'
+    height: '90vh',
   },
 }));
 

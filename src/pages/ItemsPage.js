@@ -67,7 +67,6 @@ function InfoCard({ items, index }) {
 
 export default function ItemsPage() {
   const { id } = useLocation();
-  console.log(id);
 
   const [itemToShowIndex, setItemToShowIndex] = useState(-1);
   const [items, setItems] = useState([]);
@@ -75,17 +74,17 @@ export default function ItemsPage() {
   const { data } = useQuery('items', getItems);
 
   useEffect(() => {
-    // do some checking here to ensure data exist
     if (data) {
-      // mutate data if you need to
       setItems(data);
     }
   }, [data]);
 
-  // if (typeof id !== 'undefined') { TODO:
-  //   const itemIndex = items.findIndex((item) => item.id === parseInt(id));
-  //   setItemToShowIndex(itemIndex);
-  // }
+  useEffect(() => {
+    if (id) {
+      const itemIndex = items.findIndex((item) => item.id === parseInt(id));
+      setItemToShowIndex(itemIndex);
+    }
+  }, [id, items]);
 
   return (
     <Grid
