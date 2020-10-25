@@ -25,3 +25,12 @@ export async function getItem(_key, itemID) {
   const { data } = await API.get(`/items/${itemID}`);
   return data;
 }
+
+/**
+ * Creates the item in the backend.
+ *
+ * @param {object} item the item to create
+ */
+export async function createItem(item) {
+  return await API.post(`/items`, item);
+}

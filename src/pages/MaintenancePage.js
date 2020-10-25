@@ -21,7 +21,6 @@ import {
   Line,
   Legend,
   ResponsiveContainer,
-  Label,
 } from 'recharts';
 
 import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';

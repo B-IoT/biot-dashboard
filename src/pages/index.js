@@ -96,12 +96,12 @@ export default function MainSwitch() {
             <MaintenancePage />
           </Route>
 
-          <Route path="/items">
-            <ItemsPage/>
-          </Route>
-
           <Route path="/items/add">
             <AddItemPage />
+          </Route>
+
+          <Route path="/items">
+            <ItemsPage/>
           </Route>
 
           <Route path="/map">
