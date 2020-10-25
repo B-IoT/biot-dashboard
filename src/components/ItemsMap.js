@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactMapboxGl, {
   Feature,
   Layer,
@@ -11,9 +11,9 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   popupTitle: {
-    color: '#3f618c',
     fontWeight: 400,
-    padding: '5px',
+    fontSize: 10,
+    padding: '2px',
   },
 }));
 
@@ -21,7 +21,7 @@ function ItemPopup({ item }) {
   const classes = useStyles();
 
   return (
-    <Typography className={classes.popupTitle} gutterBottom>
+    <Typography className={classes.popupTitle}>
       ({item.longitude}, {item.latitude})
     </Typography>
   );
@@ -33,36 +33,29 @@ function ItemPopup({ item }) {
  * @param {number} props.index
  */
 export default function ItemsMap({ items, index }) {
-  const [center, setCenter] = useState([6.6323, 46.5197]);
-  const [zoom, setZoom] = useState([11]);
-  const [selectedItem, setSelectedItem] = useState(undefined);
   const theme = useTheme();
-
-  const onToggleHover = (cursor, map) => {
-    map.getCanvas().style.cursor = cursor;
-  };
-
-  const onDrag = () => {
-    if (selectedItem) {
-      setSelectedItem(undefined);
-    }
-  };
-
-  const onMarkerClick = (item, feature) => {
-    setCenter(feature.geometry.coordinates);
-    setZoom([14]);
-    setSelectedItem(item);
-  };
-
-  const flyToOptions = {
-    speed: 0.8,
-  };
 
   const Map = ReactMapboxGl({
     accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
     minZoom: 8,
     maxZoom: 15,
   });
+
+  let popups;
+  if (index !== -1) {
+    const item = items[index];
+    popups = (
+      <Popup coordinates={[item.longitude, item.latitude]}>
+        <ItemPopup item={item} style={{ borderRadius: theme.borderRadius }} />
+      </Popup>
+    );
+  } else {
+    popups = items.map((item) => (
+      <Popup coordinates={[item.longitude, item.latitude]}>
+        <ItemPopup item={item} style={{ borderRadius: theme.borderRadius }} />
+      </Popup>
+    ));
+  }
 
   return (
     <Map
@@ -71,10 +64,8 @@ export default function ItemsMap({ items, index }) {
         width: '30vw',
         height: '90vh',
       }}
-      center={center}
-      zoom={zoom}
-      onDrag={onDrag}
-      flyToOptions={flyToOptions}
+      center={[6.6323, 46.5197]}
+      zoom={[11]}
     >
       <Layer
         type="symbol"
@@ -82,22 +73,10 @@ export default function ItemsMap({ items, index }) {
         layout={{ 'icon-image': 'marker-15', 'icon-allow-overlap': true }}
       >
         {items.map((item) => (
-          <Feature
-            coordinates={[item.latitude, item.longitude]}
-            onMouseEnter={({ map }) => onToggleHover('pointer', map)}
-            onMouseLeave={({ map }) => onToggleHover('', map)}
-            onClick={({ feature }) => onMarkerClick(item, feature)}
-          />
+          <Feature coordinates={[item.longitude, item.latitude]} />
         ))}
       </Layer>
-      {selectedItem && (
-        <Popup coordinates={[selectedItem.latitude, selectedItem.longitude]}>
-          <ItemPopup
-            item={selectedItem}
-            style={{ borderRadius: theme.borderRadius }}
-          />
-        </Popup>
-      )}
+      {popups}
       <ZoomControl />
     </Map>
   );

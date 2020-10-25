@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
-import { useQueryCache } from 'react-query';
+import { useQuery } from 'react-query';
 
 import { useLocation } from 'react-router-dom';
+
+import { getItems } from '../api/items';
 
 import CustomCard from '../components/CustomCard';
 import ItemsMap from '../components/ItemsMap';
@@ -68,8 +70,17 @@ export default function ItemsPage() {
   console.log(id);
 
   const [itemToShowIndex, setItemToShowIndex] = useState(-1);
-  const queryCache = useQueryCache();
-  const items = queryCache.getQueryData('items');
+  const [items, setItems] = useState([]);
+
+  const { data } = useQuery('items', getItems);
+
+  useEffect(() => {
+    // do some checking here to ensure data exist
+    if (data) {
+      // mutate data if you need to
+      setItems(data);
+    }
+  }, [data]);
 
   // if (typeof id !== 'undefined') { TODO:
   //   const itemIndex = items.findIndex((item) => item.id === parseInt(id));
