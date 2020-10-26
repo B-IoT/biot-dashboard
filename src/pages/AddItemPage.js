@@ -89,7 +89,7 @@ export default function AddItemPage() {
             await mutateItems({
               type: values.type,
               service: values.service,
-              kontaktId: values.beaconId,
+              beaconId: values.beaconId,
             });
 
             enqueueSnackbar("L'objet a été ajouté", {
