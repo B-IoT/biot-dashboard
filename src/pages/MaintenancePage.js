@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -7,6 +7,8 @@ import AddIcon from '@material-ui/icons/Add';
 import SearchBar from 'material-ui-search-bar';
 
 import { Link as RouterLink } from 'react-router-dom';
+
+import { getItems } from '../api/items';
 
 import {
   PieChart,
@@ -25,7 +27,8 @@ import {
 
 import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';
 import CustomCard from '../components/CustomCard';
-import { useQueryCache } from 'react-query';
+import { useQuery } from 'react-query';
+import { getServicesStatus, getStatusSummaries } from '../utils/statistics';
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -109,7 +112,7 @@ function StatusPieChart({ data, title }) {
         <Pie
           data={data}
           dataKey="count"
-          nameKey="type"
+          nameKey="status"
           labelLine={false}
           label={renderCustomizedLabel}
         >
@@ -224,10 +227,17 @@ function BottomCard({ title, value, color }) {
 export default function MaintenancePage() {
   const theme = useTheme();
   const classes = useStyles();
-  const queryCache = useQueryCache();
-  const [query, setQuery] = useState('');
 
-  const items = queryCache.getQueryData('items');
+  const [query, setQuery] = useState('');
+  const [items, setItems] = useState([]);
+
+  const { data } = useQuery('items', getItems);
+
+  useEffect(() => {
+    if (data) {
+      setItems(data);
+    }
+  }, [data]);
 
   const services = [
     { name: 'Bloc 1', available: 75, needMaintenance: 20, unavailable: 5 },
@@ -243,11 +253,8 @@ export default function MaintenancePage() {
     { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
   ];
 
-  const typeSummaries = [
-    { type: 'Indisponible', count: 50, color: theme.items.unavailable },
-    { type: 'Disponible', count: 100, color: theme.items.available },
-    { type: 'A maintenir', count: 20, color: theme.palette.secondary.main },
-  ];
+  const statusSummaries = getStatusSummaries(items, theme);
+  const servicesStatus = getServicesStatus(items);
 
   return (
     <Grid
@@ -261,7 +268,7 @@ export default function MaintenancePage() {
         direction="row"
         justify="space-around"
         alignItems="center"
-        wrap={"nowrap"}
+        wrap={'nowrap'}
       >
         <SearchBar
           placeholder="Rechercher"
@@ -288,11 +295,11 @@ export default function MaintenancePage() {
         justify="space-around"
         alignItems="center"
         style={{ marginBottom: 32 }}
-        wrap={"nowrap"}
+        wrap={'nowrap'}
       >
-        <StatusPieChart data={typeSummaries} title="État du materiel" />
+        <StatusPieChart data={statusSummaries} title="État du materiel" />
         <ItemsMaintenanceTable items={items} />
-        <ServicesBarChart data={services} title="État des services" />
+        <ServicesBarChart data={servicesStatus} title="État des services" />
       </Grid>
 
       <StatusLineChart

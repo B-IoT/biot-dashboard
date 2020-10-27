@@ -51,7 +51,7 @@ export default function ItemsMap({ items, index }) {
     );
   } else {
     popups = items.map((item) => (
-      <Popup coordinates={[item.longitude, item.latitude]}>
+      <Popup key={item.id} coordinates={[item.longitude, item.latitude]}>
         <ItemPopup item={item} style={{ borderRadius: theme.borderRadius }} />
       </Popup>
     ));
@@ -73,7 +73,10 @@ export default function ItemsMap({ items, index }) {
         layout={{ 'icon-image': 'marker-15', 'icon-allow-overlap': true }}
       >
         {items.map((item) => (
-          <Feature coordinates={[item.longitude, item.latitude]} />
+          <Feature
+            key={item.id}
+            coordinates={[item.longitude, item.latitude]}
+          />
         ))}
       </Layer>
       {popups}
