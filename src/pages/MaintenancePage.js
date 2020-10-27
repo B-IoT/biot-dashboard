@@ -109,7 +109,11 @@ function StatusPieChart({ data, title }) {
       <Typography className={classes.cardTitle} variant="subtitle1">
         {title}
       </Typography>
-      <PieChart width={350} height={350}>
+      <PieChart
+        width={350}
+        height={350}
+        margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
+      >
         <Pie
           data={data}
           dataKey="count"
@@ -141,7 +145,13 @@ function ServicesBarChart({ data, title }) {
       <Typography className={classes.cardTitle} variant="subtitle1">
         {title}
       </Typography>
-      <BarChart width={350} height={350} data={data} layout="vertical">
+      <BarChart
+        width={350}
+        height={350}
+        data={data}
+        layout="vertical"
+        margin={{ top: 8, right: 16, bottom: 0, left: 0 }}
+      >
         <XAxis type="number" hide={true} domain={[0, 100]} />
         <YAxis type="category" dataKey="name" />
         <Tooltip />
@@ -241,6 +251,7 @@ export default function MaintenancePage() {
     }
   }, [data]);
 
+  // TODO: replace with actual data
   const dataForTimeSeries = [
     { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
     { nbItemsDamaged: 20, nbItemsRepaired: 40, date: '20/10' },
