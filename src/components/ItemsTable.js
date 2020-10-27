@@ -13,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
  * @param {object} props
  * @param {object[]} props.items the items to display
  * @param {function} props.onItemClick callback when an item is clicked
+ * @param {string} props.searchText the text to use for initializing the table search. Might be undefined
  */
-export default function ItemsTable({ items, onItemClick }) {
+export default function ItemsTable({ items, onItemClick, searchText }) {
   const classes = useStyles();
 
   const columns = [
@@ -90,6 +91,7 @@ export default function ItemsTable({ items, onItemClick }) {
     rowsPerPageOptions: [5, 10, 20, 40],
     selectableRows: 'none',
     selectableRowsHeader: false,
+    searchText: searchText,
     onRowClick: handleRowClick,
   };
 

@@ -66,7 +66,7 @@ function InfoCard({ items, index }) {
 }
 
 export default function ItemsPage() {
-  const { id } = useLocation();
+  const { id, searchText } = useLocation();
 
   const [itemToShowIndex, setItemToShowIndex] = useState(-1);
   const [items, setItems] = useState([]);
@@ -94,7 +94,7 @@ export default function ItemsPage() {
       alignItems="center"
       wrap={'nowrap'}
     >
-      <ItemsTable items={items} onItemClick={setItemToShowIndex} />
+      <ItemsTable items={items} searchText={searchText} onItemClick={setItemToShowIndex} />
       <InfoCard items={items} index={itemToShowIndex} />
       <ItemsMap items={items} index={itemToShowIndex} />
     </Grid>

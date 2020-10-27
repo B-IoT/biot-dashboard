@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import SearchBar from 'material-ui-search-bar';
 
 import { Link as RouterLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { getItems } from '../api/items';
 
@@ -227,6 +228,7 @@ function BottomCard({ title, value, color }) {
 export default function MaintenancePage() {
   const theme = useTheme();
   const classes = useStyles();
+  const history = useHistory();
 
   const [query, setQuery] = useState('');
   const [items, setItems] = useState([]);
@@ -238,11 +240,6 @@ export default function MaintenancePage() {
       setItems(data);
     }
   }, [data]);
-
-  const services = [
-    { name: 'Bloc 1', available: 75, needMaintenance: 20, unavailable: 5 },
-    { name: 'Bloc 2', available: 75, needMaintenance: 15, unavailable: 10 },
-  ];
 
   const dataForTimeSeries = [
     { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
@@ -275,7 +272,12 @@ export default function MaintenancePage() {
           className={classes.searchBar}
           value={query}
           onChange={(newQuery) => setQuery(newQuery)}
-          onRequestSearch={() => console.log(query)} // TODO check if query not empty as well
+          onRequestSearch={() => {
+            if (query) {
+              const destination = `/items`;
+              history.push({ pathname: destination, searchText: query });
+            }
+          }} // TODO check if query not empty as well
         />
         <Button
           variant="contained"
