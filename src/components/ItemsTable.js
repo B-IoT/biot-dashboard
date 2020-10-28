@@ -1,11 +1,22 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import {
+  createMuiTheme,
+  makeStyles,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
+
+import { datatableLabels } from '../utils/constants';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: theme.borderRadius,
-    height: '90vh',
+    height: '78vh',
+  },
+  selectedRow: {
+    borderLeftStyle: 'solid',
+    borderLeftColor: theme.palette.primary.main,
   },
 }));
 
@@ -17,6 +28,18 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function ItemsTable({ items, onItemClick, searchText }) {
   const classes = useStyles();
+  const [itemClickedId, setItemClickedId] = useState(-1);
+
+  const getMuiTheme = () =>
+    createMuiTheme({
+      overrides: {
+        MUIDataTableToolbar: {
+          titleText: {
+            fontWeight: 'bold',
+          },
+        },
+      },
+    });
 
   const columns = [
     {
@@ -82,7 +105,13 @@ export default function ItemsTable({ items, onItemClick, searchText }) {
 
   const handleRowClick = (rowData, { dataIndex, rowIndex }) => {
     onItemClick(dataIndex);
+    setItemClickedId(rowData[0]);
   };
+
+  let noMatchString = 'Désolé, aucun objet correspondant trouvé';
+  if (items.length === 0) {
+    noMatchString = 'Tous les objets sont disponibles';
+  }
 
   const options = {
     filterType: 'checkbox',
@@ -93,17 +122,27 @@ export default function ItemsTable({ items, onItemClick, searchText }) {
     selectableRowsHeader: false,
     searchText: searchText,
     onRowClick: handleRowClick,
+    setRowProps: (rowData, dataIndex, rowIndex) => {
+      return {
+        className: clsx({
+          [classes.selectedRow]: rowData[0] === itemClickedId,
+        }),
+      };
+    },
+    textLabels: datatableLabels(noMatchString),
   };
 
   // TODO: customize text labels to use French
 
   return (
-    <MUIDataTable
-      className={classes.table}
-      title={'Objets'}
-      data={items}
-      columns={columns}
-      options={options}
-    />
+    <MuiThemeProvider theme={getMuiTheme()}>
+      <MUIDataTable
+        className={classes.table}
+        title={'Objets'}
+        data={items}
+        columns={columns}
+        options={options}
+      />
+    </MuiThemeProvider>
   );
 }

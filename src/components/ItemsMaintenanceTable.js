@@ -1,7 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  makeStyles,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
+
+import { datatableLabels } from '../utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -21,6 +27,17 @@ const useStyles = makeStyles((theme) => ({
 export default function ItemsMaintenanceTable({ items }) {
   const classes = useStyles();
   const history = useHistory();
+
+  const getMuiTheme = () =>
+    createMuiTheme({
+      overrides: {
+        MUIDataTableToolbar: {
+          titleText: {
+            fontWeight: 'bold',
+          },
+        },
+      },
+    });
 
   const columns = [
     {
@@ -98,6 +115,11 @@ export default function ItemsMaintenanceTable({ items }) {
     history.push({ pathname: destination, id: item.id });
   };
 
+  let noMatchString = 'Désolé, aucun objet correspondant trouvé';
+  if (items.length === 0) {
+    noMatchString = 'Tous les objets sont disponibles';
+  }
+
   const options = {
     filterType: 'checkbox',
     elevation: 1,
@@ -109,17 +131,18 @@ export default function ItemsMaintenanceTable({ items }) {
     selectableRows: 'none',
     selectableRowsHeader: false,
     onRowClick: handleRowClick,
+    textLabels: datatableLabels(noMatchString),
   };
 
-  // TODO: customize text labels to use French
-
   return (
-    <MUIDataTable
-      className={classes.table}
-      title={'Maintenance du matériel'}
-      data={items}
-      columns={columns}
-      options={options}
-    />
+    <MuiThemeProvider theme={getMuiTheme()}>
+      <MUIDataTable
+        className={classes.table}
+        title={'Matériel indisponible'}
+        data={items}
+        columns={columns}
+        options={options}
+      />
+    </MuiThemeProvider>
   );
 }

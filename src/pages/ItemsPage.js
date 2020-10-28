@@ -16,13 +16,16 @@ import ItemsTable from '../components/ItemsTable';
 const useStyles = makeStyles((theme) => ({
   infoCardRoot: {
     minWidth: 300,
-    height: '90vh',
+    height: '78vh',
     marginLeft: 16,
     marginRight: 16,
+    alignItems: 'center',
     borderRadius: theme.borderRadius,
   },
   infoCardTitle: {
+    fontWeight: 'bold',
     fontSize: 18,
+    textAlign: 'center',
   },
   infoCardText: {
     fontSize: 14,
@@ -44,11 +47,15 @@ function InfoCard({ items, index }) {
         <Typography className={classes.infoCardTitle} gutterBottom>
           Détails de l'objet
         </Typography>
-        <Typography className={classes.infoCardText}>{type}</Typography>
+        <Typography className={classes.infoCardText}>
+          Catégorie: {type}
+        </Typography>
         <Typography className={classes.infoCardText}>
           Niveau de la batterie: {battery}
         </Typography>
-        <Typography className={classes.infoCardText}>{status}</Typography>
+        <Typography className={classes.infoCardText}>
+          Status: {status}
+        </Typography>
         <Typography className={classes.infoCardText}>
           Position: ({latitude}, {longitude})
         </Typography>
@@ -94,7 +101,11 @@ export default function ItemsPage() {
       alignItems="center"
       wrap={'nowrap'}
     >
-      <ItemsTable items={items} searchText={searchText} onItemClick={setItemToShowIndex} />
+      <ItemsTable
+        items={items}
+        searchText={searchText}
+        onItemClick={setItemToShowIndex}
+      />
       <InfoCard items={items} index={itemToShowIndex} />
       <ItemsMap items={items} index={itemToShowIndex} />
     </Grid>

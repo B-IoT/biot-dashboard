@@ -62,7 +62,7 @@ export default function ItemsMap({ items, index }) {
       style="mapbox://styles/gondolav/ckg3j2q4h1qg019k8sdyhkvvy"
       containerStyle={{
         width: '40vw',
-        height: '90vh',
+        height: '78vh',
       }}
       center={[6.6323, 46.5197]}
       zoom={[11]}
