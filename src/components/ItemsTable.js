@@ -108,10 +108,7 @@ export default function ItemsTable({ items, onItemClick, searchText }) {
     setItemClickedId(rowData[0]);
   };
 
-  let noMatchString = 'Désolé, aucun objet correspondant trouvé';
-  if (items.length === 0) {
-    noMatchString = 'Tous les objets sont disponibles';
-  }
+  const noMatchString = 'Désolé, aucun objet correspondant trouvé';
 
   const options = {
     filterType: 'checkbox',
