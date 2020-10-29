@@ -311,7 +311,7 @@ export default function MaintenancePage() {
         wrap={'nowrap'}
       >
         <StatusPieChart data={statusSummaries} title="État du materiel" />
-        <ItemsMaintenanceTable items={items.filter((item) => item.status !== 'available')} />
+        <ItemsMaintenanceTable items={items} />
         <ServicesBarChart data={servicesStatus} title="État des services" />
       </Grid>
 

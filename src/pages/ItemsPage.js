@@ -105,6 +105,7 @@ export default function ItemsPage() {
         items={items}
         searchText={searchText}
         onItemClick={setItemToShowIndex}
+        defaultItemClickedId={id}
       />
       <InfoCard items={items} index={itemToShowIndex} />
       <ItemsMap items={items} index={itemToShowIndex} />

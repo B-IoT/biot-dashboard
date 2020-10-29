@@ -25,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
  * @param {object[]} props.items the items to display
  * @param {function} props.onItemClick callback when an item is clicked
  * @param {string} props.searchText the text to use for initializing the table search. Might be undefined
+ * @param {number} props.defaultItemClickedId the default item clicked id
  */
-export default function ItemsTable({ items, onItemClick, searchText }) {
+export default function ItemsTable({ items, onItemClick, searchText, defaultItemClickedId }) {
   const classes = useStyles();
-  const [itemClickedId, setItemClickedId] = useState(-1);
+  const [itemClickedId, setItemClickedId] = useState(defaultItemClickedId);
 
   const getMuiTheme = () =>
     createMuiTheme({
