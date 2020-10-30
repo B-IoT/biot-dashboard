@@ -22,6 +22,7 @@ const theme = createMuiTheme({
     unavailable: '#d50000',
   },
   borderRadius: 16,
+  maintenanceTitleTextSize: 18,
 });
 
 const useStyles = makeStyles((theme) => ({

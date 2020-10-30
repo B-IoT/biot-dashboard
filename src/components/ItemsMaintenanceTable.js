@@ -3,6 +3,7 @@ import {
   createMuiTheme,
   makeStyles,
   MuiThemeProvider,
+  useTheme,
 } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
@@ -12,11 +13,12 @@ import { datatableLabels } from '../utils/constants';
 const useStyles = makeStyles((theme) => ({
   table: {
     borderRadius: theme.borderRadius,
+    width: 450,
     maxHeight: 600,
-    minHeight: 400,
     maxWidth: 600,
-    marginLeft: 20,
-    marginRight: 20,
+    height: 438,
+    marginLeft: 8,
+    marginRight: 8,
   },
 }));
 
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ItemsMaintenanceTable({ items }) {
   const classes = useStyles();
   const history = useHistory();
+  const theme = useTheme()
 
   const getMuiTheme = () =>
     createMuiTheme({
@@ -34,6 +37,7 @@ export default function ItemsMaintenanceTable({ items }) {
         MUIDataTableToolbar: {
           titleText: {
             fontWeight: 'bold',
+            fontSize: theme.maintenanceTitleTextSize,
           },
         },
       },
@@ -123,7 +127,6 @@ export default function ItemsMaintenanceTable({ items }) {
   const options = {
     filterType: 'checkbox',
     elevation: 1,
-    tableBodyHeight: 330,
     download: false,
     print: false,
     rowsPerPage: 5,

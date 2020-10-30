@@ -47,3 +47,22 @@ export function getServicesStatus(items) {
 
   return summary;
 }
+
+export const displayTextVersion = {
+  available: 'Disponible',
+  unavailable: 'Indisponible',
+  needMaintenance: 'À réparer',
+};
+
+/**
+ *
+ * @param {object[]} items
+ */
+export function getPrettyItems(items) {
+  return items.map((item) => {
+    return {
+      ...item,
+      status: displayTextVersion[item.status],
+    };
+  });
+}

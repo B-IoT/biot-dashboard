@@ -14,7 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import RoomIcon from '@material-ui/icons/Room';
-import StorageIcon from '@material-ui/icons/Storage';
+import BuildIcon from '@material-ui/icons/Build';
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -98,9 +98,8 @@ export default function MenuDrawer({ isOpen, handleDrawerClose }) {
       <Divider />
       <List>
         <DrawerItem name="Accueil" to="/" icon={<HomeIcon />} />
-        <DrawerItem name="Carte" to="/map" icon={<RoomIcon />} />
-        <DrawerItem name="Objets" to="/items" icon={<StorageIcon />} />
-        <DrawerItem name="Maintenance" to="/maintenance" icon={<StorageIcon />} />
+        <DrawerItem name="Localisation" to="/items" icon={<RoomIcon />} />
+        <DrawerItem name="Maintenance" to="/maintenance" icon={<BuildIcon />} />
       </List>
     </Drawer>
   );

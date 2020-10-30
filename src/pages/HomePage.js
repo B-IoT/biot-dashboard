@@ -1,8 +1,22 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
 import { useQuery } from 'react-query';
 
 import { getItems, getItem } from '../api/items';
+import biot from '../images/biot.png';
+import healthcare from '../images/healthcare.png';
+import { Grid, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    height: '78vh',
+    display: 'flex',
+    marginBottom: theme.spacing(1),
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}));
 
 export default function HomePage() {
   // const initialItems = [
@@ -70,22 +84,27 @@ export default function HomePage() {
   //     longitude: 46.5191,
   //   },
   // ];
-  
+
   // const { data: items } = useQuery('items', getItems, {
   //   initialData: initialItems,
   // });
 
+  const classes = useStyles();
   const { data } = useQuery('items', getItems);
 
   // const { data: item, error, isError } = useQuery(['item', 2], getItem);
 
-  // if (isError) {
-  //   console.log(error.message);
-  // }
-
-  // console.log(items);
-
-  // console.log(item);
-
-  return <Typography>Home</Typography>;
+  return (
+    <Grid
+      className={classes.root}
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      wrap={'nowrap'}
+    >
+      <img src={biot} alt="BIoT" width="350" height="350" />
+      <img src={healthcare} alt="Healthcare" width="660" height="250" />
+    </Grid>
+  );
 }

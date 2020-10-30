@@ -29,7 +29,12 @@ import {
 import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';
 import CustomCard from '../components/CustomCard';
 import { useQuery } from 'react-query';
-import { getServicesStatus, getStatusSummaries } from '../utils/statistics';
+import {
+  displayTextVersion,
+  getPrettyItems,
+  getServicesStatus,
+  getStatusSummaries,
+} from '../utils/items';
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -45,7 +50,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(0.8),
   },
   chartCard: {
+    display: 'flex',
+    width: 450,
+    height: 438,
     borderRadius: theme.borderRadius,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   bottomChartCard: {
@@ -58,12 +67,12 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
     height: theme.spacing(10),
     borderRadius: theme.borderRadius,
-    margin: theme.spacing(1),
     alignItems: 'center',
   },
   cardTitle: {
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: theme.maintenanceTitleTextSize,
   },
   bottomCardText: {
     textAlign: 'center',
@@ -125,7 +134,9 @@ function StatusPieChart({ data, title }) {
             <Cell fill={summary.color} />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip
+          formatter={(value, name, props) => [value, displayTextVersion[name]]}
+        />
       </PieChart>
     </CustomCard>
   );
@@ -150,28 +161,42 @@ function ServicesBarChart({ data, title }) {
         height={350}
         data={data}
         layout="vertical"
-        margin={{ top: 8, right: 16, bottom: 0, left: 0 }}
+        margin={{ top: 8, right: 16, bottom: 8, left: 0 }}
       >
         <XAxis type="number" hide={true} domain={[0, 100]} />
-        <YAxis type="category" dataKey="name" />
-        <Tooltip />
+        <YAxis
+          type="category"
+          dataKey="name"
+          label={{
+            value: 'Service',
+            angle: -90,
+            position: 'insideLeft',
+            offset: 10,
+          }}
+        />
+        <Tooltip
+          formatter={(value, name, props) => [
+            `${value}%`,
+            displayTextVersion[name],
+          ]}
+        />
         <Bar
           dataKey="available"
           fill={theme.items.available}
           layout="vertical"
-          label
+          label={(obj) => `${obj.value}%`}
         />
         <Bar
           dataKey="unavailable"
           fill={theme.items.unavailable}
           layout="vertical"
-          label
+          label={(obj) => `${obj.value}%`}
         />
         <Bar
           dataKey="needMaintenance"
           fill={theme.palette.secondary.main}
           layout="vertical"
-          label
+          label={(obj) => `${obj.value}%`}
         />
       </BarChart>
     </CustomCard>
@@ -187,6 +212,17 @@ function StatusLineChart({ data, title }) {
   const theme = useTheme();
   const classes = useStyles();
 
+  const labels = {
+    nbItemsDamaged: "Nombre d'objets endommagés",
+    nbItemsRepaired: "Nombre d'objets réparés",
+  };
+
+  const renderColorfulLegendLabels = (value, entry) => {
+    const { color } = entry;
+
+    return <span style={{ color }}>{labels[value]}</span>;
+  };
+
   return (
     <CustomCard className={classes.bottomChartCard}>
       <Typography className={classes.cardTitle} variant="subtitle1">
@@ -194,10 +230,24 @@ function StatusLineChart({ data, title }) {
       </Typography>
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={data} margin={{ left: 0, right: 20 }}>
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
+          <XAxis
+            dataKey="date"
+            label={{
+              value: 'Date',
+              position: 'insideBottomRight',
+              offset: -10,
+            }}
+          />
+          <YAxis
+            label={{
+              value: "Nombre d'objets",
+              angle: -90,
+              position: 'insideLeft',
+              offset: 10,
+            }}
+          />
+          <Tooltip formatter={(value, name, props) => [value, labels[name]]} />
+          <Legend formatter={renderColorfulLegendLabels} />
           <Line
             type="monotone"
             dataKey="nbItemsDamaged"
@@ -219,12 +269,13 @@ function StatusLineChart({ data, title }) {
  * @param {string} props.title
  * @param {string | number} props.value
  * @param {string} props.color
+ * @param {object} props.style
  */
-function BottomCard({ title, value, color }) {
+function BottomCard({ title, value, color, style }) {
   const classes = useStyles();
 
   return (
-    <CustomCard className={classes.bottomCard}>
+    <CustomCard className={classes.bottomCard} style={style}>
       <Typography className={classes.cardTitle} variant="subtitle1">
         {title}
       </Typography>
@@ -241,15 +292,117 @@ export default function MaintenancePage() {
   const history = useHistory();
 
   const [query, setQuery] = useState('');
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]); TODO: use after demo
 
-  const { data } = useQuery('items', getItems);
+  // const { data } = useQuery('items', getItems);
 
-  useEffect(() => {
-    if (data) {
-      setItems(data);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setItems(data);
+  //   }
+  // }, [data]);
+
+  const items = [
+    {
+      beaconId: '1',
+      status: 'available',
+      battery: 94,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Oxygène',
+      service: 'Bloc 1',
+      id: 1,
+    },
+    {
+      beaconId: '2',
+      status: 'available',
+      battery: 87,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 1',
+      id: 2,
+    },
+    {
+      beaconId: '3',
+      status: 'unavailable',
+      battery: 0,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'ECG',
+      service: 'Bloc 1',
+      id: 3,
+    },
+    {
+      beaconId: '4',
+      status: 'needMaintenance',
+      battery: 20,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Oxygène',
+      service: 'Bloc 1',
+      id: 4,
+    },
+    {
+      beaconId: '5',
+      status: 'unavailable',
+      battery: 0,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'ECG',
+      service: 'Bloc 2',
+      id: 5,
+    },
+    {
+      beaconId: '6',
+      status: 'available',
+      battery: 12,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 6,
+    },
+    {
+      beaconId: '7',
+      status: 'available',
+      battery: 12,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 7,
+    },
+    {
+      beaconId: '8',
+      status: 'needMaintenance',
+      battery: 20,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 8,
+    },
+    {
+      beaconId: '9',
+      status: 'available',
+      battery: 73,
+      latitude: 46.5405405405405,
+      longitude: 6.60114696411765,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 9,
+    },
+  ];
 
   // TODO: replace with actual data
   const dataForTimeSeries = [
@@ -261,6 +414,7 @@ export default function MaintenancePage() {
     { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
   ];
 
+  const prettyItems = getPrettyItems(items);
   const statusSummaries = getStatusSummaries(items, theme);
   const servicesStatus = getServicesStatus(items);
 
@@ -268,13 +422,13 @@ export default function MaintenancePage() {
     <Grid
       container
       direction="column"
-      justify="space-around"
+      justify="space-between"
       alignItems="center"
     >
       <Grid
         container
         direction="row"
-        justify="space-around"
+        justify="space-between"
         alignItems="center"
         wrap={'nowrap'}
       >
@@ -305,41 +459,51 @@ export default function MaintenancePage() {
       <Grid
         container
         direction="row"
-        justify="space-around"
+        justify="space-between"
         alignItems="center"
-        style={{ marginBottom: 32 }}
+        style={{ marginBottom: 16 }}
         wrap={'nowrap'}
       >
         <StatusPieChart data={statusSummaries} title="État du materiel" />
-        <ItemsMaintenanceTable items={items} />
+        <ItemsMaintenanceTable items={prettyItems} />
         <ServicesBarChart data={servicesStatus} title="État des services" />
       </Grid>
 
       <StatusLineChart
         data={dataForTimeSeries}
-        title="Évolution de la maintenance"
+        title="Évolution de la maintenance au cours du temps"
       />
 
       <Grid
         container
         direction="row"
-        justify="space-around"
+        justify="space-between"
         alignItems="center"
-        style={{ marginTop: 32 }}
+        style={{ marginTop: 16 }}
+        wrap={'nowrap'}
       >
         <BottomCard
           title="Moyenne abimés par jour"
           value={40}
+          style={{ marginRight: 8 }}
           color={theme.items.unavailable}
         />
         <BottomCard
           title="Moyenne réparés par jour"
           value={30}
+          style={{ marginLeft: 8, marginRight: 8 }}
+          color={theme.items.available}
+        />
+        <BottomCard
+          title="Matériel utilisé"
+          value={'90%'}
+          style={{ marginLeft: 8, marginRight: 8 }}
           color={theme.items.available}
         />
         <BottomCard
           title="Prévision"
           value="Risque d'accumulation"
+          style={{ marginLeft: 8 }}
           color={theme.items.unavailable}
         />
         {/* TODO: change value and color based on unavailable > available for last card */}
