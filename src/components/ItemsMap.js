@@ -22,7 +22,7 @@ function ItemPopup({ item }) {
 
   return (
     <Typography className={classes.popupTitle}>
-      ({item.longitude}, {item.latitude})
+      {item.type} {item.id}
     </Typography>
   );
 }
@@ -48,12 +48,6 @@ export default function ItemsMap({ items, index }) {
         <ItemPopup item={item} style={{ borderRadius: theme.borderRadius }} />
       </Popup>
     );
-  } else {
-    popups = items.map((item) => (
-      <Popup key={item.id} coordinates={[item.longitude, item.latitude]}>
-        <ItemPopup item={item} style={{ borderRadius: theme.borderRadius }} />
-      </Popup>
-    ));
   }
 
   return (
@@ -78,7 +72,7 @@ export default function ItemsMap({ items, index }) {
           />
         ))}
       </Layer>
-      {/* {popups} */}
+      {popups}
       <ZoomControl />
     </Map>
   );

@@ -92,6 +92,8 @@ export default function AddItemPage() {
               beaconId: values.beaconId,
             });
 
+            // TODO: validate if mutation succeeded
+
             enqueueSnackbar("L'objet a été ajouté", {
               variant: 'success',
               autoHideDuration: 3000,

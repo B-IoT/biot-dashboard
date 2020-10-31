@@ -35,6 +35,11 @@ import {
   getServicesStatus,
   getStatusSummaries,
 } from '../utils/items';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -56,6 +61,17 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.borderRadius,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  bottomFilterCard: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    borderRadius: theme.borderRadius,
+    marginBottom: 16,
+  },
+  formControl: {
+    minWidth: 300,
   },
   bottomChartCard: {
     borderRadius: theme.borderRadius,
@@ -129,6 +145,7 @@ function StatusPieChart({ data, title }) {
           nameKey="status"
           labelLine={false}
           label={renderCustomizedLabel}
+          isAnimationActive={false}
         >
           {data.map((summary) => (
             <Cell fill={summary.color} />
@@ -185,18 +202,21 @@ function ServicesBarChart({ data, title }) {
           fill={theme.items.available}
           layout="vertical"
           label={(obj) => `${obj.value}%`}
+          isAnimationActive={false}
         />
         <Bar
           dataKey="unavailable"
           fill={theme.items.unavailable}
           layout="vertical"
           label={(obj) => `${obj.value}%`}
+          isAnimationActive={false}
         />
         <Bar
           dataKey="needMaintenance"
           fill={theme.palette.secondary.main}
           layout="vertical"
           label={(obj) => `${obj.value}%`}
+          isAnimationActive={false}
         />
       </BarChart>
     </CustomCard>
@@ -290,6 +310,119 @@ export default function MaintenancePage() {
   const theme = useTheme();
   const classes = useStyles();
   const history = useHistory();
+
+  // TODO: replace with actual data
+
+  const [bottomFilterCategory, setBottomFilterCategory] = useState('Tous');
+  const [bottomData, setBottomData] = useState({
+    timeSeries: [
+      { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
+      { nbItemsDamaged: 20, nbItemsRepaired: 40, date: '20/10' },
+      { nbItemsDamaged: 5, nbItemsRepaired: 55, date: '24/10' },
+      { nbItemsDamaged: 7, nbItemsRepaired: 53, date: '25/10' },
+      { nbItemsDamaged: 10, nbItemsRepaired: 50, date: '27/10' },
+      { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
+    ],
+    damaged: 30,
+    repaired: 40,
+    used: '90%',
+    prediction: "Risque d'accumulation",
+  });
+
+  useEffect(() => {
+    const dataForTimeSeriesAll = [
+      { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
+      { nbItemsDamaged: 20, nbItemsRepaired: 40, date: '20/10' },
+      { nbItemsDamaged: 5, nbItemsRepaired: 55, date: '24/10' },
+      { nbItemsDamaged: 7, nbItemsRepaired: 53, date: '25/10' },
+      { nbItemsDamaged: 10, nbItemsRepaired: 50, date: '27/10' },
+      { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
+    ];
+    const damagedAll = 30;
+    const repairedAll = 40;
+    const usedAll = '90%';
+    const predictionAll = "Risque d'accumulation";
+
+    const dataForTimeSeriesLit = [
+      { nbItemsDamaged: 10, nbItemsRepaired: 2, date: '18/10' },
+      { nbItemsDamaged: 2, nbItemsRepaired: 5, date: '20/10' },
+      { nbItemsDamaged: 3, nbItemsRepaired: 8, date: '24/10' },
+      { nbItemsDamaged: 7, nbItemsRepaired: 1, date: '25/10' },
+      { nbItemsDamaged: 10, nbItemsRepaired: 1, date: '27/10' },
+      { nbItemsDamaged: 12, nbItemsRepaired: 3, date: '30/10' },
+    ];
+    const damagedLit = 5;
+    const repairedLit = 8;
+    const usedLit = '95%';
+    const predictionLit = 'Bonne operativité';
+
+    const dataForTimeSeriesOxygene = [
+      { nbItemsDamaged: 2, nbItemsRepaired: 10, date: '18/10' },
+      { nbItemsDamaged: 5, nbItemsRepaired: 2, date: '20/10' },
+      { nbItemsDamaged: 8, nbItemsRepaired: 3, date: '24/10' },
+      { nbItemsDamaged: 7, nbItemsRepaired: 1, date: '25/10' },
+      { nbItemsDamaged: 10, nbItemsRepaired: 1, date: '27/10' },
+      { nbItemsDamaged: 12, nbItemsRepaired: 3, date: '30/10' },
+    ];
+    const damagedOxygene = 7;
+    const repairedOxygene = 8;
+    const usedOxygene = '89%';
+    const predictionOxygene = "Risque d'accumulation";
+
+    const dataForTimeSeriesECG = [
+      { nbItemsDamaged: 1, nbItemsRepaired: 0, date: '18/10' },
+      { nbItemsDamaged: 2, nbItemsRepaired: 0, date: '20/10' },
+      { nbItemsDamaged: 3, nbItemsRepaired: 1, date: '24/10' },
+      { nbItemsDamaged: 2, nbItemsRepaired: 2, date: '25/10' },
+      { nbItemsDamaged: 4, nbItemsRepaired: 3, date: '27/10' },
+      { nbItemsDamaged: 1, nbItemsRepaired: 4, date: '30/10' },
+    ];
+    const damagedECG = 2;
+    const repairedECG = 4;
+    const usedECG = '92%';
+    const predictionECG = 'Bonne operativité';
+
+    switch (bottomFilterCategory) {
+      case 'Tous':
+        setBottomData({
+          timeSeries: dataForTimeSeriesAll,
+          damaged: damagedAll,
+          repaired: repairedAll,
+          used: usedAll,
+          prediction: predictionAll,
+        });
+        break;
+      case 'Lit':
+        setBottomData({
+          timeSeries: dataForTimeSeriesLit,
+          damaged: damagedLit,
+          repaired: repairedLit,
+          used: usedLit,
+          prediction: predictionLit,
+        });
+        break;
+      case 'Oxygène':
+        setBottomData({
+          timeSeries: dataForTimeSeriesOxygene,
+          damaged: damagedOxygene,
+          repaired: repairedOxygene,
+          used: usedOxygene,
+          prediction: predictionOxygene,
+        });
+        break;
+      case 'ECG':
+        setBottomData({
+          timeSeries: dataForTimeSeriesECG,
+          damaged: damagedECG,
+          repaired: repairedECG,
+          used: usedECG,
+          prediction: predictionECG,
+        });
+        break;
+      default:
+        break;
+    }
+  }, [bottomFilterCategory]);
 
   const [query, setQuery] = useState('');
   // const [items, setItems] = useState([]); TODO: use after demo
@@ -404,16 +537,6 @@ export default function MaintenancePage() {
     },
   ];
 
-  // TODO: replace with actual data
-  const dataForTimeSeries = [
-    { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
-    { nbItemsDamaged: 20, nbItemsRepaired: 40, date: '20/10' },
-    { nbItemsDamaged: 5, nbItemsRepaired: 55, date: '24/10' },
-    { nbItemsDamaged: 7, nbItemsRepaired: 53, date: '25/10' },
-    { nbItemsDamaged: 10, nbItemsRepaired: 50, date: '27/10' },
-    { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
-  ];
-
   const prettyItems = getPrettyItems(items);
   const statusSummaries = getStatusSummaries(items, theme);
   const servicesStatus = getServicesStatus(items);
@@ -469,8 +592,35 @@ export default function MaintenancePage() {
         <ServicesBarChart data={servicesStatus} title="État des services" />
       </Grid>
 
+      <CustomCard className={classes.bottomFilterCard}>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="bottom-filter" variant="outlined">
+            Catégorie
+          </InputLabel>
+          <Select
+            variant="outlined"
+            label="Catégorie"
+            labelId="bottom-filter"
+            name="bottom-filter"
+            id="bottom-filter"
+            inputProps={{
+              name: 'bottom-filter',
+              id: 'bottom-filter',
+            }}
+            value={bottomFilterCategory}
+            onChange={(event) => setBottomFilterCategory(event.target.value)}
+          >
+            <MenuItem value={'Tous'}>Tous</MenuItem>
+            <MenuItem value={'Lit'}>Lit</MenuItem>
+            <MenuItem value={'Oxygène'}>Oxygène</MenuItem>
+            <MenuItem value={'ECG'}>ECG</MenuItem>
+          </Select>
+          <FormHelperText>Filtrer par catégorie</FormHelperText>
+        </FormControl>
+      </CustomCard>
+
       <StatusLineChart
-        data={dataForTimeSeries}
+        data={bottomData.timeSeries}
         title="Évolution de la maintenance au cours du temps"
       />
 
@@ -484,25 +634,25 @@ export default function MaintenancePage() {
       >
         <BottomCard
           title="Moyenne abimés par jour"
-          value={40}
+          value={bottomData.damaged}
           style={{ marginRight: 8 }}
           color={theme.items.unavailable}
         />
         <BottomCard
           title="Moyenne réparés par jour"
-          value={30}
+          value={bottomData.repaired}
           style={{ marginLeft: 8, marginRight: 8 }}
           color={theme.items.available}
         />
         <BottomCard
           title="Matériel utilisé"
-          value={'90%'}
+          value={bottomData.used}
           style={{ marginLeft: 8, marginRight: 8 }}
           color={theme.items.available}
         />
         <BottomCard
           title="Prévision"
-          value="Risque d'accumulation"
+          value={bottomData.prediction}
           style={{ marginLeft: 8 }}
           color={theme.items.unavailable}
         />
