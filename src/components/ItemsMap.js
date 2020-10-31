@@ -38,7 +38,6 @@ export default function ItemsMap({ items, index }) {
   const Map = ReactMapboxGl({
     accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
     minZoom: 8,
-    maxZoom: 15,
   });
 
   let popups;
@@ -64,8 +63,8 @@ export default function ItemsMap({ items, index }) {
         width: '40vw',
         height: '78vh',
       }}
-      center={[6.6323, 46.5197]}
-      zoom={[11]}
+      center={[6.891924, 46.440896]}
+      zoom={[18]}
     >
       <Layer
         type="symbol"
@@ -79,7 +78,7 @@ export default function ItemsMap({ items, index }) {
           />
         ))}
       </Layer>
-      {popups}
+      {/* {popups} */}
       <ZoomControl />
     </Map>
   );
