@@ -6,8 +6,8 @@ import ReactMapboxGl, {
   ZoomControl,
 } from 'react-mapbox-gl';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
 import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   popupTitle: {
@@ -26,6 +26,10 @@ function ItemPopup({ item }) {
     </Typography>
   );
 }
+
+ItemPopup.propTypes = {
+  item: PropTypes.object.isRequired,
+};
 
 /**
  * @param {object} props
@@ -77,3 +81,8 @@ export default function ItemsMap({ items, index }) {
     </Map>
   );
 }
+
+ItemsMap.propTypes = {
+  items: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+};

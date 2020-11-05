@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-
+import PropTypes from 'prop-types';
+import { useSnackbar } from 'notistack';
 import { useQuery } from 'react-query';
-
 import { useLocation } from 'react-router-dom';
-
-import { getItems } from '../api/items';
 
 import CustomCard from '../components/CustomCard';
 import ItemsMap from '../components/ItemsMap';
 import ItemsTable from '../components/ItemsTable';
 import { getPrettyItems } from '../utils/items';
-import { useSnackbar } from 'notistack';
+import { getItems } from '../api/items';
 
 const useStyles = makeStyles((theme) => ({
   demoButton: {
@@ -86,6 +84,11 @@ function InfoCard({ items, index }) {
     );
   }
 }
+
+InfoCard.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default function ItemsPage() {
   const classes = useStyles();

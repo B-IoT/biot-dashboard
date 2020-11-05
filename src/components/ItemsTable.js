@@ -5,9 +5,10 @@ import {
   MuiThemeProvider,
 } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 import { datatableLabels } from '../utils/constants';
-import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -27,7 +28,12 @@ const useStyles = makeStyles((theme) => ({
  * @param {string} props.searchText the text to use for initializing the table search. Might be undefined
  * @param {number} props.defaultItemClickedId the default item clicked id
  */
-export default function ItemsTable({ items, onItemClick, searchText, defaultItemClickedId }) {
+export default function ItemsTable({
+  items,
+  onItemClick,
+  searchText,
+  defaultItemClickedId,
+}) {
   const classes = useStyles();
   const [itemClickedId, setItemClickedId] = useState(defaultItemClickedId);
 
@@ -144,3 +150,10 @@ export default function ItemsTable({ items, onItemClick, searchText, defaultItem
     </MuiThemeProvider>
   );
 }
+
+ItemsTable.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onItemClick: PropTypes.func.isRequired,
+  searchText: PropTypes.string,
+  defaultItemClickedId: PropTypes.number.isRequired,
+};

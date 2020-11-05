@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { datatableLabels } from '../utils/constants';
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ItemsMaintenanceTable({ items }) {
   const classes = useStyles();
   const history = useHistory();
-  const theme = useTheme()
+  const theme = useTheme();
 
   const getMuiTheme = () =>
     createMuiTheme({
@@ -149,3 +150,7 @@ export default function ItemsMaintenanceTable({ items }) {
     </MuiThemeProvider>
   );
 }
+
+ItemsMaintenanceTable.propTypes = {
+  items: PropTypes.array.isRequired,
+};

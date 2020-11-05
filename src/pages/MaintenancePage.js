@@ -9,6 +9,8 @@ import SearchBar from 'material-ui-search-bar';
 import { Link as RouterLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+
 import { getItems } from '../api/items';
 
 import {
@@ -159,6 +161,11 @@ function StatusPieChart({ data, title }) {
   );
 }
 
+StatusPieChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 /**
  * @param {object} props
  * @param {object[]} props.data
@@ -223,6 +230,11 @@ function ServicesBarChart({ data, title }) {
   );
 }
 
+ServicesBarChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 /**
  * @param {object} props
  * @param {object[]} props.data
@@ -284,6 +296,11 @@ function StatusLineChart({ data, title }) {
   );
 }
 
+StatusLineChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
 /**
  * @param {object} props
  * @param {string} props.title
@@ -305,6 +322,13 @@ function BottomCard({ title, value, color, style }) {
     </CustomCard>
   );
 }
+
+BottomCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOf([PropTypes.string, PropTypes.number]).isRequired,
+  color: PropTypes.string.isRequired,
+  style: PropTypes.object,
+};
 
 export default function MaintenancePage() {
   const theme = useTheme();
