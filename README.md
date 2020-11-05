@@ -1,4 +1,12 @@
+# biot-web-app
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Deployment
+
+The `main` branch is deployed on [Vercel](https://vercel.com/b-iot/biot-web-app) at the following URL: <https://biot-web-app.vercel.app>.
+
+Other branches are "preview deployed" on [Vercel](https://vercel.com/b-iot/biot-web-app) as well.
 
 ## Available Scripts
 
