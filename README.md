@@ -4,9 +4,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Deployment
 
+### Vercel
+
 The `main` branch is deployed on [Vercel](https://vercel.com/b-iot/biot-web-app) at the following URL: <https://biot-web-app.vercel.app>.
 
 Other branches are "preview deployed" on [Vercel](https://vercel.com/b-iot/biot-web-app) as well.
+
+### Render
+
+The `main` branch is deployed on [Render](https://dashboard.render.com/static/srv-bui2h4qpp1jgqvkc4b40) at the following URL: <https://biot-web-app.onrender.com>.
 
 ## Available Scripts
 
