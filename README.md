@@ -34,6 +34,12 @@ The page will reload if you make edits.
 
 You will also see any lint errors in the console.
 
+### Workflow
+
+Pushing on the `main` branch is forbidden, as it hosts the stable code for the production site; create a new branch for the feature to implement instead.
+
+When the feature is ready, open a pull request to the `dev` branch; Render will preview deploy it. Once a certain number of features is ready and stable, `dev` can be merged into `main`.
+
 ### Analyzing bundle size
 
 It is possible to analyze the bundle size with:
