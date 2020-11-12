@@ -1,46 +1,45 @@
-import React, { useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import React, { useState } from "react";
+import { Switch, Route } from "react-router-dom";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
-import MenuDrawer from '../components/MenuDrawer';
-import TopBar from '../components/TopBar';
+import MenuDrawer from "../components/MenuDrawer";
+import TopBar from "../components/TopBar";
 
-import ItemsPage from './ItemsPage';
-import HomePage from './HomePage';
-import AddItemPage from './AddItemPage';
-import MapPage from './MapPage';
-import MaintenancePage from './MaintenancePage';
+import ItemsPage from "./ItemsPage";
+import HomePage from "./HomePage";
+import AddItemPage from "./AddItemPage";
+import MaintenancePage from "./MaintenancePage";
 
-import { drawerWidth } from '../utils/constants';
+import { drawerWidth } from "../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: 0,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -48,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: 'auto',
+    marginTop: "auto",
     backgroundColor:
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.grey[200]
         : theme.palette.grey[800],
   },
@@ -59,12 +58,12 @@ const useStyles = makeStyles((theme) => ({
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://biot2.webflow.io">
         BIoT
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -101,11 +100,7 @@ export default function MainSwitch() {
           </Route>
 
           <Route path="/items">
-            <ItemsPage/>
-          </Route>
-
-          <Route path="/map">
-            <MapPage />
+            <ItemsPage />
           </Route>
 
           <Route path="/">

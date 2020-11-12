@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^26.0.15",
     "axios": "^0.20.0",
     "check-peer-dependencies": "^2.0.6",
     "clsx": "^1.1.1",
@@ -72,5 +73,7 @@
       "prettier --write"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "react-test-renderer": "^16.13.1"
+  }
 }
