@@ -1,6 +1,6 @@
 # biot-web-app
 
-[![CircleCI](https://circleci.com/github/B-IoT/biot-web-app.svg?style=svg&circle-token=1e828ebeb445956810f2015a5d5fbfa8e183b093)](LINK)
+[![CircleCI](https://circleci.com/gh/B-IoT/biot-web-app.svg?style=svg&circle-token=1e828ebeb445956810f2015a5d5fbfa8e183b093)](https://app.circleci.com/pipelines/github/B-IoT)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
