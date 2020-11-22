@@ -6,7 +6,6 @@ import "@testing-library/jest-dom/extend-expect";
 import React from "react";
 import { render } from "@testing-library/react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ReactQueryDevtools } from "react-query-devtools";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import {
