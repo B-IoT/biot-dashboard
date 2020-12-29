@@ -3,12 +3,12 @@ import {
   makeStyles,
   MuiThemeProvider,
   useTheme,
-} from "@material-ui/core/styles";
-import MUIDataTable from "mui-datatables";
-import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
+} from '@material-ui/core/styles';
+import MUIDataTable from 'mui-datatables';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { datatableLabels } from "../utils/constants";
+import { datatableLabels } from '../utils/constants';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -36,7 +36,7 @@ export default function ItemsMaintenanceTable({ items }) {
       overrides: {
         MUIDataTableToolbar: {
           titleText: {
-            fontWeight: "bold",
+            fontWeight: 'bold',
             fontSize: theme.maintenanceTitleTextSize,
           },
         },
@@ -45,24 +45,24 @@ export default function ItemsMaintenanceTable({ items }) {
 
   const columns = [
     {
-      name: "id",
-      label: "Id",
+      name: 'id',
+      label: 'Id',
       options: {
         filter: false,
         sort: true,
       },
     },
     {
-      name: "type",
-      label: "Catégorie",
+      name: 'type',
+      label: 'Catégorie',
       options: {
         filter: true,
         sort: true,
       },
     },
     {
-      name: "service",
-      label: "Service",
+      name: 'service',
+      label: 'Service',
       options: {
         filter: true,
         sort: true,
@@ -70,24 +70,24 @@ export default function ItemsMaintenanceTable({ items }) {
     },
 
     {
-      name: "battery",
-      label: "Batterie",
+      name: 'battery',
+      label: 'Batterie',
       options: {
         filter: false,
         sort: true,
       },
     },
     {
-      name: "status",
-      label: "Status",
+      name: 'status',
+      label: 'Status',
       options: {
         filter: true,
         sort: true,
       },
     },
     {
-      name: "latitude",
-      label: "Latitude",
+      name: 'latitude',
+      label: 'Latitude',
       options: {
         filter: false,
         sort: true,
@@ -95,8 +95,8 @@ export default function ItemsMaintenanceTable({ items }) {
       },
     },
     {
-      name: "longitude",
-      label: "Longitude",
+      name: 'longitude',
+      label: 'Longitude',
       options: {
         filter: false,
         sort: true,
@@ -119,19 +119,19 @@ export default function ItemsMaintenanceTable({ items }) {
     history.push({ pathname: destination, id: item.id });
   };
 
-  let noMatchString = "Désolé, aucun objet correspondant trouvé";
+  let noMatchString = 'Désolé, aucun objet correspondant trouvé';
   if (items.length === 0) {
-    noMatchString = "Tous les objets sont disponibles";
+    noMatchString = 'Tous les objets sont disponibles';
   }
 
   const options = {
-    filterType: "checkbox",
+    filterType: 'checkbox',
     elevation: 1,
     download: false,
     print: false,
     rowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 20],
-    selectableRows: "none",
+    selectableRows: 'none',
     selectableRowsHeader: false,
     onRowClick: handleRowClick,
     textLabels: datatableLabels(noMatchString),
@@ -141,7 +141,7 @@ export default function ItemsMaintenanceTable({ items }) {
     <MuiThemeProvider theme={getMuiTheme()}>
       <MUIDataTable
         className={classes.table}
-        title={"Matériel indisponible"}
+        title={'Matériel indisponible'}
         data={items}
         columns={columns}
         options={options}

@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-import { useSnackbar } from "notistack";
-import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import { useSnackbar } from 'notistack';
+import { useQuery } from 'react-query';
+import { useLocation } from 'react-router-dom';
 
-import CustomCard from "../components/CustomCard";
-import ItemsMap from "../components/ItemsMap";
-import ItemsTable from "../components/ItemsTable";
-import { getPrettyItems } from "../utils/items";
-import { getItems } from "../api/items";
+import CustomCard from '../components/CustomCard';
+import ItemsMap from '../components/ItemsMap';
+import ItemsTable from '../components/ItemsTable';
+import { getPrettyItems } from '../utils/items';
+import { getItems } from '../api/items';
 
 const useStyles = makeStyles((theme) => ({
   demoButton: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dismissButton: {
     borderRadius: theme.borderRadius,
-    textColor: "#ffff",
+    textColor: '#ffff',
   },
   snackbar: {
     width: 350,
@@ -28,16 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
   infoCardRoot: {
     minWidth: 300,
-    height: "78vh",
+    height: '78vh',
     marginLeft: 16,
     marginRight: 16,
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: theme.borderRadius,
   },
   infoCardTitle: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18,
-    textAlign: "center",
+    textAlign: 'center',
   },
   infoCardText: {
     fontSize: 14,
@@ -97,102 +97,102 @@ export default function ItemsPage() {
   const [itemToShowIndex, setItemToShowIndex] = useState(-1);
   const demoItems = getPrettyItems([
     {
-      beaconId: "1",
-      status: "available",
+      beaconId: '1',
+      status: 'available',
       battery: 94,
       latitude: 46.440896,
       longitude: 6.891924,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Oxygène",
-      service: "Bloc 1",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Oxygène',
+      service: 'Bloc 1',
       id: 1,
     },
     {
-      beaconId: "2",
-      status: "available",
+      beaconId: '2',
+      status: 'available',
       battery: 87,
       latitude: 46.44092,
       longitude: 6.891924,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Lit",
-      service: "Bloc 1",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 1',
       id: 2,
     },
     {
-      beaconId: "3",
-      status: "available",
+      beaconId: '3',
+      status: 'available',
       battery: 56,
       latitude: 46.44089,
       longitude: 6.891944,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "ECG",
-      service: "Bloc 1",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'ECG',
+      service: 'Bloc 1',
       id: 3,
     },
     {
-      beaconId: "4",
-      status: "needMaintenance",
+      beaconId: '4',
+      status: 'needMaintenance',
       battery: 20,
       latitude: 46.44099,
       longitude: 6.891984,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Oxygène",
-      service: "Bloc 1",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Oxygène',
+      service: 'Bloc 1',
       id: 4,
     },
     {
-      beaconId: "5",
-      status: "unavailable",
+      beaconId: '5',
+      status: 'unavailable',
       battery: 0,
       latitude: 46.44079,
       longitude: 6.891984,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "ECG",
-      service: "Bloc 2",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'ECG',
+      service: 'Bloc 2',
       id: 5,
     },
     {
-      beaconId: "6",
-      status: "available",
+      beaconId: '6',
+      status: 'available',
       battery: 12,
       latitude: 46.44089,
       longitude: 6.891684,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Lit",
-      service: "Bloc 2",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
       id: 6,
     },
     {
-      beaconId: "7",
-      status: "available",
+      beaconId: '7',
+      status: 'available',
       battery: 12,
       latitude: 46.440898,
       longitude: 6.892268,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Lit",
-      service: "Bloc 2",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
       id: 7,
     },
     {
-      beaconId: "8",
-      status: "needMaintenance",
+      beaconId: '8',
+      status: 'needMaintenance',
       battery: 20,
       latitude: 46.441019,
       longitude: 6.891783,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Lit",
-      service: "Bloc 2",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
       id: 8,
     },
     {
-      beaconId: "9",
-      status: "available",
+      beaconId: '9',
+      status: 'available',
       battery: 73,
       latitude: 46.440754,
       longitude: 6.892197,
-      lastSeen: "2020-10-26T08:54:14",
-      type: "Lit",
-      service: "Bloc 2",
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
       id: 9,
     },
   ]);
@@ -222,7 +222,7 @@ export default function ItemsPage() {
       direction="row"
       justify="space-around"
       alignItems="center"
-      wrap={"nowrap"}
+      wrap={'nowrap'}
     >
       <ItemsTable
         items={items}
@@ -251,11 +251,11 @@ export default function ItemsPage() {
 
           enqueueSnackbar("Attention, l'ECG 3 est sorti par la porte 2!", {
             className: classes.snackbar,
-            variant: "warning",
+            variant: 'warning',
             persist: true,
             anchorOrigin: {
-              vertical: "bottom",
-              horizontal: "center",
+              vertical: 'bottom',
+              horizontal: 'center',
             },
             action: (key) => (
               <Button

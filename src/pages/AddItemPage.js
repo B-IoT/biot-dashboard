@@ -1,33 +1,33 @@
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
-import { Formik, Field, Form } from "formik";
-import { TextField, Select, CheckboxWithLabel } from "formik-material-ui";
+import { Formik, Field, Form } from 'formik';
+import { TextField, Select, CheckboxWithLabel } from 'formik-material-ui';
 
-import * as Yup from "yup";
-import { useMutation, useQueryClient } from "react-query";
+import * as Yup from 'yup';
+import { useMutation, useQueryClient } from 'react-query';
 
-import { useSnackbar } from "notistack";
+import { useSnackbar } from 'notistack';
 
-import { createItem } from "../api/items";
-import CustomCard from "../components/CustomCard";
+import { createItem } from '../api/items';
+import CustomCard from '../components/CustomCard';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    width: "50vw",
-    height: "75vh",
+    width: '50vw',
+    height: '75vh',
     margin: theme.spacing(1),
     borderRadius: theme.borderRadius,
   },
   cardTitle: {
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   formItem: {
     margin: theme.spacing(1),
@@ -47,8 +47,8 @@ export default function AddItemPage() {
 
   const mutation = useMutation((item) => createItem(item), {
     onSuccess: () => {
-      queryClient.invalidateQueries("items");
-      queryClient.invalidateQueries("item");
+      queryClient.invalidateQueries('items');
+      queryClient.invalidateQueries('item');
     },
   });
 
@@ -58,7 +58,7 @@ export default function AddItemPage() {
       direction="row"
       justify="center"
       alignItems="center"
-      wrap={"nowrap"}
+      wrap={'nowrap'}
     >
       <CustomCard className={classes.card}>
         <Typography className={classes.cardTitle} variant="h6" gutterBottom>
@@ -66,23 +66,23 @@ export default function AddItemPage() {
         </Typography>
         <Formik
           initialValues={{
-            type: "Lit",
-            service: "Bloc 1",
-            beaconId: "",
+            type: 'Lit',
+            service: 'Bloc 1',
+            beaconId: '',
             geoTracking: false,
-            maintenanceInterval: "",
+            maintenanceInterval: '',
           }}
           validationSchema={Yup.object({
             type: Yup.string()
-              .oneOf(["Lit", "Oxygene", "EDC"])
-              .required("Required"),
+              .oneOf(['Lit', 'Oxygene', 'EDC'])
+              .required('Required'),
             service: Yup.string()
-              .oneOf(["Bloc 1", "Bloc 2", "Bloc 3"])
-              .required("Required"),
+              .oneOf(['Bloc 1', 'Bloc 2', 'Bloc 3'])
+              .required('Required'),
             beaconId: Yup.string()
-              .max(10, "Must be 10 characters or less")
-              .required("Required"),
-            geoTracking: Yup.boolean().required("Required"),
+              .max(10, 'Must be 10 characters or less')
+              .required('Required'),
+            geoTracking: Yup.boolean().required('Required'),
           })}
           onSubmit={(values) => {
             mutation.mutate({
@@ -94,11 +94,11 @@ export default function AddItemPage() {
             // TODO: validate if mutation succeeded
 
             enqueueSnackbar("L'objet a été ajouté", {
-              variant: "success",
+              variant: 'success',
               autoHideDuration: 3000,
               anchorOrigin: {
-                vertical: "bottom",
-                horizontal: "center",
+                vertical: 'bottom',
+                horizontal: 'center',
               },
             });
           }}
@@ -110,7 +110,7 @@ export default function AddItemPage() {
                 direction="column"
                 justify="space-between"
                 alignItems="center"
-                wrap={"nowrap"}
+                wrap={'nowrap'}
               >
                 <FormControl className={classes.formItem}>
                   <InputLabel htmlFor="type" variant="outlined">
@@ -122,12 +122,12 @@ export default function AddItemPage() {
                     component={Select}
                     name="type"
                     inputProps={{
-                      id: "type",
+                      id: 'type',
                     }}
                   >
-                    <MenuItem value={"Lit"}>Lit</MenuItem>
-                    <MenuItem value={"Oxygene"}>Oxygene</MenuItem>
-                    <MenuItem value={"EDC"}>EDC</MenuItem>
+                    <MenuItem value={'Lit'}>Lit</MenuItem>
+                    <MenuItem value={'Oxygene'}>Oxygene</MenuItem>
+                    <MenuItem value={'EDC'}>EDC</MenuItem>
                   </Field>
                 </FormControl>
 
@@ -141,12 +141,12 @@ export default function AddItemPage() {
                     component={Select}
                     name="service"
                     inputProps={{
-                      id: "service",
+                      id: 'service',
                     }}
                   >
-                    <MenuItem value={"Bloc 1"}>Bloc 1</MenuItem>
-                    <MenuItem value={"Bloc 2"}>Bloc 2</MenuItem>
-                    <MenuItem value={"Bloc 3"}>Bloc 3</MenuItem>
+                    <MenuItem value={'Bloc 1'}>Bloc 1</MenuItem>
+                    <MenuItem value={'Bloc 2'}>Bloc 2</MenuItem>
+                    <MenuItem value={'Bloc 3'}>Bloc 3</MenuItem>
                   </Field>
                 </FormControl>
 
@@ -162,7 +162,7 @@ export default function AddItemPage() {
                   component={CheckboxWithLabel}
                   type="checkbox"
                   name="geoTracking"
-                  Label={{ label: "Géo-tracking" }}
+                  Label={{ label: 'Géo-tracking' }}
                 />
                 {isSubmitting && <CircularProgress />}
 
