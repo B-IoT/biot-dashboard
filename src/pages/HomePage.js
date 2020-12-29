@@ -91,7 +91,7 @@ export default function HomePage() {
   const classes = useStyles();
   const { data } = useQuery("items", getItems);
 
-  // const { data: item, error, isError } = useQuery(['item', 2], getItem);
+  // const { data: item, error, isError } = useQuery(['item', 2], () => getItem(2));
 
   return (
     <Grid

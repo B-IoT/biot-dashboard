@@ -11,7 +11,7 @@ import { Formik, Field, Form } from "formik";
 import { TextField, Select, CheckboxWithLabel } from "formik-material-ui";
 
 import * as Yup from "yup";
-import { useMutation, useQueryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import { useSnackbar } from "notistack";
 
@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddItemPage() {
   const classes = useStyles();
-  const queryCache = useQueryCache();
+  const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [mutateItems] = useMutation((item) => createItem(item), {
+  const mutation = useMutation((item) => createItem(item), {
     onSuccess: () => {
-      queryCache.invalidateQueries("items");
-      queryCache.invalidateQueries("item");
+      queryClient.invalidateQueries("items");
+      queryClient.invalidateQueries("item");
     },
   });
 
@@ -84,8 +84,8 @@ export default function AddItemPage() {
               .required("Required"),
             geoTracking: Yup.boolean().required("Required"),
           })}
-          onSubmit={async (values) => {
-            await mutateItems({
+          onSubmit={(values) => {
+            mutation.mutate({
               type: values.type,
               service: values.service,
               beaconId: values.beaconId,

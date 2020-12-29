@@ -1,6 +1,6 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ReactQueryDevtools } from "react-query-devtools";
-import { QueryCache, ReactQueryCacheProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import {
   createMuiTheme,
@@ -13,7 +13,7 @@ import orange from "@material-ui/core/colors/orange";
 
 import MainSwitch from "./pages";
 
-const queryCache = new QueryCache();
+const queryClient = new QueryClient();
 
 const theme = createMuiTheme({
   palette: {
@@ -38,7 +38,7 @@ export default function App() {
   const classes = useStyles();
 
   return (
-    <ReactQueryCacheProvider queryCache={queryCache}>
+    <QueryClientProvider client={queryClient}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={3} className={classes.snackbar}>
@@ -48,6 +48,6 @@ export default function App() {
         </SnackbarProvider>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen />
-    </ReactQueryCacheProvider>
+    </QueryClientProvider>
   );
 }
