@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import AddIcon from '@material-ui/icons/Add';
-import SearchBar from 'material-ui-search-bar';
+import { useState, useEffect } from "react";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import AddIcon from "@material-ui/icons/Add";
+import SearchBar from "material-ui-search-bar";
 
-import { Link as RouterLink } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import { getItems } from '../api/items';
+import { getItems } from "../api/items";
 
 import {
   PieChart,
@@ -26,26 +26,26 @@ import {
   Line,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
-import ItemsMaintenanceTable from '../components/ItemsMaintenanceTable';
-import CustomCard from '../components/CustomCard';
-import { useQuery } from 'react-query';
+import ItemsMaintenanceTable from "../components/ItemsMaintenanceTable";
+import CustomCard from "../components/CustomCard";
+import { useQuery } from "react-query";
 import {
   displayTextVersion,
   getPrettyItems,
   getServicesStatus,
   getStatusSummaries,
-} from '../utils/items';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+} from "../utils/items";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
-    width: '90%',
+    width: "90%",
     borderRadius: theme.borderRadius,
     marginBottom: theme.spacing(2),
     marginRight: theme.spacing(0.8),
@@ -57,18 +57,18 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(0.8),
   },
   chartCard: {
-    display: 'flex',
+    display: "flex",
     width: 450,
     height: 438,
     borderRadius: theme.borderRadius,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   bottomFilterCard: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
     borderRadius: theme.borderRadius,
     marginBottom: 16,
   },
@@ -77,23 +77,23 @@ const useStyles = makeStyles((theme) => ({
   },
   bottomChartCard: {
     borderRadius: theme.borderRadius,
-    alignItems: 'center',
-    width: '100%',
-    height: 'auto',
+    alignItems: "center",
+    width: "100%",
+    height: "auto",
   },
   bottomCard: {
     width: 300,
     height: theme.spacing(10),
     borderRadius: theme.borderRadius,
-    alignItems: 'center',
+    alignItems: "center",
   },
   cardTitle: {
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     fontSize: theme.maintenanceTitleTextSize,
   },
   bottomCardText: {
-    textAlign: 'center',
+    textAlign: "center",
   },
 }));
 
@@ -123,7 +123,7 @@ function StatusPieChart({ data, title }) {
         x={x}
         y={y}
         fill="white"
-        textAnchor={x > cx ? 'start' : 'end'}
+        textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
         {`${(percent * 100).toFixed(0)}%`}
@@ -192,9 +192,9 @@ function ServicesBarChart({ data, title }) {
           type="category"
           dataKey="name"
           label={{
-            value: 'Service',
+            value: "Service",
             angle: -90,
-            position: 'insideLeft',
+            position: "insideLeft",
             offset: 10,
           }}
         />
@@ -265,8 +265,8 @@ function StatusLineChart({ data, title }) {
           <XAxis
             dataKey="date"
             label={{
-              value: 'Date',
-              position: 'insideBottomRight',
+              value: "Date",
+              position: "insideBottomRight",
               offset: -10,
             }}
           />
@@ -274,7 +274,7 @@ function StatusLineChart({ data, title }) {
             label={{
               value: "Nombre d'objets",
               angle: -90,
-              position: 'insideLeft',
+              position: "insideLeft",
               offset: 10,
             }}
           />
@@ -337,77 +337,77 @@ export default function MaintenancePage() {
 
   // TODO: replace with actual data
 
-  const [bottomFilterCategory, setBottomFilterCategory] = useState('Tous');
+  const [bottomFilterCategory, setBottomFilterCategory] = useState("Tous");
   const [bottomData, setBottomData] = useState({
     timeSeries: [
-      { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
-      { nbItemsDamaged: 20, nbItemsRepaired: 40, date: '20/10' },
-      { nbItemsDamaged: 5, nbItemsRepaired: 55, date: '24/10' },
-      { nbItemsDamaged: 7, nbItemsRepaired: 53, date: '25/10' },
-      { nbItemsDamaged: 10, nbItemsRepaired: 50, date: '27/10' },
-      { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
+      { nbItemsDamaged: 30, nbItemsRepaired: 20, date: "18/10" },
+      { nbItemsDamaged: 20, nbItemsRepaired: 40, date: "20/10" },
+      { nbItemsDamaged: 5, nbItemsRepaired: 55, date: "24/10" },
+      { nbItemsDamaged: 7, nbItemsRepaired: 53, date: "25/10" },
+      { nbItemsDamaged: 10, nbItemsRepaired: 50, date: "27/10" },
+      { nbItemsDamaged: 12, nbItemsRepaired: 48, date: "30/10" },
     ],
     damaged: 30,
     repaired: 40,
-    used: '90%',
+    used: "90%",
     prediction: "Risque d'accumulation",
   });
 
   useEffect(() => {
     const dataForTimeSeriesAll = [
-      { nbItemsDamaged: 30, nbItemsRepaired: 20, date: '18/10' },
-      { nbItemsDamaged: 20, nbItemsRepaired: 40, date: '20/10' },
-      { nbItemsDamaged: 5, nbItemsRepaired: 55, date: '24/10' },
-      { nbItemsDamaged: 7, nbItemsRepaired: 53, date: '25/10' },
-      { nbItemsDamaged: 10, nbItemsRepaired: 50, date: '27/10' },
-      { nbItemsDamaged: 12, nbItemsRepaired: 48, date: '30/10' },
+      { nbItemsDamaged: 30, nbItemsRepaired: 20, date: "18/10" },
+      { nbItemsDamaged: 20, nbItemsRepaired: 40, date: "20/10" },
+      { nbItemsDamaged: 5, nbItemsRepaired: 55, date: "24/10" },
+      { nbItemsDamaged: 7, nbItemsRepaired: 53, date: "25/10" },
+      { nbItemsDamaged: 10, nbItemsRepaired: 50, date: "27/10" },
+      { nbItemsDamaged: 12, nbItemsRepaired: 48, date: "30/10" },
     ];
     const damagedAll = 30;
     const repairedAll = 40;
-    const usedAll = '90%';
+    const usedAll = "90%";
     const predictionAll = "Risque d'accumulation";
 
     const dataForTimeSeriesLit = [
-      { nbItemsDamaged: 10, nbItemsRepaired: 2, date: '18/10' },
-      { nbItemsDamaged: 2, nbItemsRepaired: 5, date: '20/10' },
-      { nbItemsDamaged: 3, nbItemsRepaired: 8, date: '24/10' },
-      { nbItemsDamaged: 7, nbItemsRepaired: 1, date: '25/10' },
-      { nbItemsDamaged: 10, nbItemsRepaired: 1, date: '27/10' },
-      { nbItemsDamaged: 12, nbItemsRepaired: 3, date: '30/10' },
+      { nbItemsDamaged: 10, nbItemsRepaired: 2, date: "18/10" },
+      { nbItemsDamaged: 2, nbItemsRepaired: 5, date: "20/10" },
+      { nbItemsDamaged: 3, nbItemsRepaired: 8, date: "24/10" },
+      { nbItemsDamaged: 7, nbItemsRepaired: 1, date: "25/10" },
+      { nbItemsDamaged: 10, nbItemsRepaired: 1, date: "27/10" },
+      { nbItemsDamaged: 12, nbItemsRepaired: 3, date: "30/10" },
     ];
     const damagedLit = 5;
     const repairedLit = 8;
-    const usedLit = '95%';
-    const predictionLit = 'Bonne operativité';
+    const usedLit = "95%";
+    const predictionLit = "Bonne operativité";
 
     const dataForTimeSeriesOxygene = [
-      { nbItemsDamaged: 2, nbItemsRepaired: 10, date: '18/10' },
-      { nbItemsDamaged: 5, nbItemsRepaired: 2, date: '20/10' },
-      { nbItemsDamaged: 8, nbItemsRepaired: 3, date: '24/10' },
-      { nbItemsDamaged: 7, nbItemsRepaired: 1, date: '25/10' },
-      { nbItemsDamaged: 10, nbItemsRepaired: 1, date: '27/10' },
-      { nbItemsDamaged: 12, nbItemsRepaired: 3, date: '30/10' },
+      { nbItemsDamaged: 2, nbItemsRepaired: 10, date: "18/10" },
+      { nbItemsDamaged: 5, nbItemsRepaired: 2, date: "20/10" },
+      { nbItemsDamaged: 8, nbItemsRepaired: 3, date: "24/10" },
+      { nbItemsDamaged: 7, nbItemsRepaired: 1, date: "25/10" },
+      { nbItemsDamaged: 10, nbItemsRepaired: 1, date: "27/10" },
+      { nbItemsDamaged: 12, nbItemsRepaired: 3, date: "30/10" },
     ];
     const damagedOxygene = 7;
     const repairedOxygene = 8;
-    const usedOxygene = '89%';
+    const usedOxygene = "89%";
     const predictionOxygene = "Risque d'accumulation";
 
     const dataForTimeSeriesECG = [
-      { nbItemsDamaged: 1, nbItemsRepaired: 0, date: '18/10' },
-      { nbItemsDamaged: 2, nbItemsRepaired: 0, date: '20/10' },
-      { nbItemsDamaged: 3, nbItemsRepaired: 1, date: '24/10' },
-      { nbItemsDamaged: 2, nbItemsRepaired: 2, date: '25/10' },
-      { nbItemsDamaged: 4, nbItemsRepaired: 3, date: '27/10' },
-      { nbItemsDamaged: 1, nbItemsRepaired: 4, date: '30/10' },
+      { nbItemsDamaged: 1, nbItemsRepaired: 0, date: "18/10" },
+      { nbItemsDamaged: 2, nbItemsRepaired: 0, date: "20/10" },
+      { nbItemsDamaged: 3, nbItemsRepaired: 1, date: "24/10" },
+      { nbItemsDamaged: 2, nbItemsRepaired: 2, date: "25/10" },
+      { nbItemsDamaged: 4, nbItemsRepaired: 3, date: "27/10" },
+      { nbItemsDamaged: 1, nbItemsRepaired: 4, date: "30/10" },
     ];
     const damagedECG = 2;
     const repairedECG = 4;
-    const usedECG = '92%';
-    const predictionECG = 'Bonne operativité';
+    const usedECG = "92%";
+    const predictionECG = "Bonne operativité";
 
     switch (bottomFilterCategory) {
-      case 'Tous':
+      case "Tous":
         setBottomData({
           timeSeries: dataForTimeSeriesAll,
           damaged: damagedAll,
@@ -416,7 +416,7 @@ export default function MaintenancePage() {
           prediction: predictionAll,
         });
         break;
-      case 'Lit':
+      case "Lit":
         setBottomData({
           timeSeries: dataForTimeSeriesLit,
           damaged: damagedLit,
@@ -425,7 +425,7 @@ export default function MaintenancePage() {
           prediction: predictionLit,
         });
         break;
-      case 'Oxygène':
+      case "Oxygène":
         setBottomData({
           timeSeries: dataForTimeSeriesOxygene,
           damaged: damagedOxygene,
@@ -434,7 +434,7 @@ export default function MaintenancePage() {
           prediction: predictionOxygene,
         });
         break;
-      case 'ECG':
+      case "ECG":
         setBottomData({
           timeSeries: dataForTimeSeriesECG,
           damaged: damagedECG,
@@ -448,7 +448,7 @@ export default function MaintenancePage() {
     }
   }, [bottomFilterCategory]);
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   // const [items, setItems] = useState([]); TODO: use after demo
 
   // const { data } = useQuery('items', getItems);
@@ -461,102 +461,102 @@ export default function MaintenancePage() {
 
   const items = [
     {
-      beaconId: '1',
-      status: 'available',
+      beaconId: "1",
+      status: "available",
       battery: 94,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Oxygène',
-      service: 'Bloc 1',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Oxygène",
+      service: "Bloc 1",
       id: 1,
     },
     {
-      beaconId: '2',
-      status: 'available',
+      beaconId: "2",
+      status: "available",
       battery: 87,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Lit',
-      service: 'Bloc 1',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Lit",
+      service: "Bloc 1",
       id: 2,
     },
     {
-      beaconId: '3',
-      status: 'unavailable',
+      beaconId: "3",
+      status: "unavailable",
       battery: 0,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'ECG',
-      service: 'Bloc 1',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "ECG",
+      service: "Bloc 1",
       id: 3,
     },
     {
-      beaconId: '4',
-      status: 'needMaintenance',
+      beaconId: "4",
+      status: "needMaintenance",
       battery: 20,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Oxygène',
-      service: 'Bloc 1',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Oxygène",
+      service: "Bloc 1",
       id: 4,
     },
     {
-      beaconId: '5',
-      status: 'unavailable',
+      beaconId: "5",
+      status: "unavailable",
       battery: 0,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'ECG',
-      service: 'Bloc 2',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "ECG",
+      service: "Bloc 2",
       id: 5,
     },
     {
-      beaconId: '6',
-      status: 'available',
+      beaconId: "6",
+      status: "available",
       battery: 12,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Lit',
-      service: 'Bloc 2',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Lit",
+      service: "Bloc 2",
       id: 6,
     },
     {
-      beaconId: '7',
-      status: 'available',
+      beaconId: "7",
+      status: "available",
       battery: 12,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Lit',
-      service: 'Bloc 2',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Lit",
+      service: "Bloc 2",
       id: 7,
     },
     {
-      beaconId: '8',
-      status: 'needMaintenance',
+      beaconId: "8",
+      status: "needMaintenance",
       battery: 20,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Lit',
-      service: 'Bloc 2',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Lit",
+      service: "Bloc 2",
       id: 8,
     },
     {
-      beaconId: '9',
-      status: 'available',
+      beaconId: "9",
+      status: "available",
       battery: 73,
       latitude: 46.5405405405405,
       longitude: 6.60114696411765,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Lit',
-      service: 'Bloc 2',
+      lastSeen: "2020-10-26T08:54:14",
+      type: "Lit",
+      service: "Bloc 2",
       id: 9,
     },
   ];
@@ -577,7 +577,7 @@ export default function MaintenancePage() {
         direction="row"
         justify="space-between"
         alignItems="center"
-        wrap={'nowrap'}
+        wrap={"nowrap"}
       >
         <SearchBar
           placeholder="Rechercher"
@@ -609,7 +609,7 @@ export default function MaintenancePage() {
         justify="space-between"
         alignItems="center"
         style={{ marginBottom: 16 }}
-        wrap={'nowrap'}
+        wrap={"nowrap"}
       >
         <StatusPieChart data={statusSummaries} title="État du materiel" />
         <ItemsMaintenanceTable items={prettyItems} />
@@ -628,16 +628,16 @@ export default function MaintenancePage() {
             name="bottom-filter"
             id="bottom-filter"
             inputProps={{
-              name: 'bottom-filter',
-              id: 'bottom-filter',
+              name: "bottom-filter",
+              id: "bottom-filter",
             }}
             value={bottomFilterCategory}
             onChange={(event) => setBottomFilterCategory(event.target.value)}
           >
-            <MenuItem value={'Tous'}>Tous</MenuItem>
-            <MenuItem value={'Lit'}>Lit</MenuItem>
-            <MenuItem value={'Oxygène'}>Oxygène</MenuItem>
-            <MenuItem value={'ECG'}>ECG</MenuItem>
+            <MenuItem value={"Tous"}>Tous</MenuItem>
+            <MenuItem value={"Lit"}>Lit</MenuItem>
+            <MenuItem value={"Oxygène"}>Oxygène</MenuItem>
+            <MenuItem value={"ECG"}>ECG</MenuItem>
           </Select>
           <FormHelperText>Filtrer par catégorie</FormHelperText>
         </FormControl>
@@ -654,7 +654,7 @@ export default function MaintenancePage() {
         justify="space-between"
         alignItems="center"
         style={{ marginTop: 16 }}
-        wrap={'nowrap'}
+        wrap={"nowrap"}
       >
         <BottomCard
           title="Moyenne abimés par jour"

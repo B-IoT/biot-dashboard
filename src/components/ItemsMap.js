@@ -1,19 +1,18 @@
-import React from 'react';
 import ReactMapboxGl, {
   Feature,
   Layer,
   Popup,
   ZoomControl,
-} from 'react-mapbox-gl';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
+} from "react-mapbox-gl";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   popupTitle: {
     fontWeight: 400,
     fontSize: 10,
-    padding: '2px',
+    padding: "2px",
   },
 }));
 
@@ -58,8 +57,8 @@ export default function ItemsMap({ items, index }) {
     <Map
       style="mapbox://styles/gondolav/ckg3j2q4h1qg019k8sdyhkvvy"
       containerStyle={{
-        width: '40vw',
-        height: '78vh',
+        width: "40vw",
+        height: "78vh",
       }}
       center={[6.891924, 46.440896]}
       zoom={[18]}
@@ -67,7 +66,7 @@ export default function ItemsMap({ items, index }) {
       <Layer
         type="symbol"
         id="items"
-        layout={{ 'icon-image': 'marker-15', 'icon-allow-overlap': true }}
+        layout={{ "icon-image": "marker-15", "icon-allow-overlap": true }}
       >
         {items.map((item) => (
           <Feature

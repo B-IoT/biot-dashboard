@@ -1,4 +1,3 @@
-import React from "react";
 import { render } from "../../setupTests";
 import AddItemPage from "../../pages/AddItemPage";
 
