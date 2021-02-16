@@ -1,7 +1,7 @@
 import { render } from '../../setupTests';
-import HomePage from '../../pages/HomePage';
+import SearchPage from '../../pages/SearchPage';
 
 it('renders without crashing', () => {
-  render(<HomePage />);
+  render(<SearchPage />);
   // expect(screen.getByText('Learn React')).toBeInTheDocument();
 });

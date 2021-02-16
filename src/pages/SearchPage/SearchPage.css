@@ -1,74 +1,62 @@
 .auto-flex {
   align-items: flex-start;
   display: flex;
-  height: 210px;
-  margin-top: 70px;
-  min-width: 1050px;
+  flex-direction: column;
+  margin-left: 70px;
+  min-height: 1330px;
   position: relative;
+  width: 210px;
 }
-.auto-flex2 {
+.auto-flex3 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  min-height: 1330px;
+  position: relative;
+  width: 210px;
+}
+.auto-flex4 {
   align-items: center;
   align-self: flex-end;
   display: flex;
-  margin-top: 70px;
-  min-width: 1460px;
-  position: relative;
-}
-.auto-flex4 {
-  align-items: flex-start;
-  display: flex;
+  height: 1330px;
   margin-top: 93px;
-  min-width: 1050px;
-  position: relative;
+  min-width: 1460px;
 }
-.b-io-t-col-ransparent {
-  height: 94px;
-  left: 161px;
+.bed {
+  align-items: flex-start;
+  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
+  border-radius: 105px;
+  box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
+  display: flex;
+  filter: blur(5px);
+  min-width: 210px;
+}
+.bed-text {
+  left: 93px;
+  letter-spacing: 0px;
+  line-height: 32px;
   position: absolute;
-  top: 20px;
-  width: 168px;
+  text-align: center;
+  top: 146px;
+  white-space: nowrap;
 }
-.b-io-t-col-ransparent-1 {
-  height: 42px;
-  margin-left: 334px;
-  margin-top: 42.25px;
-  width: 76px;
-}
-.cardiogram {
+.ecg-icon {
   align-items: flex-start;
   display: flex;
   min-width: 91px;
 }
-.composant-2-1 {
-  align-items: flex-start;
-  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
-  border-radius: 105px;
-  box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
-  display: flex;
-  filter: blur(5px);
-  height: 210px;
-  min-width: 210px;
-}
-.composant-2-2 {
-  align-items: flex-start;
-  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
-  border-radius: 105px;
-  box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
-  display: flex;
-  filter: blur(5px);
-  margin-left: 70px;
-  min-width: 210px;
-}
-.composant-2-3 {
-  align-items: flex-start;
-  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
-  border-radius: 105px;
-  box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
-  display: flex;
-  filter: blur(5px);
-  height: 210px;
-  margin-left: 70px;
-  min-width: 210px;
+.ecg-text {
+  align-self: center;
+  letter-spacing: 0px;
+  line-height: 32px;
+  margin-bottom: -12px;
+  margin-left: 0.33px;
+  margin-top: 5px;
+  min-height: 20px;
+  min-width: 42px;
+  text-align: center;
+  white-space: nowrap;
 }
 .ellipse-214 {
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
@@ -81,27 +69,28 @@
   top: 0px;
   width: 210px;
 }
-.hr-statistics-dashboard {
-  align-items: center;
-  background-color: var(--selago);
+.link {
+  align-items: flex-start;
+  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
+  border-radius: 105px;
+  box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
   display: flex;
-  flex-direction: column;
-  min-height: 1910px;
-  padding: 75px 25px;
-  width: 1920px;
+  filter: blur(5px);
+  height: 210px;
+  min-width: 210px;
+}
+.logo {
+  height: 42px;
+  margin-left: 334px;
+  margin-top: 42.25px;
+  width: 76px;
 }
 .overlap-group {
-  height: 210px;
-  margin-left: 70px;
-  position: relative;
-  width: 490px;
-}
-.overlap-group1 {
   height: 91px;
   position: relative;
   width: 91px;
 }
-.overlap-group1-1 {
+.overlap-group-1 {
   align-items: flex-end;
   background-size: 100% 100%;
   display: flex;
@@ -111,7 +100,7 @@
   padding: 29.5px 5.2px;
   width: 77px;
 }
-.overlap-group4 {
+.overlap-group17 {
   align-items: flex-end;
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
@@ -123,13 +112,13 @@
   padding: 45px 61.3px;
   width: 210px;
 }
-.overlap-group5 {
+.overlap-group18 {
   height: 210px;
   margin-top: -0.5px;
   position: relative;
   width: 211px;
 }
-.overlap-group6 {
+.overlap-group19 {
   align-items: flex-end;
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
@@ -141,14 +130,14 @@
   padding: 44.9px 59.1px;
   width: 210px;
 }
-.overlap-group7 {
+.overlap-group20 {
   height: 107px;
   margin-left: -22px;
   margin-top: -15px;
   position: relative;
   width: 559px;
 }
-.oxygen {
+.oxygen-icon {
   align-items: flex-start;
   align-self: center;
   display: flex;
@@ -157,12 +146,13 @@
   margin-right: 0.55px;
   min-width: 76px;
 }
-.que-cherchez-vous {
+.oxygen-text {
   letter-spacing: 0px;
-  line-height: 70px;
-  margin-left: 2px;
-  min-height: 72px;
-  min-width: 746px;
+  line-height: 34px;
+  margin-bottom: -13px;
+  margin-top: 4px;
+  min-height: 21px;
+  min-width: 86px;
   text-align: center;
   white-space: nowrap;
 }
@@ -185,7 +175,15 @@
   top: 3px;
   width: 523px;
 }
-.rectangle-16855 {
+.search-bar {
+  align-items: flex-start;
+  display: flex;
+  height: 83px;
+  margin-left: 0.46px;
+  margin-top: 30px;
+  min-width: 537px;
+}
+.search-blur {
   -webkit-backdrop-filter: blur(4px) brightness(100%);
   backdrop-filter: blur(4px) brightness(100%);
   border-radius: 39px;
@@ -195,13 +193,31 @@
   top: 15px;
   width: 537px;
 }
-.search {
-  align-items: flex-start;
+.search-text {
+  left: 84px;
+  letter-spacing: 0px;
+  line-height: 53px;
+  position: absolute;
+  top: 31px;
+  white-space: nowrap;
+}
+.search-title {
+  letter-spacing: 0px;
+  line-height: 70px;
+  margin-left: 2px;
+  min-height: 72px;
+  min-width: 746px;
+  text-align: center;
+  white-space: nowrap;
+}
+.searchpage {
+  align-items: center;
+  background-color: var(--selago);
   display: flex;
-  height: 83px;
-  margin-left: 0.46px;
-  margin-top: 30px;
-  min-width: 537px;
+  flex-direction: column;
+  min-height: 1910px;
+  padding: 75px 25px;
+  width: 1920px;
 }
 .trac-1943 {
   height: 3px;
@@ -247,43 +263,4 @@
   position: absolute;
   top: 49px;
   width: 92px;
-}
-.x123 {
-  left: 84px;
-  letter-spacing: 0px;
-  line-height: 53px;
-  position: absolute;
-  top: 31px;
-  white-space: nowrap;
-}
-.x123-1 {
-  align-self: center;
-  letter-spacing: 0px;
-  line-height: 32px;
-  margin-bottom: -12px;
-  margin-left: 0.33px;
-  margin-top: 5px;
-  min-height: 20px;
-  min-width: 42px;
-  text-align: center;
-  white-space: nowrap;
-}
-.x123-2 {
-  left: 93px;
-  letter-spacing: 0px;
-  line-height: 32px;
-  position: absolute;
-  text-align: center;
-  top: 146px;
-  white-space: nowrap;
-}
-.x123-3 {
-  letter-spacing: 0px;
-  line-height: 34px;
-  margin-bottom: -13px;
-  margin-top: 4px;
-  min-height: 21px;
-  min-width: 86px;
-  text-align: center;
-  white-space: nowrap;
 }

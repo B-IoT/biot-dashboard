@@ -1,37 +1,23 @@
 .composant-3- {
   height: 210px;
-  margin-left: unset;
   position: relative;
 }
-.composant-3--1 {
+.composant-3-25 {
   height: 210px;
+  margin-top: unset;
   position: relative;
 }
-.composant-3-1 {
+.composant-3-5 {
   align-items: flex-start;
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
   box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
   display: flex;
   filter: blur(5px);
-  margin-left: 70px;
+  margin-top: 70px;
   min-width: 210px;
 }
-.composant-3-11 {
-  height: 210px;
-  left: 280px;
-  margin-left: unset;
-  position: absolute;
-  top: 0px;
-}
-.composant-3-9 {
-  height: 210px;
-  left: 0px;
-  margin-left: unset;
-  position: absolute;
-  top: 0px;
-}
-.overlap-group3 {
+.overlap-group15 {
   align-items: flex-start;
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
@@ -43,7 +29,7 @@
   min-width: 210px;
   padding: 24px 59px;
 }
-.text-1 {
+.text-16 {
   letter-spacing: 0px;
   line-height: 120px;
   min-height: 122px;

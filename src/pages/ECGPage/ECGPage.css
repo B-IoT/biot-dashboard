@@ -1,170 +1,185 @@
 .auto-flex1 {
   align-items: flex-start;
   display: flex;
-  height: 978px;
-  min-width: 1519px;
+  flex-direction: column;
+  margin-left: 72px;
+  margin-top: 224px;
+  min-height: 86px;
+  width: 17px;
+}
+.auto-flex2 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: 138px;
+  margin-top: 74px;
+  min-height: 881px;
+  width: 1183px;
 }
 .auto-flex22 {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin-left: 57px;
-  margin-top: 174px;
-  min-height: 86px;
-  width: 17px;
-}
-.auto-flex3 {
-  align-items: flex-start;
-  display: flex;
-  margin-top: 50px;
-  min-width: 1593px;
-}
-.auto-flex42 {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
   margin-left: 15px;
-  margin-top: 220.5px;
+  margin-top: 221px;
   min-height: 96px;
-  width: 227px;
+  width: 176px;
 }
-.auto-flex5 {
-  align-items: center;
-  align-self: flex-end;
-  display: flex;
-  flex-direction: column;
-  margin-left: 123px;
-  min-height: 954px;
-  width: 1214px;
-}
-.b-io-t-col-ransparent2 {
-  height: 94px;
-  left: 523px;
-  position: absolute;
-  top: 737px;
-  width: 168px;
-}
-.composant-3-24 {
+.back-button {
   background-color: var(--selago);
   border-radius: 37px;
   box-shadow: 7px 7px 10px rgba(205, 215, 233, 1);
   filter: blur(2px);
   height: 73px;
+  margin-top: 50px;
   position: relative;
   width: 182px;
 }
-.ellipse-224 {
+.back-text {
+  height: 32px;
+  left: 30px;
+  letter-spacing: 0px;
+  line-height: 53px;
+  position: absolute;
+  top: 12px;
+  white-space: nowrap;
+  width: 124px;
+}
+.blue-tracker1 {
   background-color: var(--blue-2);
   border-radius: 9.5px;
   height: 19px;
-  left: 235px;
+  left: 77px;
   position: absolute;
-  top: 384px;
+  top: 60px;
   width: 19px;
 }
-.ellipse-225 {
+.blue-tracker2 {
   background-color: var(--blue-2);
   border-radius: 9.5px;
   height: 19px;
-  left: 1156px;
+  left: 1150px;
   position: absolute;
-  top: 136px;
+  top: 252px;
   width: 19px;
 }
-.ellipse-226 {
+.blue-tracker3 {
   background-color: var(--blue-2);
   border-radius: 9.5px;
   height: 19px;
-  left: 962px;
+  left: 939px;
   position: absolute;
-  top: 216px;
+  top: 598px;
   width: 19px;
 }
-.ellipse-227 {
+.blue-tracker4 {
   background-color: var(--blue-2);
   border-radius: 9.5px;
   height: 19px;
-  left: 92px;
+  left: 387px;
   position: absolute;
-  top: 88px;
+  top: 511px;
   width: 19px;
 }
-.ellipse-228 {
+.caption-tracker1 {
   background-color: var(--blue-2);
   border-radius: 8.5px;
   height: 17px;
   width: 17px;
 }
-.ellipse-229 {
+.caption-tracker2 {
   background-color: var(--pomegranate-2);
   border-radius: 8.5px;
   height: 17px;
   margin-top: 18px;
   width: 17px;
 }
-.ellipse-230 {
-  background-color: var(--pomegranate-2);
-  border-radius: 9.5px;
-  height: 19px;
-  left: 1156px;
-  position: absolute;
-  top: 520px;
-  width: 19px;
+.caption-tracker3 {
+  background-color: var(--caribbean-green-2);
+  height: 17px;
+  margin-top: 17px;
+  width: 17px;
 }
-.hr-statistics-dashboard-4 {
-  align-items: flex-start;
-  background-color: var(--selago);
-  display: flex;
-  height: 1080px;
-  min-width: 1920px;
-  padding: 0 37px;
-}
-.masque {
-  height: 729px;
-  left: 15px;
-  position: absolute;
-  top: 28px;
-  width: 1182px;
-}
-.overlap-group-item {
-  height: 729px;
-  left: 16px;
-  position: absolute;
-  top: 29px;
-  width: 1182px;
-}
-.overlap-group2 {
-  height: 831px;
-  margin-top: 49px;
-  position: relative;
-  width: 1214px;
-}
-.oxygne {
+.caption1 {
   letter-spacing: 0px;
   line-height: 25px;
-  min-height: 28px;
+  min-height: 27px;
   white-space: nowrap;
 }
-.oxygne-conseill {
+.caption2 {
   letter-spacing: 0px;
   line-height: 25px;
   margin-top: 7px;
   min-height: 28px;
   white-space: nowrap;
 }
-.rectangle-16871 {
+.caption3 {
+  letter-spacing: 0px;
+  line-height: 25px;
+  margin-top: 6px;
+  min-height: 27px;
+  white-space: nowrap;
+}
+.ecg-title {
+  letter-spacing: 0px;
+  line-height: 70px;
+  margin-left: 2.61px;
+  min-height: 74px;
+  min-width: 882px;
+  text-align: center;
+  white-space: nowrap;
+}
+.ecgpage {
+  align-items: flex-start;
+  background-color: var(--selago);
+  display: flex;
+  height: 1080px;
+  min-width: 1920px;
+  padding: 0 48px;
+}
+.green-tracker {
   background-color: var(--caribbean-green-2);
   height: 19px;
-  left: 749px;
+  left: 734px;
   position: absolute;
-  top: 531px;
+  top: 503px;
   width: 19px;
 }
-.rectangle-16872 {
-  background-color: var(--caribbean-green-2);
-  height: 17px;
-  margin-top: 17px;
-  width: 17px;
+.map {
+  height: 730px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 1183px;
+}
+.map-item {
+  height: calc(100% - 1px);
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  width: calc(100% - 1px);
+}
+.map-rim-light {
+  height: calc(100% - 1px);
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: calc(100% - 1px);
+}
+.orange-tracker {
+  background-color: var(--pomegranate-2);
+  border-radius: 9.5px;
+  height: 19px;
+  left: 638px;
+  position: absolute;
+  top: 372px;
+  width: 19px;
+}
+.overlap-group2 {
+  height: 730px;
+  margin-top: 77px;
+  position: relative;
+  width: 1183px;
 }
 .rectangle-16874 {
   background: linear-gradient(157.37deg, #ffffff -7.76%, #d2dcf1 129.65%);
@@ -176,15 +191,6 @@
   position: absolute;
   top: 0px;
   width: 100%;
-}
-.text-18 {
-  letter-spacing: 0px;
-  line-height: 70px;
-  margin-left: 2px;
-  min-height: 74px;
-  min-width: 948px;
-  text-align: center;
-  white-space: nowrap;
 }
 .trac-1950 {
   height: 498px;
@@ -292,25 +298,32 @@
   width: 159px;
 }
 .trac-1956 {
-  bottom: -12px;
+  bottom: -11px;
   height: 185px;
   position: absolute;
   right: 10px;
   width: 120px;
 }
 .trac-1956-1 {
+  bottom: -17px;
+  height: 185px;
+  position: absolute;
+  right: 4px;
+  width: 120px;
+}
+.trac-1956-2 {
   bottom: -3px;
   height: 161px;
   position: absolute;
   right: 19px;
   width: 96px;
 }
-.trac-1956-2 {
-  bottom: -18px;
-  height: 185px;
+.trac-1956-3 {
+  bottom: -2px;
+  height: 161px;
   position: absolute;
-  right: 4px;
-  width: 120px;
+  right: 19px;
+  width: 96px;
 }
 .trac-1960 {
   height: 101px;
@@ -1361,28 +1374,4 @@
   position: absolute;
   right: -17px;
   width: 141px;
-}
-.votre-position {
-  letter-spacing: 0px;
-  line-height: 25px;
-  margin-top: 6px;
-  min-height: 27px;
-  white-space: nowrap;
-}
-.x1232 {
-  height: 32px;
-  left: 30px;
-  letter-spacing: 0px;
-  line-height: 53px;
-  position: absolute;
-  top: 12px;
-  white-space: nowrap;
-  width: 124px;
-}
-.x40b628fddd-3b88b5c883 {
-  height: 809px;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 1214px;
 }

@@ -1,14 +1,12 @@
 import React from 'react';
-import './MapPage.css';
 import { Link } from 'react-router-dom';
+import './ECGPage.css';
 
-function HRStatisticsDashboard4(props) {
+function ECGPage(props) {
   const {
-    x123,
-    text18,
-    biotColorTransparent,
-    x40B628Fddd7A5B042Bbdad3B88B5C883,
-    lumire,
+    backtext,
+    ecgtitle,
+    maplight,
     trac1950,
     trac1951,
     trac1953,
@@ -65,7 +63,7 @@ function HRStatisticsDashboard4(props) {
     trac1989,
     trac1990,
     trac1991,
-    ombre,
+    mapshadow,
     trac19502,
     trac19512,
     trac19532,
@@ -122,7 +120,7 @@ function HRStatisticsDashboard4(props) {
     trac19892,
     trac19902,
     trac19912,
-    masque,
+    maprimlight,
     trac19503,
     trac19513,
     trac19533,
@@ -179,7 +177,7 @@ function HRStatisticsDashboard4(props) {
     trac19893,
     trac19903,
     trac19913,
-    groupe9888,
+    map,
     trac19504,
     trac19514,
     trac19534,
@@ -236,61 +234,53 @@ function HRStatisticsDashboard4(props) {
     trac19894,
     trac19904,
     trac19914,
-    oxygne,
-    oxygneConseill,
-    votrePosition,
+    caption1,
+    caption2,
+    caption3,
   } = props;
 
   return (
     <div class="container-center-horizontal">
-      <div className="hr-statistics-dashboard-4 screen ">
-        <div className="auto-flex3">
-          <div className="auto-flex1">
-            <Link to="/hr-statistics-dashboard">
-              <div className="composant-3-24">
-                <div className="rectangle-16874"></div>
-                <div className="x1232 axiforma-book-normal-blue-30px">
-                  {x123}
-                </div>
-              </div>
-            </Link>
-            <div className="auto-flex5">
-              <div className="text-18 axiforma-bold-blue-70px">{text18}</div>
-              <div className="overlap-group2">
-                <img
-                  className="b-io-t-col-ransparent2"
-                  src={biotColorTransparent}
-                />
-                <img
-                  className="x40b628fddd-3b88b5c883"
-                  src={x40B628Fddd7A5B042Bbdad3B88B5C883}
-                />
-                <img className="overlap-group-item" src={lumire} />
-                <img className="overlap-group-item" src={ombre} />
-                <img className="masque" src={masque} />
-                <img className="overlap-group-item" src={groupe9888} />
-                <div className="ellipse-224 border-3px-blue"></div>
-                <div className="ellipse-225 border-3px-blue"></div>
-                <div className="rectangle-16871 border-3px-caribbean-green"></div>
-                <div className="ellipse-226 border-3px-blue"></div>
-                <div className="ellipse-227 border-3px-blue"></div>
-                <div className="ellipse-230 border-3px-pomegranate"></div>
-              </div>
+      <div className="ecgpage screen ">
+        <Link to="/searchpage">
+          <div className="back-button">
+            <div className="rectangle-16874"></div>
+            <div className="back-text axiforma-book-normal-blue-30px">
+              {backtext}
             </div>
           </div>
-          <div className="auto-flex22">
-            <div className="ellipse-228 border-3px-blue"></div>
-            <div className="ellipse-229 border-3px-pomegranate"></div>
-            <div className="rectangle-16872 border-3px-caribbean-green"></div>
+        </Link>
+        <div className="auto-flex2">
+          <div className="ecg-title axiforma-bold-blue-70px">{ecgtitle}</div>
+          <div className="overlap-group2">
+            <div className="map">
+              <img className="map-item" src={maplight} />
+              <img className="map-item" src={mapshadow} />
+              <img className="map-rim-light" src={maprimlight} />
+              <img className="map-item" src={map} />
+            </div>
+            <div className="green-tracker border-3px-caribbean-green"></div>
+            <div className="orange-tracker border-3px-pomegranate"></div>
+            <div className="blue-tracker4 border-3px-blue"></div>
+            <div className="blue-tracker3 border-3px-blue"></div>
+            <div className="blue-tracker2 border-3px-blue"></div>
+            <div className="blue-tracker1 border-3px-blue"></div>
           </div>
         </div>
-        <div className="auto-flex42">
-          <div className="oxygne axiforma-medium-dove-gray-25px">{oxygne}</div>
-          <div className="oxygne-conseill axiforma-medium-dove-gray-25px">
-            {oxygneConseill}
+        <div className="auto-flex1">
+          <div className="caption-tracker1 border-3px-blue"></div>
+          <div className="caption-tracker2 border-3px-pomegranate"></div>
+          <div className="caption-tracker3 border-3px-caribbean-green"></div>
+        </div>
+        <div className="auto-flex22">
+          <div className="caption1 axiforma-medium-dove-gray-25px">
+            {caption1}
           </div>
-          <div className="votre-position axiforma-medium-dove-gray-25px">
-            {votrePosition}
+          <div className="caption2 axiforma-medium-dove-gray-25px">
+            {caption2}
+          </div>
+          <div className="caption3 axiforma-medium-dove-gray-25px">
+            {caption3}
           </div>
         </div>
       </div>
@@ -298,4 +288,4 @@ function HRStatisticsDashboard4(props) {
   );
 }
 
-export default HRStatisticsDashboard4;
+export default ECGPage;

@@ -9,7 +9,7 @@ import MenuDrawer from '../components/MenuDrawer';
 import TopBar from '../components/TopBar';
 
 import ItemsPage from './ItemsPage';
-import HomePage from './HomePage';
+import SearchPage from './SearchPage/SearchPage';
 import AddItemPage from './AddItemPage';
 import MaintenancePage from './MaintenancePage';
 
@@ -104,7 +104,7 @@ export default function MainSwitch() {
           </Route>
 
           <Route path="/">
-            <HomePage />
+            <SearchPage />
           </Route>
         </Switch>
       </main>
