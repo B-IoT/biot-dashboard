@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import './Composant35.css';
 
 function Composant35(props) {

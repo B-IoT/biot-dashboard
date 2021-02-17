@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './ECGPage.css';
+import './MapPage.css';
 
-function ECGPage(props) {
+function MapPage(props) {
   const {
     backtext,
     ecgtitle,
@@ -288,4 +288,4 @@ function ECGPage(props) {
   );
 }
 
-export default ECGPage;
+export default MapPage;

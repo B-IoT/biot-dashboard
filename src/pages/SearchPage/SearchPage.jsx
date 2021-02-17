@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Composant35 from '../../components/Composant35';
+import Composant35 from '../../components/Composant35/Composant35';
 import './SearchPage.css';
 
 function SearchPage(props) {

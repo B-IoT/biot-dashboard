@@ -5,13 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
-import MenuDrawer from '../components/MenuDrawer';
-import TopBar from '../components/TopBar';
-
-import ItemsPage from './ItemsPage';
 import SearchPage from './SearchPage/SearchPage';
-import AddItemPage from './AddItemPage';
-import MaintenancePage from './MaintenancePage';
+import MapPage from './MapPage/MapPage';
 
 import { drawerWidth } from '../utils/constants';
 
@@ -82,8 +77,6 @@ export default function MainSwitch() {
 
   return (
     <div className={classes.root}>
-      <TopBar isMenuDrawerOpen={open} onMenuButtonClick={handleDrawerOpen} />
-      <MenuDrawer isOpen={open} handleDrawerClose={handleDrawerClose} />
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
@@ -91,16 +84,8 @@ export default function MainSwitch() {
       >
         <div className={classes.drawerHeader} />
         <Switch>
-          <Route path="/maintenance">
-            <MaintenancePage />
-          </Route>
-
-          <Route path="/items/add">
-            <AddItemPage />
-          </Route>
-
-          <Route path="/items">
-            <ItemsPage />
+          <Route path="/localisation">
+            <MapPage />
           </Route>
 
           <Route path="/">
