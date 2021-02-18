@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Composant35 from '../../components/Composant35/Composant35';
+import SearchBar from '../../components/SearchBar/SearchBar';
+
 import './SearchPage.css';
 
 function SearchPage(props) {
@@ -44,19 +46,12 @@ function SearchPage(props) {
         <div className="search-title axiforma-bold-blue-70px">
           {searchtitle}
         </div>
-        <div className="search-bar">
-          <div className="overlap-group20">
-            <div className="rectangle-16827 border-10px-geyser"></div>
-            <div className="rectangle-16853 border-class-1"></div>
-            <div className="search-blur"></div>
-            <div className="search-text axiforma-light-blue-21px">
-              {searchtext}
-            </div>
-          </div>
-        </div>
-        <div className="auto-flex4">
+
+        <SearchBar searchtext={searchtext} />
+
+        <div className="result-grid">
           <div className="auto-flex3">
-            <Link to="/ecgpage">
+            <Link to="/tracking">
               <div className="link">
                 <div className="overlap-group19">
                   <div className="ecg-icon">
@@ -88,7 +83,7 @@ function SearchPage(props) {
             />
           </div>
           <div className="auto-flex">
-            <Link to="/ecgpage">
+            <Link to="/tracking">
               <div className="bed">
                 <div className="overlap-group18">
                   <div className="ellipse-214"></div>
@@ -117,7 +112,7 @@ function SearchPage(props) {
             />
           </div>
           <div className="auto-flex">
-            <Link to="/ecgpage">
+            <Link to="/tracking">
               <div className="link">
                 <div className="overlap-group17">
                   <div className="oxygen-icon">

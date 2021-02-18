@@ -242,7 +242,7 @@ function MapPage(props) {
   return (
     <div class="container-center-horizontal">
       <div className="ecgpage screen ">
-        <Link to="/searchpage">
+        <Link to="/search">
           <div className="back-button">
             <div className="rectangle-16874"></div>
             <div className="back-text axiforma-book-normal-blue-30px">

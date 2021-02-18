@@ -7,10 +7,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/:path(|searchpage)">
+        <Route path="/:path(|search)">
           <SearchPage {...SearchPageData} />
         </Route>
-        <Route path="/ecgpage">
+        <Route path="/tracking">
           <ECGPage {...eCGPageData} />
         </Route>
       </Switch>
@@ -19,71 +19,7 @@ function App() {
 }
 
 export default App;
-const composant35Data = {
-  text16: '...',
-};
-
-const composant352Data = {
-  text16: '...',
-};
-
-const composant353Data = {
-  text16: '...',
-};
-
-const composant354Data = {
-  text16: '...',
-};
-
-const composant355Data = {
-  text16: '...',
-};
-
-const composant356Data = {
-  text16: '...',
-};
-
-const composant357Data = {
-  text16: '...',
-};
-
-const composant358Data = {
-  text16: '...',
-};
-
-const composant359Data = {
-  text16: '...',
-};
-
-const composant3510Data = {
-  text16: '...',
-};
-
-const composant3511Data = {
-  text16: '...',
-};
-
-const composant3512Data = {
-  text16: '...',
-};
-
-const composant3513Data = {
-  text16: '...',
-};
-
-const composant3514Data = {
-  text16: '...',
-};
-
-const composant3515Data = {
-  text16: '...',
-};
-
-const composant3516Data = {
-  text16: '...',
-};
-
-const composant3517Data = {
+const textPlaceholder = {
   text16: '...',
 };
 
@@ -102,23 +38,23 @@ const SearchPageData = {
   trac1944: '/img/trac--1944@1x.png',
   oxygentext: 'Oxygène',
   logo: '/img/biot---color-transparent-1@1x.png',
-  composant35Props: composant35Data,
-  composant352Props: composant352Data,
-  composant353Props: composant353Data,
-  composant354Props: composant354Data,
-  composant355Props: composant355Data,
-  composant356Props: composant356Data,
-  composant357Props: composant357Data,
-  composant358Props: composant358Data,
-  composant359Props: composant359Data,
-  composant3510Props: composant3510Data,
-  composant3511Props: composant3511Data,
-  composant3512Props: composant3512Data,
-  composant3513Props: composant3513Data,
-  composant3514Props: composant3514Data,
-  composant3515Props: composant3515Data,
-  composant3516Props: composant3516Data,
-  composant3517Props: composant3517Data,
+  composant35Props: textPlaceholder,
+  composant352Props: textPlaceholder,
+  composant353Props: textPlaceholder,
+  composant354Props: textPlaceholder,
+  composant355Props: textPlaceholder,
+  composant356Props: textPlaceholder,
+  composant357Props: textPlaceholder,
+  composant358Props: textPlaceholder,
+  composant359Props: textPlaceholder,
+  composant3510Props: textPlaceholder,
+  composant3511Props: textPlaceholder,
+  composant3512Props: textPlaceholder,
+  composant3513Props: textPlaceholder,
+  composant3514Props: textPlaceholder,
+  composant3515Props: textPlaceholder,
+  composant3516Props: textPlaceholder,
+  composant3517Props: textPlaceholder,
 };
 
 const eCGPageData = {
