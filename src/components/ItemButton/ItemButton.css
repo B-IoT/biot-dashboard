@@ -1,11 +1,16 @@
 .composant-3- {
   height: 210px;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
 }
 .composant-3-25 {
   height: 210px;
-  margin-top: unset;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }
 .composant-3-5 {
   align-items: flex-start;
@@ -16,18 +21,23 @@
   filter: blur(5px);
   margin-top: 70px;
   min-width: 210px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
 }
 .overlap-group15 {
-  align-items: flex-start;
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
   box-shadow: -20px -20px 30px rgba(255, 255, 255, 1);
-  display: flex;
   filter: blur(5px);
   height: 210px;
-  justify-content: flex-end;
   min-width: 210px;
   padding: 24px 59px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
 }
 .text-16 {
   letter-spacing: 0px;
@@ -36,4 +46,16 @@
   min-width: 90px;
   text-align: center;
   white-space: nowrap;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 4;
+}
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 210px;
+  height: 210px;
+  position: relative;
 }

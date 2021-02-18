@@ -1,115 +1,75 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Composant35 from '../../components/Composant35/Composant35';
+import ItemButton from '../../components/ItemButton/ItemButton';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 import './SearchPage.css';
 
 function SearchPage(props) {
   const {
-    searchtitle,
-    searchtext,
-    trac1945,
-    trac1946,
-    trac1947,
-    trac1948,
-    ecgtext,
-    trac1949,
-    bedtext,
+    searchTitle,
+    searchText,
+    ecgText,
+    ecgIcon,
+    bedText,
+    bedIcon,
+    oxygenText,
+    oxygenIcon,
     overlapGroup,
-    trac1943,
-    trac1944,
-    oxygentext,
     logo,
-    composant35Props,
-    composant352Props,
-    composant353Props,
-    composant354Props,
-    composant355Props,
-    composant356Props,
-    composant357Props,
-    composant358Props,
-    composant359Props,
-    composant3510Props,
-    composant3511Props,
-    composant3512Props,
-    composant3513Props,
-    composant3514Props,
-    composant3515Props,
-    composant3516Props,
-    composant3517Props,
+    placeHolder,
   } = props;
 
   return (
-    <div class="container-center-horizontal">
+    <container-center-horizontal>
       <div className="searchpage screen ">
         <div className="search-title axiforma-bold-blue-70px">
-          {searchtitle}
+          {' '}
+          {searchTitle}{' '}
         </div>
 
-        <SearchBar searchtext={searchtext} />
+        <SearchBar searchText={searchText} />
 
         <div className="result-grid">
-          <div className="auto-flex3">
+          <div className="auto-flex">
             <Link to="/tracking">
               <div className="link">
                 <div className="overlap-group19">
                   <div className="ecg-icon">
                     <div className="overlap-group">
-                      <img className="trac-1945" src={trac1945} />
-                      <img className="trac-1946" src={trac1946} />
-                      <img className="trac-1947" src={trac1947} />
-                      <img className="trac-1948" src={trac1948} />
+                      <img
+                        src={process.env.PUBLIC_URL + ecgIcon}
+                        alt="ECG icon"
+                      />
                     </div>
                   </div>
                   <div className="ecg-text axiforma-medium-blue-18px">
-                    {ecgtext}
+                    {ecgText}
                   </div>
                 </div>
               </div>
             </Link>
-            <Composant35 text16={composant35Props.text16} />
-            <Composant35
-              text16={composant352Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant353Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant354Props.text16}
-              className="composant-3-"
-            />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
           </div>
           <div className="auto-flex">
             <Link to="/tracking">
               <div className="bed">
                 <div className="overlap-group18">
-                  <div className="ellipse-214"></div>
-                  <img className="trac-1949" src={trac1949} />
+                  <div className="ellipse-214" />
+                  <img className="trac-1949" src={bedIcon} />
                   <div className="bed-text axiforma-medium-blue-18px">
-                    {bedtext}
+                    {bedText}
                   </div>
                 </div>
               </div>
             </Link>
-            <Composant35
-              text16={composant355Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant356Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant357Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant358Props.text16}
-              className="composant-3-"
-            />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
           </div>
           <div className="auto-flex">
             <Link to="/tracking">
@@ -120,59 +80,31 @@ function SearchPage(props) {
                       className="overlap-group-1"
                       style={{ backgroundImage: `url(${overlapGroup})` }}
                     >
-                      <img className="trac-1943" src={trac1943} />
-                      <img className="trac-1944" src={trac1944} />
+                      <img className="trac-1943" src={oxygenIcon} />
                     </div>
                   </div>
                   <div className="oxygen-text axiforma-medium-blue-19px">
-                    {oxygentext}
+                    {oxygenText}
                   </div>
                 </div>
               </div>
             </Link>
-            <Composant35
-              text16={composant359Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant3510Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant3511Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant3512Props.text16}
-              className="composant-3-"
-            />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
           </div>
           <div className="auto-flex">
-            <Composant35
-              text16={composant3513Props.text16}
-              className="composant-3-25"
-            />
-            <Composant35
-              text16={composant3514Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant3515Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant3516Props.text16}
-              className="composant-3-"
-            />
-            <Composant35
-              text16={composant3517Props.text16}
-              className="composant-3-"
-            />
+            <ItemButton text16={placeHolder.text16} className="composant-3-" />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
+            <ItemButton text16={placeHolder.text16} />
           </div>
           <img className="logo" src={logo} />
         </div>
       </div>
-    </div>
+    </container-center-horizontal>
   );
 }
 

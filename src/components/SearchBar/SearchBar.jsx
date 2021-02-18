@@ -2,7 +2,7 @@ import * as React from 'react';
 import './SearchBar.css';
 
 export default function SearchBar(props) {
-  const { searchtext } = props;
+  const { searchText } = props;
 
   return (
     <div className="search-bar">
@@ -10,7 +10,7 @@ export default function SearchBar(props) {
         <div className="rectangle-16827 border-10px-geyser" />
         <div className="rectangle-16853 border-class-1" />
         <div className="search-blur" />
-        <div className="search-text axiforma-light-blue-21px">{searchtext}</div>
+        <div className="search-text axiforma-light-blue-21px">{searchText}</div>
       </div>
     </div>
   );
