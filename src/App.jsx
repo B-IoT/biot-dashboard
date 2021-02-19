@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/:path(|search)">
-          <SearchPage {...SearchPageData} />
+          <SearchPage />
         </Route>
         <Route path="/tracking">
           <ECGPage {...eCGPageData} />
@@ -19,18 +19,6 @@ function App() {
 }
 
 export default App;
-
-const SearchPageData = {
-  searchTitle: 'Que cherchez-vous ?',
-  searchText: 'Rechercher',
-
-  ecgText: 'ECG',
-  bedText: 'Lit',
-  oxygenText: 'Oxygène',
-
-  logo: '/img/biot---color-transparent-1@1x.png',
-  placeHolder: '...',
-};
 
 const eCGPageData = {
   backtext: '< Retour',

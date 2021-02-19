@@ -11,56 +11,55 @@ import logo from '../../img/logo.png';
 
 import './SearchPage.css';
 
-function SearchPage(props) {
-  const {
-    searchTitle,
-    searchText,
-    ecgText,
-    bedText,
-    oxygenText,
-    placeHolder,
-  } = props;
+function SearchPage() {
+  const constants = {
+    placeHolderText: '...',
+  };
 
   return (
     <div className="search-page screen ">
-      <h1 className="search-title axiforma-bold-blue-70px">{searchTitle}</h1>
-      <SearchBar searchText={searchText} />
+      <h1 className="search-title axiforma-bold-blue-70px">
+        {'Que cherchez-vous ?'}
+      </h1>
+      <SearchBar searchText={'Rechercher'} />
       <div className="result-grid">
         <div className="auto-flex">
           <Link to="/tracking" style={{ textDecoration: 'none' }}>
-            <ItemButton text={ecgText} icon={ecgIcon} />
+            <ItemButton text={'ECG'} icon={ecgIcon} />
           </Link>
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
         </div>
         <div className="auto-flex">
           <Link to="/tracking" style={{ textDecoration: 'none' }}>
-            <ItemButton text={bedText} icon={bedIcon} />
+            <ItemButton text={'Lit'} icon={bedIcon} />
           </Link>
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
         </div>
         <div className="auto-flex">
           <Link to="/tracking" style={{ textDecoration: 'none' }}>
-            <ItemButton text={oxygenText} icon={oxygenIcon} />
+            <ItemButton text={'Oxygène'} icon={oxygenIcon} />
           </Link>
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
         </div>
         <div className="auto-flex">
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
-          <PlaceholderButton text={placeHolder} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
+          <PlaceholderButton text={constants.placeHolderText} />
         </div>
-        <img className="logo" src={logo} alt="BIoT logo" />
+        <a href="https://biot.webflow.io">
+          <img className="logo" src={logo} alt="BIoT logo" />
+        </a>
       </div>
     </div>
   );

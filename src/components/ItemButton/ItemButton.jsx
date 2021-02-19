@@ -3,8 +3,6 @@ import React from 'react';
 import './ItemButton.css';
 
 export default function ItemButton({ text, icon }) {
-  const [animate, setAnimate] = React.useState(0);
-
   return (
     <div className="item-container">
       <div className="item-light" />
