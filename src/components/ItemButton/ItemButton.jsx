@@ -1,16 +1,50 @@
 import React from 'react';
+import styled from '@emotion/styled/macro';
 
 import './ItemButton.css';
+import { Link } from 'react-router-dom';
+
+const FadeIn = styled.div({
+  opacity: 0,
+  transition: 'opacity 250ms ease',
+});
+
+const FadeOut = styled.div({
+  opacity: 1,
+  transition: 'opacity 250ms ease',
+});
+
+const Scale = styled.div({
+  transform: 'scale(1)',
+  transition: 'transform 250ms ease',
+});
+
+const Hover = styled.div({
+  [`:hover ${FadeIn}`]: {
+    opacity: 1,
+  },
+  [`:hover ${FadeOut}`]: {
+    opacity: 0,
+  },
+  [`:hover ${Scale}`]: {
+    transform: 'scale(0.9)',
+  },
+});
 
 export default function ItemButton({ text, icon }) {
   return (
-    <div className="item-container">
-      <div className="item-light" />
-      <div className="item-shadow" />
-      <div className="text-container">
-        <img className="item-icon" src={icon} alt="Item icon" />
-        <div className="item-text axiforma-medium-blue-18px"> {text} </div>
-      </div>
-    </div>
+    <Link to="/tracking" style={{ textDecoration: 'none' }}>
+      <Hover className="item-container">
+        <FadeIn className="item-pressed" />
+        <FadeOut className="button-container">
+          <div className="item-light" />
+          <div className="item-shadow" />
+        </FadeOut>
+        <Scale className="text-container">
+          <img className="item-icon" src={icon} alt="Item icon" />
+          <div className="item-text axiforma-medium-blue-18px"> {text} </div>
+        </Scale>
+      </Hover>
+    </Link>
   );
 }
