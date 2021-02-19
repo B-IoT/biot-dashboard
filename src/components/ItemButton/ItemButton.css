@@ -1,61 +1,53 @@
-.composant-3- {
-  height: 210px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 0;
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
+
+* {
+  box-sizing: border-box;
 }
-.composant-3-25 {
+
+.item-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  position: relative;
   height: 210px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
+  width: 210px;
 }
-.composant-3-5 {
-  align-items: flex-start;
+
+.item-shadow {
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
   box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
-  display: flex;
   filter: blur(5px);
-  margin-top: 70px;
-  min-width: 210px;
   position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
+  height: 210px;
+  width: 210px;
 }
-.overlap-group15 {
+
+.item-light {
   background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
   border-radius: 105px;
   box-shadow: -20px -20px 30px rgba(255, 255, 255, 1);
   filter: blur(5px);
+  position: absolute;
   height: 210px;
-  min-width: 210px;
-  padding: 24px 59px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-}
-.text-16 {
-  letter-spacing: 0px;
-  line-height: 120px;
-  min-height: 122px;
-  min-width: 90px;
-  text-align: center;
-  white-space: nowrap;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 4;
-}
-.container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
   width: 210px;
-  height: 210px;
+}
+
+.text-container {
+  display: flex;
   position: relative;
+  flex-direction: column;
+}
+
+.item-icon {
+  position: relative;
+  height: 80px;
+  flex: 1;
+}
+
+.item-text {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
 }

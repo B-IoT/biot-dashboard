@@ -7,14 +7,6 @@
   position: relative;
   width: 210px;
 }
-.auto-flex3 {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  min-height: 1330px;
-  position: relative;
-  width: 210px;
-}
 .result-grid {
   align-items: center;
   align-self: flex-end;
@@ -175,32 +167,6 @@
   top: 3px;
   width: 523px;
 }
-.search-bar {
-  align-items: flex-start;
-  display: flex;
-  height: 83px;
-  margin-left: 0.46px;
-  margin-top: 30px;
-  min-width: 537px;
-}
-.search-blur {
-  -webkit-backdrop-filter: blur(4px) brightness(100%);
-  backdrop-filter: blur(4px) brightness(100%);
-  border-radius: 39px;
-  height: 83px;
-  left: 22px;
-  position: absolute;
-  top: 15px;
-  width: 537px;
-}
-.search-text {
-  left: 84px;
-  letter-spacing: 0px;
-  line-height: 53px;
-  position: absolute;
-  top: 31px;
-  white-space: nowrap;
-}
 .search-title {
   letter-spacing: 0px;
   line-height: 70px;
@@ -218,49 +184,4 @@
   min-height: 1910px;
   padding: 75px 25px;
   width: 1920px;
-}
-.trac-1943 {
-  height: 3px;
-  margin-right: 1.93px;
-  width: 9px;
-}
-.trac-1944 {
-  height: 4px;
-  margin-top: 2px;
-  width: 13px;
-}
-.trac-1945 {
-  height: 4px;
-  left: 44px;
-  position: absolute;
-  top: 61px;
-  width: 4px;
-}
-.trac-1946 {
-  height: 91px;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 91px;
-}
-.trac-1947 {
-  height: 58px;
-  left: 7px;
-  position: absolute;
-  top: 7px;
-  width: 77px;
-}
-.trac-1948 {
-  height: 28px;
-  left: 14px;
-  position: absolute;
-  top: 22px;
-  width: 63px;
-}
-.trac-1949 {
-  height: 92px;
-  left: 60px;
-  position: absolute;
-  top: 49px;
-  width: 92px;
 }

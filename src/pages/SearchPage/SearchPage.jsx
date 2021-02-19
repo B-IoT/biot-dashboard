@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom';
 import ItemButton from '../../components/ItemButton/ItemButton';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
+import ecgIcon from '../../img/ecgIcon.svg';
+import bedIcon from '../../img/bedIcon.svg';
+import oxygenIcon from '../../img/oxygenIcon.svg';
+
 import './SearchPage.css';
+import PlaceholderButton from '../../components/ItemButton/PlaceholderButton';
 
 function SearchPage(props) {
   const {
     searchTitle,
     searchText,
     ecgText,
-    ecgIcon,
     bedText,
-    bedIcon,
     oxygenText,
-    oxygenIcon,
-    overlapGroup,
     logo,
     placeHolder,
   } = props;
@@ -32,74 +33,38 @@ function SearchPage(props) {
 
         <div className="result-grid">
           <div className="auto-flex">
-            <Link to="/tracking">
-              <div className="link">
-                <div className="overlap-group19">
-                  <div className="ecg-icon">
-                    <div className="overlap-group">
-                      <img
-                        src={process.env.PUBLIC_URL + ecgIcon}
-                        alt="ECG icon"
-                      />
-                    </div>
-                  </div>
-                  <div className="ecg-text axiforma-medium-blue-18px">
-                    {ecgText}
-                  </div>
-                </div>
-              </div>
+            <Link to="/tracking" style={{ textDecoration: 'none' }}>
+              <ItemButton text={ecgText} icon={ecgIcon} />
             </Link>
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
           </div>
           <div className="auto-flex">
-            <Link to="/tracking">
-              <div className="bed">
-                <div className="overlap-group18">
-                  <div className="ellipse-214" />
-                  <img className="trac-1949" src={bedIcon} />
-                  <div className="bed-text axiforma-medium-blue-18px">
-                    {bedText}
-                  </div>
-                </div>
-              </div>
+            <Link to="/tracking" style={{ textDecoration: 'none' }}>
+              <ItemButton text={bedText} icon={bedIcon} />
             </Link>
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
           </div>
           <div className="auto-flex">
-            <Link to="/tracking">
-              <div className="link">
-                <div className="overlap-group17">
-                  <div className="oxygen-icon">
-                    <div
-                      className="overlap-group-1"
-                      style={{ backgroundImage: `url(${overlapGroup})` }}
-                    >
-                      <img className="trac-1943" src={oxygenIcon} />
-                    </div>
-                  </div>
-                  <div className="oxygen-text axiforma-medium-blue-19px">
-                    {oxygenText}
-                  </div>
-                </div>
-              </div>
+            <Link to="/tracking" style={{ textDecoration: 'none' }}>
+              <ItemButton text={oxygenText} icon={oxygenIcon} />
             </Link>
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
           </div>
           <div className="auto-flex">
-            <ItemButton text16={placeHolder.text16} className="composant-3-" />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
-            <ItemButton text16={placeHolder.text16} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
+            <PlaceholderButton text={placeHolder} />
           </div>
           <img className="logo" src={logo} />
         </div>

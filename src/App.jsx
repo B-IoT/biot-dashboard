@@ -19,23 +19,17 @@ function App() {
 }
 
 export default App;
-const textPlaceholder = {
-  text16: '...',
-};
 
 const SearchPageData = {
   searchTitle: 'Que cherchez-vous ?',
   searchText: 'Rechercher',
 
   ecgText: 'ECG',
-  ecgIcon: '/img/ECGIcon.png',
   bedText: 'Lit',
-  bedIcon: '/img/bedIcon.png',
   oxygenText: 'Oxygène',
-  oxygenIcon: '/img/oxygenIcon.png',
 
   logo: '/img/biot---color-transparent-1@1x.png',
-  placeHolder: textPlaceholder,
+  placeHolder: '...',
 };
 
 const eCGPageData = {

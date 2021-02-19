@@ -22,8 +22,6 @@
 
 .overlap-group {
   height: 107px;
-  margin-left: -22px;
-  margin-top: -15px;
   position: relative;
   width: 559px;
 }
@@ -55,6 +53,7 @@
   height: 83px;
   overflow: hidden;
   width: 537px;
+  margin-top: 30px;
 }
 
 .search-blur {
