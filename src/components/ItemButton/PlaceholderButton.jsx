@@ -42,8 +42,7 @@ export default function PlaceholderButton() {
         </FadeOut>
         <Scale className="text-container">
           <div className="placeholder-text axiforma-semi-bold-spindle-120px">
-            {' '}
-            {'...'}{' '}
+            {'...'}
           </div>
         </Scale>
       </Hover>

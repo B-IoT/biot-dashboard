@@ -6,10 +6,11 @@ export default function SearchBar(props) {
 
   return (
     <div className="search-bar">
-      <div className="overlap-group">
-        <div className="rectangle-16827 border-10px-geyser" />
-        <div className="rectangle-16853 border-class-1" />
-        <div className="search-blur" />
+      <div className="search-mask">
+        <div className="search-shadow" />
+        <div className="search-light" />
+      </div>
+      <div className="search-blur">
         <div className="search-text axiforma-light-blue-21px">{searchText}</div>
       </div>
     </div>

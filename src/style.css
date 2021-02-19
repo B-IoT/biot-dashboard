@@ -85,9 +85,6 @@
   font-style: normal;
   font-weight: 600;
 }
-.border-10px-geyser {
-  border: 10px solid var(--geyser);
-}
 .border-3px-blue {
   border: 3px solid var(--blue);
 }
@@ -97,18 +94,20 @@
 .border-3px-pomegranate {
   border: 3px solid var(--pomegranate);
 }
-.border-class-1 {
-  border: 10px solid rgba(255, 255, 255, 1);
-}
 :root {
   --blue: rgba(38, 115, 232, 1);
   --blue-2: rgba(38, 115, 232, 0.251);
   --caribbean-green: rgba(0, 228, 146, 1);
   --caribbean-green-2: rgba(0, 228, 146, 0.251);
   --dove-gray: rgba(112, 112, 112, 1);
-  --geyser: rgba(212, 218, 230, 1);
+  --geyser: rgb(212, 218, 230);
   --pomegranate: rgba(255, 73, 29, 1);
   --pomegranate-2: rgba(255, 73, 29, 0.251);
   --selago: rgba(238, 242, 251, 1);
   --spindle: rgba(191, 208, 242, 1);
+
+  --light: rgba(249, 251, 255, 1);
+  --shadow: rgba(227, 233, 245, 1);
+  --lighter-light: rgba(255, 255, 255, 1);
+  --darker-shadow: rgba(210, 220, 241, 1);
 }
