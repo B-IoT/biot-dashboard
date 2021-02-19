@@ -51,3 +51,9 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.placeholder-text {
+  position: relative;
+  text-align: center;
+  margin-top: -60px;
+}

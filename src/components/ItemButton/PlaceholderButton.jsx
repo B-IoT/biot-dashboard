@@ -7,7 +7,10 @@ export default function PlaceholderButton({ text }) {
     <div className="item-container">
       <div className="item-light" />
       <div className="item-shadow" />
-      <div className="item-text axiforma-semi-bold-spindle-120px"> {text} </div>
+      <div className="placeholder-text axiforma-semi-bold-spindle-120px">
+        {' '}
+        {text}{' '}
+      </div>
     </div>
   );
 }
