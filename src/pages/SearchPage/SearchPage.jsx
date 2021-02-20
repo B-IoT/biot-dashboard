@@ -9,6 +9,7 @@ import oxygenIcon from '../../img/oxygenIcon.svg';
 import logo from '../../img/logo.png';
 
 import './SearchPage.css';
+import Logo from '../../components/Logo/Logo';
 
 function SearchPage() {
   return (
@@ -46,9 +47,7 @@ function SearchPage() {
           <PlaceholderButton />
           <PlaceholderButton />
         </div>
-        <a href="https://biot.webflow.io">
-          <img className="logo" src={logo} alt="BIoT logo" />
-        </a>
+        <Logo />
       </div>
     </div>
   );
