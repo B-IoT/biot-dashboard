@@ -1,43 +1,51 @@
 .back-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 37px;
-    height: 75px;
-    position: absolute;
-    width: 180px;
-    top: 50px;
-    left: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 37px;
+  height: 75px;
+  position: absolute;
+  width: 180px;
+  top: 50px;
+  left: 50px;
 }
 
 .back-pressed {
-    background: linear-gradient(157.37deg, var(--darker-shadow) 13.29%, var(--lighter-light) 84.76%);
-    border-radius: 37px;
-    filter: blur(8px);
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  background: linear-gradient(
+    157.37deg,
+    var(--darker-shadow) 13.29%,
+    var(--lighter-light) 84.76%
+  );
+  border-radius: 37px;
+  filter: blur(8px);
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .back-shadow {
-    box-shadow: 10px 10px 10px var(--darker-shadow);
-    border-radius: 37px;
-    filter: blur(4px);
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  box-shadow: 10px 10px 10px var(--darker-shadow);
+  border-radius: 37px;
+  filter: blur(4px);
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .back-light {
-    background: linear-gradient(157.37deg, var(--light) 13.29%, var(--shadow) 84.76%);
-    box-shadow: -10px -10px 10px var(--lighter-light);
-    border-radius: 37px;
-    filter: blur(4px);
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  background: linear-gradient(
+    157.37deg,
+    var(--light) 13.29%,
+    var(--shadow) 84.76%
+  );
+  box-shadow: -10px -10px 10px var(--lighter-light);
+  border-radius: 37px;
+  filter: blur(4px);
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .back-text {
-    position: absolute;
+  position: absolute;
 }

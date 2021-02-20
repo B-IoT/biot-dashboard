@@ -39,7 +39,7 @@ export default function BackButton() {
         <FadeOut className="back-shadow" />
         <FadeOut className="back-light" />
         <Scale className="back-text axiforma-book-normal-blue-30px">
-          {"Retour"}
+          {'< Retour'}
         </Scale>
       </Hover>
     </Link>
