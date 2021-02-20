@@ -1,39 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './MapPage.css';
+import BackButton from '../../components/BackButton/BackButton';
 
-function MapPage(props) {
-  const {
-    backtext,
-    ecgtitle,
-    maplight,
-    mapshadow,
-    maprimlight,
-    map,
-    caption1,
-    caption2,
-    caption3,
-  } = props;
+function MapPage() {
 
   return (
     <div class="map-page">
-      <Link to="/search">
-        <div className="back-button">
-          <div className="back-shadow" />
-          <div className="back-light" />
-          <div className="back-text axiforma-book-normal-blue-30px">
-            {backtext}
-          </div>
-        </div>
-      </Link>
+      <BackButton/>
+      <h1 className="axiforma-book-normal-blue-50px">
+        {'Voici les ECG à proximité'}
+      </h1>
       <div className="auto-flex2">
-        <div className="ecg-title axiforma-bold-blue-70px">{ecgtitle}</div>
         <div className="overlap-group2">
           <div className="map">
-            <img className="map-item" src={maplight} />
-            <img className="map-item" src={mapshadow} />
-            <img className="map-rim-light" src={maprimlight} />
-            <img className="map-item" src={map} />
           </div>
           <div className="green-tracker border-3px-caribbean-green" />
           <div className="orange-tracker border-3px-pomegranate" />
@@ -50,13 +29,13 @@ function MapPage(props) {
       </div>
       <div className="auto-flex22">
         <div className="caption1 axiforma-medium-dove-gray-25px">
-          {caption1}
+          {"ECG"}
         </div>
         <div className="caption2 axiforma-medium-dove-gray-25px">
-          {caption2}
+          {"ECG conseillé"}
         </div>
         <div className="caption3 axiforma-medium-dove-gray-25px">
-          {caption3}
+          {"Votre position"}
         </div>
       </div>
     </div>

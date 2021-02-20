@@ -17,9 +17,9 @@
 }
 
 .item-shadow {
-  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
+  background: linear-gradient(141.8deg, var(--light) 13.29%, var(--shadow) 84.76%);
   border-radius: 105px;
-  box-shadow: 20px 20px 30px rgba(205, 215, 233, 1);
+  box-shadow: 20px 20px 30px var(--darker-shadow);
   filter: blur(5px);
   position: absolute;
   height: 210px;
@@ -27,9 +27,9 @@
 }
 
 .item-light {
-  background: linear-gradient(141.8deg, #f9fbff 13.29%, #e3e9f5 84.76%);
+  background: linear-gradient(141.8deg, var(--light) 13.29%, var(--shadow) 84.76%);
   border-radius: 105px;
-  box-shadow: -20px -20px 30px rgba(255, 255, 255, 1);
+  box-shadow: -20px -20px 30px var(--lighter-light);
   filter: blur(5px);
   position: absolute;
   height: 210px;
@@ -37,7 +37,7 @@
 }
 
 .item-pressed {
-  background: linear-gradient(141.8deg, #d2dcf1 13.29%, #ffffff 84.76%);
+  background: linear-gradient(141.8deg, var(--darker-shadow) 13.29%, var(--lighter-light) 84.76%);
   border-radius: 105px;
   filter: blur(10px);
   position: absolute;
