@@ -6,7 +6,9 @@
   border-radius: 105px;
   height: 210px;
   width: 210px;
-  margin: 30px;
+  margin: 20px;
+  transform: scale(0.9);
+  -webkit-transform-origin: center;
 }
 
 .button-container {

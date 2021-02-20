@@ -3,11 +3,8 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
-  padding-top: 75px;
-  padding-bottom: 75px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80vw;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .search-title {
@@ -22,8 +19,8 @@
 .result-grid {
   align-items: center;
   display: flex;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .logo {
