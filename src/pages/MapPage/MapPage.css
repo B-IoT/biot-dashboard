@@ -1,3 +1,12 @@
+.map-page {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
 .auto-flex1 {
   align-items: flex-start;
   display: flex;
@@ -26,24 +35,39 @@
   width: 176px;
 }
 .back-button {
-  background-color: var(--selago);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 37px;
-  box-shadow: 7px 7px 10px rgba(205, 215, 233, 1);
-  filter: blur(2px);
-  height: 73px;
-  margin-top: 50px;
-  position: relative;
-  width: 182px;
+  height: 75px;
+  position: absolute;
+  width: 180px;
+  top: 50px;
+  left: 50px;
+}
+.back-shadow {
+  box-shadow: 7px 7px 10px var(--darker-shadow);
+  border-radius: 37px;
+  filter: blur(4px);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.back-light {
+  background: linear-gradient(
+    157.37deg,
+    var(--light) -7.76%,
+    var(--shadow) 129.65%
+  );
+  box-shadow: -7px -7px 10px var(--lighter-light);
+  border-radius: 37px;
+  filter: blur(4px);
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 .back-text {
-  height: 32px;
-  left: 30px;
-  letter-spacing: 0px;
-  line-height: 53px;
   position: absolute;
-  top: 12px;
-  white-space: nowrap;
-  width: 124px;
 }
 .blue-tracker1 {
   background-color: var(--blue-2);
@@ -129,14 +153,6 @@
   text-align: center;
   white-space: nowrap;
 }
-.ecgpage {
-  align-items: flex-start;
-  background-color: var(--selago);
-  display: flex;
-  height: 1080px;
-  min-width: 1920px;
-  padding: 0 48px;
-}
 .green-tracker {
   background-color: var(--caribbean-green-2);
   height: 19px;
@@ -180,17 +196,6 @@
   margin-top: 77px;
   position: relative;
   width: 1183px;
-}
-.rectangle-16874 {
-  background: linear-gradient(157.37deg, #ffffff -7.76%, #d2dcf1 129.65%);
-  border-radius: 37px;
-  box-shadow: -7px -7px 10px rgba(255, 255, 255, 1);
-  filter: blur(8.17197036743164px);
-  height: 100%;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 100%;
 }
 .trac-1950 {
   height: 498px;
