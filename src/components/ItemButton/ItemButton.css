@@ -14,6 +14,7 @@
   justify-content: center;
   align-items: center;
   position: absolute;
+  will-change: opacity;
 }
 
 .item-shadow {
@@ -55,12 +56,14 @@
   position: absolute;
   height: 210px;
   width: 210px;
+  will-change: opacity;
 }
 
 .text-container {
   display: flex;
   position: relative;
   flex-direction: column;
+  will-change: transform;
 }
 
 .item-icon {

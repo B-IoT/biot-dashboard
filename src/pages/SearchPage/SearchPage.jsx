@@ -12,7 +12,7 @@ import './SearchPage.css';
 
 function SearchPage() {
   return (
-    <div className="search-page screen ">
+    <div className="search-page">
       <h1 className="search-title axiforma-bold-blue-70px">
         {'Que cherchez-vous ?'}
       </h1>
