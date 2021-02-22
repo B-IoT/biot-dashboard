@@ -6,7 +6,6 @@ import PlaceholderButton from '../../components/ItemButton/PlaceholderButton';
 import ecgIcon from '../../img/ecgIcon.svg';
 import bedIcon from '../../img/bedIcon.svg';
 import oxygenIcon from '../../img/oxygenIcon.svg';
-import logo from '../../img/logo.png';
 
 import './SearchPage.css';
 import Logo from '../../components/Logo/Logo';

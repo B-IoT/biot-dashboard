@@ -6,3 +6,8 @@
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
+.map {
+  margin-top: 75px;
+  box-shadow: 0 0 8px 8px var(--background) inset;
+}
