@@ -13,7 +13,10 @@ function MapPage() {
       <h1 className="axiforma-book-normal-blue-50px">
         {'Voici les ECG à proximité'}
       </h1>
-      <ItemMap />
+      <div className="map-container">
+        <ItemMap className="map" />
+        <div className="blurred-edges" />
+      </div>
       <Logo />
     </div>
   );

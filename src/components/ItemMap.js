@@ -16,7 +16,6 @@ function ItemMap() {
       containerStyle={{
         width: '80vw',
         height: '70vh',
-        margin: '70px',
       }}
       center={[6.891924, 46.440896]}
       zoom={[18]}

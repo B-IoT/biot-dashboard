@@ -7,7 +7,24 @@
   padding-bottom: 50px;
 }
 
-.map {
+.map-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
   margin-top: 75px;
-  box-shadow: 0 0 8px 8px var(--background) inset;
+}
+
+.map {
+  position: absolute;
+}
+
+.blurred-edges {
+  border-color: var(--background);
+  border-radius: 100px;
+  border-width: 50px;
+  border-style: solid;
+  filter: blur(5px);
+  height: 75vh;
+  width: 85vw;
+  position: absolute;
 }
