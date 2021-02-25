@@ -1,33 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SearchPage from './pages/SearchPage/SearchPage';
-import ECGPage from './pages/MapPage/MapPage';
+import MapPage from './pages/MapPage/MapPage';
 
-function App() {
+const queryClient = new QueryClient();
+
+export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/:path(|search)">
-          <SearchPage />
-        </Route>
-        <Route path="/tracking">
-          <ECGPage {...eCGPageData} />
-        </Route>
-      </Switch>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <CssBaseline />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={SearchPage} />
+          <Route path="/tracking" component={MapPage} />
+        </Switch>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen />
+    </QueryClientProvider>
   );
 }
-
-export default App;
-
-const eCGPageData = {
-  backtext: '< Retour',
-  ecgtitle: 'Voici les ECG à proximité',
-  maplight: '/img/lumi-re-1@1x.png',
-  mapshadow: '/img/ombre-1@1x.png',
-  maprimlight: '/img/masque-2@1x.png',
-  map: '/img/groupe-9888-2@1x.png',
-  caption1: 'ECG',
-  caption2: 'ECG conseillé',
-  caption3: 'Votre position',
-};

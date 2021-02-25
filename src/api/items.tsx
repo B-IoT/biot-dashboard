@@ -1,11 +1,21 @@
 import axios from 'axios';
 
 const API_URL = 'https://api.b-iot.app:8080';
-// /api/oauth/token
 const API = axios.create({
   baseURL: API_URL,
-  // TODO probably add headers (for auth)
 });
+
+const config = {
+  data: {
+    username: 'andrea',
+    password: 'andrea',
+  },
+};
+
+axios.defaults.headers.common['Authorization'] = API.get(
+  '/oauth/token',
+  config
+);
 
 /**
  * Get all items (limited to the first 100).

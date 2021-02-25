@@ -33,7 +33,7 @@ const Hover = styled.div({
 
 export default function BackButton() {
   return (
-    <Link to="/search">
+    <Link to="/">
       <Hover className="back-button">
         <FadeIn className="back-pressed" />
         <FadeOut className="back-shadow" />
