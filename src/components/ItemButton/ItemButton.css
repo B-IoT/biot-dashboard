@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  border-radius: 105px;
+  border-radius: 50px;
   height: 210px;
   width: 210px;
   margin: 20px;
@@ -25,7 +25,7 @@
     var(--light) 13.29%,
     var(--shadow) 84.76%
   );
-  border-radius: 105px;
+  border-radius: 50px;
   box-shadow: 20px 20px 30px var(--darker-shadow);
   filter: blur(5px);
   position: absolute;
@@ -34,12 +34,7 @@
 }
 
 .item-light {
-  background: linear-gradient(
-    141.8deg,
-    var(--light) 13.29%,
-    var(--shadow) 84.76%
-  );
-  border-radius: 105px;
+  border-radius: 50px;
   box-shadow: -20px -20px 30px var(--lighter-light);
   filter: blur(5px);
   position: absolute;
@@ -53,7 +48,7 @@
     var(--darker-shadow) 13.29%,
     var(--lighter-light) 84.76%
   );
-  border-radius: 105px;
+  border-radius: 50px;
   filter: blur(10px);
   position: absolute;
   height: 210px;

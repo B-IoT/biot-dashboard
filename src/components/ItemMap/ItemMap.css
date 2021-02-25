@@ -28,6 +28,17 @@
   position: absolute;
 }
 
+.mask-edges {
+  border-color: var(--background);
+  border-radius: 100px;
+  border-width: 20px;
+  border-style: solid;
+
+  width: 75vw;
+  height: 75vh;
+  position: absolute;
+}
+
 .map-mask {
   -webkit-border-radius: 100px;
   z-index: 0;

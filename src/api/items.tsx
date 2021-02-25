@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000';
-
+const API_URL = 'https://api.b-iot.app:8080';
+// /api/oauth/token
 const API = axios.create({
   baseURL: API_URL,
   // TODO probably add headers (for auth)

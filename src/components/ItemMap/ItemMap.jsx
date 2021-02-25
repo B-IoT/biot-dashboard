@@ -25,6 +25,7 @@ function ItemMap() {
           center={[6.891924, 46.440896]}
           zoom={[18]}
         />
+        <div className="mask-edges clear" />
         <div className="blurred-edges clear" />
       </div>
       <div className="map-blur clear">
