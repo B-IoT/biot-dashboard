@@ -4,24 +4,20 @@ const API_URL = 'https://api.b-iot.app:8080';
 const API = axios.create({
   baseURL: API_URL,
 });
-
-const config = {
-  data: {
-    username: 'andrea',
-    password: 'andrea',
-  },
+const credentials = {
+  username: 'andrea',
+  password: 'andrea',
 };
-
-axios.defaults.headers.common['Authorization'] = API.get(
-  '/oauth/token',
-  config
+API.post('/oauth/token', credentials).then(
+  (response) =>
+    (API.defaults.headers.common = { Authorization: `Bearer ${response.data}` })
 );
 
 /**
  * Get all items (limited to the first 100).
  */
 export async function getItems() {
-  const { data } = await API.get('/items');
+  const { data } = await API.get('api/items');
   return data;
 }
 
@@ -31,7 +27,7 @@ export async function getItems() {
  * @param {number} itemID the id of the item
  */
 export async function getItem(itemID: number) {
-  const { data } = await API.get(`/items/${itemID}`);
+  const { data } = await API.get(`api/items/${itemID}`);
   return data;
 }
 
@@ -41,5 +37,5 @@ export async function getItem(itemID: number) {
  * @param {object} item the item to create
  */
 export async function createItem(item: object) {
-  return await API.post(`/items`, item);
+  return await API.post(`api/items`, item);
 }

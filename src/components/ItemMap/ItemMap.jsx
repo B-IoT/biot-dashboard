@@ -1,8 +1,6 @@
 import React from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { useQuery } from 'react-query';
-import { getItems } from '../../api/items';
 
 import ReactMapboxGl from 'react-mapbox-gl';
 
@@ -12,9 +10,6 @@ function ItemMap() {
     minZoom: 8,
     attributionControl: false,
   });
-
-  const { data } = useQuery('items', getItems);
-  console.log(data);
 
   return (
     <div className="map-container">
