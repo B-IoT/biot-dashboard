@@ -11,6 +11,7 @@
 
 .map {
   -webkit-border-radius: 100px;
+  border-radius: 100px;
   z-index: 0;
   overflow: hidden;
   position: absolute;
