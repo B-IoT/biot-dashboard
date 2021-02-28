@@ -49,9 +49,9 @@ export function getServicesStatus(items) {
 }
 
 export const displayTextVersion = {
-  available: 'Disponible',
-  unavailable: 'Indisponible',
-  needMaintenance: 'À réparer',
+  available: 'disponible',
+  unavailable: 'indisponible',
+  needMaintenance: 'à réparer',
 };
 
 /**

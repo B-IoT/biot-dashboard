@@ -1,63 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useQuery } from 'react-query';
 import { getItems } from '../../api/items';
 
-import ReactMapGl, { Marker } from 'react-map-gl';
+import ReactMapGl from 'react-map-gl';
 import { getPrettyItems } from '../../utils/items';
-import tracker from '../../img/marker.svg';
+import MapMarker from '../MapMarker/MapMarker';
 
 function ItemMap() {
-  const demoItems = getPrettyItems([
-    {
-      beaconId: '1',
-      status: 'available',
-      battery: 94,
-      latitude: 46.440896,
-      longitude: 6.891924,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Oxygène',
-      service: 'Bloc 1',
-      id: 1,
-    },
-    {
-      beaconId: '2',
-      status: 'available',
-      battery: 87,
-      latitude: 46.44092,
-      longitude: 6.891924,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'Lit',
-      service: 'Bloc 1',
-      id: 2,
-    },
-    {
-      beaconId: '3',
-      status: 'available',
-      battery: 56,
-      latitude: 46.44089,
-      longitude: 6.891944,
-      lastSeen: '2020-10-26T08:54:14',
-      type: 'ECG',
-      service: 'Bloc 1',
-      id: 3,
-    },
-  ]);
-
-  const [items, setItems] = useState(demoItems);
-  const { data } = useQuery('items', getItems, { refetchInterval: 3000 });
-  const [canUpdate, setCanUpdate] = useState(false);
-
-  useEffect(() => {
-    if (data) {
-      setItems(
-        data.filter((item) => item.longitude != null && item.latitude != null)
-      );
-      setCanUpdate(true);
-    }
-  }, [data]);
-
   const [viewport, setViewport] = useState({
     width: '80vw',
     height: '80vh',
@@ -69,8 +20,23 @@ function ItemMap() {
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   });
 
+  const [itemsFetched, setItemsFetched] = useState(false);
+  const [items, setItems] = useState([]);
+  const { data } = useQuery('items', getItems); //, { refetchInterval: 3000 });
+
   useEffect(() => {
-    if (canUpdate) {
+    if (data) {
+      setItems(
+        getPrettyItems(
+          data.filter((item) => item.longitude != null && item.latitude != null)
+        )
+      );
+      setItemsFetched(true);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (itemsFetched) {
       let newViewport = { ...viewport };
       newViewport.latitude =
         items.map((item) => item.latitude).reduce((acc, lat) => acc + lat) /
@@ -80,22 +46,10 @@ function ItemMap() {
         items.length;
       setViewport(newViewport);
     }
-    setCanUpdate(false);
-  }, [items]);
+  }, [itemsFetched]);
 
-  const markers = React.useMemo(
-    () =>
-      items.map((item) => (
-        <Marker
-          key={item.id}
-          longitude={item.longitude}
-          latitude={item.latitude}
-          offsetLeft={-15}
-          offsetTop={-30}
-        >
-          <img src={tracker} alt="Tracker" width={30} />
-        </Marker>
-      )),
+  const markers = useMemo(
+    () => items.map((item) => <MapMarker key={item.id} item={item} />),
     [items]
   );
 
@@ -104,7 +58,7 @@ function ItemMap() {
       <div className="map-mask">
         <ReactMapGl
           {...viewport}
-          className="map"
+          className={itemsFetched ? 'map' : 'hidden'}
           onViewportChange={setViewport}
           mapStyle={'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g'}
         >

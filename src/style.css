@@ -1,4 +1,5 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
+
 @font-face {
   font-family: 'Axiforma-Book';
   font-weight: 1 1000;
@@ -33,9 +34,11 @@
   src: url('https://anima-uploads.s3.amazonaws.com/5c59b0a881353e000dcaa8e8/Kastelov - Axiforma SemiBold.otf')
     format('opentype');
 }
+
 * {
   box-sizing: border-box;
 }
+
 .axiforma-bold-blue-70px {
   color: var(--blue);
   font-family: 'Axiforma-Bold', Helvetica, Arial, serif;
@@ -43,6 +46,7 @@
   font-style: normal;
   font-weight: 700;
 }
+
 .axiforma-medium-blue-50px {
   color: var(--blue);
   font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
@@ -50,6 +54,7 @@
   font-style: normal;
   font-weight: 400;
 }
+
 .axiforma-book-normal-blue-30px {
   color: var(--blue);
   font-family: 'Axiforma-Book', Helvetica, Arial, serif;
@@ -57,6 +62,7 @@
   font-style: normal;
   font-weight: 400;
 }
+
 .axiforma-light-blue-21px {
   color: var(--blue);
   font-family: 'Axiforma-Light', Helvetica, Arial, serif;
@@ -64,6 +70,7 @@
   font-style: normal;
   font-weight: 300;
 }
+
 .axiforma-medium-blue-18px {
   color: var(--blue);
   font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
@@ -71,6 +78,7 @@
   font-style: normal;
   font-weight: 500;
 }
+
 .axiforma-medium-blue-19px {
   color: var(--blue);
   font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
@@ -78,6 +86,7 @@
   font-style: normal;
   font-weight: 500;
 }
+
 .axiforma-semi-bold-spindle-120px {
   color: var(--spindle);
   font-family: 'Axiforma-SemiBold', Helvetica, Arial, serif;
@@ -85,6 +94,11 @@
   font-style: normal;
   font-weight: 600;
 }
+
+.hidden {
+  display: none;
+}
+
 :root {
   --blue: rgba(38, 115, 232, 1);
   --background: rgba(238, 242, 251, 1);
