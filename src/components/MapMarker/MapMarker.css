@@ -1,0 +1,14 @@
+.tracker {
+  border: none;
+  background: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  z-index: 99;
+}

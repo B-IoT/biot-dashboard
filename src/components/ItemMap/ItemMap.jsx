@@ -9,6 +9,42 @@ import { getPrettyItems } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
 
 function ItemMap() {
+  const demoItems = getPrettyItems([
+    {
+      beaconId: '1',
+      status: 'available',
+      battery: 94,
+      latitude: 46.440896,
+      longitude: 6.891924,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Oxygène',
+      service: 'Bloc 1',
+      id: 1,
+    },
+    {
+      beaconId: '2',
+      status: 'available',
+      battery: 87,
+      latitude: 46.44092,
+      longitude: 6.891924,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 1',
+      id: 2,
+    },
+    {
+      beaconId: '3',
+      status: 'available',
+      battery: 56,
+      latitude: 46.44089,
+      longitude: 6.891944,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'ECG',
+      service: 'Bloc 1',
+      id: 3,
+    },
+  ]);
+
   const [viewport, setViewport] = useState({
     width: '80vw',
     height: '80vh',
@@ -19,6 +55,9 @@ function ItemMap() {
     minZoom: 10,
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   });
+
+  // const [itemsFetched, setItemsFetched] = useState(true);
+  // const [items, setItems] = useState(demoItems);
 
   const [itemsFetched, setItemsFetched] = useState(false);
   const [items, setItems] = useState([]);
