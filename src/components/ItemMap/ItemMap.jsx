@@ -9,17 +9,6 @@ import { getPrettyItems } from '../../utils/items';
 import tracker from '../../img/marker.svg';
 
 function ItemMap() {
-  const [viewport, setViewport] = React.useState({
-    width: '80vw',
-    height: '80vh',
-    latitude: 46.440896,
-    longitude: 6.891924,
-    zoom: 19,
-    maxZoom: 21,
-    minZoom: 10,
-    mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
-  });
-
   const demoItems = getPrettyItems([
     {
       beaconId: '1',
@@ -57,13 +46,42 @@ function ItemMap() {
   ]);
 
   const [items, setItems] = useState(demoItems);
-  //const { data } = useQuery('items', getItems);
+  const { data } = useQuery('items', getItems, { refetchInterval: 3000 });
+  const [canUpdate, setCanUpdate] = useState(false);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setItems(data);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      setItems(
+        data.filter((item) => item.longitude != null && item.latitude != null)
+      );
+      setCanUpdate(true);
+    }
+  }, [data]);
+
+  const [viewport, setViewport] = useState({
+    width: '80vw',
+    height: '80vh',
+    latitude: 46.440896,
+    longitude: 6.891924,
+    zoom: 19,
+    maxZoom: 21,
+    minZoom: 10,
+    mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
+  });
+
+  useEffect(() => {
+    if (canUpdate) {
+      let newViewport = { ...viewport };
+      newViewport.latitude =
+        items.map((item) => item.latitude).reduce((acc, lat) => acc + lat) /
+        items.length;
+      newViewport.longitude =
+        items.map((item) => item.longitude).reduce((acc, lon) => acc + lon) /
+        items.length;
+      setViewport(newViewport);
+    }
+    setCanUpdate(false);
+  }, [items]);
 
   const markers = React.useMemo(
     () =>

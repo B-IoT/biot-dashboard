@@ -1,5 +1,4 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -11,7 +10,6 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CssBaseline />
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={SearchPage} />
