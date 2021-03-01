@@ -17,14 +17,17 @@ export default function MapMarker({ item }) {
         anchor="top"
       >
         <div className="axiforma-medium-blue-18px">
-          Cet {item.category} est {item.status} <br />
+          Cet {item.category} est {item.status}
+          <br />
           <br />
         </div>
         <div className="axiforma-light-blue-18px">
           <pre>
-            Étage: {item.floor} <br />
-            Service: {item.service} <br />
-            Batterie: {item.battery} %
+            Étage: {item.floor}
+            <br />
+            Service: {item.service}
+            <br />
+            Batterie: {item.battery}%
           </pre>
         </div>
       </Popup>

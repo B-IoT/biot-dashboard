@@ -104,6 +104,7 @@
 :root {
   --blue: rgba(38, 115, 232, 1);
   --background: rgba(238, 242, 251, 1);
+  --semi-background: rgba(238, 242, 251, 0.3);
   --spindle: rgba(191, 208, 242, 1);
 
   --light: rgba(249, 251, 255, 1);

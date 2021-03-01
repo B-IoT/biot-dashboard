@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 
 import './ItemButton.css';
-import { Link } from 'react-router-dom';
 
 const FadeIn = styled.div({
   opacity: 0,
@@ -33,19 +32,17 @@ const Hover = styled.div({
 
 export default function PlaceholderButton() {
   return (
-    <Link to="/tracking" style={{ textDecoration: 'none' }}>
-      <Hover className="item-container">
-        <FadeIn className="item-pressed" />
-        <FadeOut className="button-container">
-          <div className="item-light" />
-          <div className="item-shadow" />
-        </FadeOut>
-        <Scale className="text-container">
-          <div className="placeholder-text axiforma-semi-bold-spindle-120px">
-            {'...'}
-          </div>
-        </Scale>
-      </Hover>
-    </Link>
+    <Hover className="item-container">
+      <FadeIn className="item-pressed" />
+      <FadeOut className="button-container">
+        <div className="item-light" />
+        <div className="item-shadow" />
+      </FadeOut>
+      <Scale className="text-container">
+        <div className="placeholder-text axiforma-semi-bold-spindle-120px">
+          {'...'}
+        </div>
+      </Scale>
+    </Hover>
   );
 }
