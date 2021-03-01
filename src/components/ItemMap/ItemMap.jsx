@@ -131,29 +131,29 @@ function ItemMap({ itemName }) {
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   });
 
-  const [itemsFetched, setItemsFetched] = useState(true);
-  const [items, setItems] = useState(
-    demoItems.filter((item) => item.category === itemName)
-  );
+  // const [itemsFetched, setItemsFetched] = useState(true);
+  // const [items, setItems] = useState(
+  //   demoItems.filter((item) => item.category === itemName),
+  // );
 
-  // const [itemsFetched, setItemsFetched] = useState(false);
-  // const [items, setItems] = useState([]);
-  // const { data } = useQuery('items', getItems); //, { refetchInterval: 3000 });
-  //
-  // useEffect(() => {
-  //   if (data) {
-  //     let filterItems = data.filter(
-  //       (item) =>
-  //         item.longitude != null &&
-  //         item.latitude != null &&
-  //         item.category === itemName,
-  //     );
-  //     if (filterItems.length > 0) {
-  //       setItems(getPrettyItems(filterItems));
-  //       setItemsFetched(true);
-  //     }
-  //   }
-  // }, [data]);
+  const [itemsFetched, setItemsFetched] = useState(false);
+  const [items, setItems] = useState([]);
+  const { data } = useQuery('items', getItems); //, { refetchInterval: 3000 });
+
+  useEffect(() => {
+    if (data) {
+      let filterItems = data.filter(
+        (item) =>
+          item.longitude != null &&
+          item.latitude != null &&
+          item.category === itemName
+      );
+      if (filterItems.length > 0) {
+        setItems(getPrettyItems(filterItems));
+        setItemsFetched(true);
+      }
+    }
+  }, [data]);
 
   useEffect(() => {
     if (itemsFetched) {
