@@ -33,7 +33,10 @@ const Hover = styled.div({
 
 export default function ItemButton({ text, icon }) {
   return (
-    <Link to="/tracking" style={{ textDecoration: 'none' }}>
+    <Link
+      to={{ pathname: '/tracking', state: { itemName: text } }}
+      style={{ textDecoration: 'none' }}
+    >
       <Hover className="item-container">
         <FadeIn className="item-pressed" />
         <FadeOut className="button-container">

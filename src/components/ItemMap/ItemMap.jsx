@@ -8,10 +8,11 @@ import ReactMapGl from 'react-map-gl';
 import { getPrettyItems } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
 
-function ItemMap() {
+function ItemMap({ itemName }) {
   const demoItems = getPrettyItems([
     {
       beaconId: '1',
+      category: 'Oxygène',
       status: 'available',
       battery: 94,
       latitude: 46.440896,
@@ -23,6 +24,7 @@ function ItemMap() {
     },
     {
       beaconId: '2',
+      category: 'Oxygène',
       status: 'available',
       battery: 87,
       latitude: 46.44092,
@@ -34,6 +36,7 @@ function ItemMap() {
     },
     {
       beaconId: '3',
+      category: 'Lit',
       status: 'available',
       battery: 56,
       latitude: 46.44089,
@@ -42,6 +45,78 @@ function ItemMap() {
       type: 'ECG',
       service: 'Bloc 1',
       id: 3,
+    },
+    {
+      beaconId: '4',
+      category: 'Lit',
+      status: 'needMaintenance',
+      battery: 20,
+      latitude: 46.44099,
+      longitude: 6.891984,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Oxygène',
+      service: 'Bloc 1',
+      id: 4,
+    },
+    {
+      beaconId: '5',
+      category: 'Lit',
+      status: 'unavailable',
+      battery: 0,
+      latitude: 46.44079,
+      longitude: 6.891984,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'ECG',
+      service: 'Bloc 2',
+      id: 5,
+    },
+    {
+      beaconId: '6',
+      category: 'Lit',
+      status: 'available',
+      battery: 12,
+      latitude: 46.44089,
+      longitude: 6.891684,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 6,
+    },
+    {
+      beaconId: '7',
+      category: 'ECG',
+      status: 'available',
+      battery: 12,
+      latitude: 46.440898,
+      longitude: 6.892268,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 7,
+    },
+    {
+      beaconId: '8',
+      category: 'ECG',
+      status: 'needMaintenance',
+      battery: 20,
+      latitude: 46.441019,
+      longitude: 6.891783,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 8,
+    },
+    {
+      beaconId: '9',
+      category: 'ECG',
+      status: 'available',
+      battery: 73,
+      latitude: 46.440754,
+      longitude: 6.892197,
+      lastSeen: '2020-10-26T08:54:14',
+      type: 'Lit',
+      service: 'Bloc 2',
+      id: 9,
     },
   ]);
 
@@ -57,7 +132,8 @@ function ItemMap() {
   });
 
   // const [itemsFetched, setItemsFetched] = useState(true);
-  // const [items, setItems] = useState(demoItems);
+  // const [items, setItems] = useState(demoItems.filter((item) =>
+  //   item.category === itemName));
 
   const [itemsFetched, setItemsFetched] = useState(false);
   const [items, setItems] = useState([]);
@@ -65,12 +141,16 @@ function ItemMap() {
 
   useEffect(() => {
     if (data) {
-      setItems(
-        getPrettyItems(
-          data.filter((item) => item.longitude != null && item.latitude != null)
-        )
+      let filterItems = data.filter(
+        (item) =>
+          item.longitude != null &&
+          item.latitude != null &&
+          item.category === itemName
       );
-      setItemsFetched(true);
+      if (filterItems.length > 0) {
+        setItems(getPrettyItems(filterItems));
+        setItemsFetched(true);
+      }
     }
   }, [data]);
 
