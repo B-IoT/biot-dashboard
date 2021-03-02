@@ -3,8 +3,13 @@ import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import ReactMapGl from 'react-map-gl';
+import mapboxgl from 'mapbox-gl';
 import { getPrettyItems } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 function ItemMap(props: { itemName: string }) {
   const [viewport, setViewport] = useState({

@@ -10,7 +10,7 @@
 }
 
 .popup {
-  z-index: 99;
+  z-index: 9;
 }
 
 .mapboxgl-popup-content {
