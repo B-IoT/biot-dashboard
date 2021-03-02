@@ -31,10 +31,10 @@ const Hover = styled.div({
   },
 });
 
-export default function ItemButton({ text, icon }) {
+export default function ItemButton(props: { text: string; icon: string }) {
   return (
     <Link
-      to={{ pathname: '/tracking', state: { itemName: text } }}
+      to={{ pathname: '/tracking', state: { itemName: props.text } }}
       style={{ textDecoration: 'none' }}
     >
       <Hover className="item-container">
@@ -44,8 +44,11 @@ export default function ItemButton({ text, icon }) {
           <div className="item-shadow" />
         </FadeOut>
         <Scale className="text-container">
-          <img className="item-icon" src={icon} alt="Item icon" />
-          <div className="item-text axiforma-medium-blue-18px"> {text} </div>
+          <img className="item-icon" src={props.icon} alt="Item icon" />
+          <div className="item-text axiforma-medium-blue-18px">
+            {' '}
+            {props.text}{' '}
+          </div>
         </Scale>
       </Hover>
     </Link>

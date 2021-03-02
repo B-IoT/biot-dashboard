@@ -6,15 +6,14 @@ import BackButton from '../../components/BackButton/BackButton';
 import Logo from '../../components/Logo/Logo';
 import ItemMap from '../../components/ItemMap/ItemMap';
 
-function MapPage(props) {
-  const { itemName } = props.location.state;
+function MapPage(props: { location: { state: { itemName: string } } }) {
   return (
     <div className="map-page">
       <BackButton />
       <h1 className="axiforma-medium-blue-50px">
-        {'Voici les ' + itemName + 's à proximité'}
+        {'Voici les ' + props.location.state.itemName + 's à proximité'}
       </h1>
-      <ItemMap itemName={itemName} />
+      <ItemMap itemName={props.location.state.itemName} />
       <Logo />
     </div>
   );

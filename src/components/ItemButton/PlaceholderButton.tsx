@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
+import './ItemButton';
 import './ItemButton.css';
 
 const FadeIn = styled.div({

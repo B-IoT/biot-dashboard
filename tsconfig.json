@@ -21,6 +21,7 @@
     "noUnusedParameters": true,
     "incremental": true,
     "noEmit": true,
+    "watch": true,
     "jsx": "react-jsx"
   },
   "include": [

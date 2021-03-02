@@ -79,13 +79,21 @@
   font-weight: 500;
 }
 
-.axiforma-light-blue-18px {
+.axiforma-medium-blue-22px {
+  color: var(--blue);
+  font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.axiforma-light-blue-20px {
   color: var(--blue);
   font-family: 'Axiforma-Light', Helvetica, Arial, serif;
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 300;
-  line-height: 25px;
+  line-height: 23px;
 }
 
 .axiforma-semi-bold-spindle-120px {

@@ -1,9 +1,6 @@
-import * as React from 'react';
 import './SearchBar.css';
 
-export default function SearchBar(props) {
-  const { searchText } = props;
-
+export default function SearchBar(props: { searchText: string }) {
   return (
     <div className="search-bar">
       <div className="search-mask">
@@ -11,7 +8,9 @@ export default function SearchBar(props) {
         <div className="search-light" />
       </div>
       <div className="search-blur">
-        <div className="search-text axiforma-light-blue-21px">{searchText}</div>
+        <div className="search-text axiforma-light-blue-21px">
+          {props.searchText}
+        </div>
       </div>
     </div>
   );
