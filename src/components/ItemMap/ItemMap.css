@@ -2,7 +2,7 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  width: 80vw;
+  width: 90vw;
   height: 80vh;
   top: 15vh;
   bottom: 5vh;
@@ -10,8 +10,8 @@
 }
 
 .map {
-  -webkit-border-radius: 100px;
-  border-radius: 100px;
+  -webkit-border-radius: 75px;
+  border-radius: 75px;
   z-index: 0;
   overflow: hidden;
   position: absolute;
@@ -19,32 +19,33 @@
 
 .blurred-edges {
   border-color: var(--background);
-  border-radius: 100px;
-  border-width: 25px;
+  border-radius: 75px;
+  border-width: 15px;
   border-style: solid;
 
   filter: blur(4px);
-  width: 75vw;
+  width: 85vw;
   height: 75vh;
   position: absolute;
 }
 
 .mask-edges {
   border-color: var(--background);
-  border-radius: 100px;
-  border-width: 20px;
+  border-radius: 75px;
+  border-width: 10px;
   border-style: solid;
 
-  width: 75vw;
+  width: 85vw;
   height: 75vh;
   position: absolute;
   z-index: 99;
 }
 
 .map-mask {
-  -webkit-border-radius: 100px;
+  -webkit-border-radius: 75px;
+  border-radius: 75px;
   z-index: 0;
-  width: 75vw;
+  width: 85vw;
   height: 75vh;
   display: flex;
   justify-content: center;
@@ -54,33 +55,33 @@
 }
 
 .map-shadow {
-  border-radius: 100px;
+  border-radius: 75px;
   filter: blur(7px);
-  border: 30px solid var(--darker-shadow);
+  border: 20px solid var(--darkest-shadow);
   position: absolute;
-  width: 90vw;
+  width: 100vw;
   height: 90vh;
   top: 0;
   left: 0;
 }
 
 .map-light {
-  border-radius: 100px;
+  border-radius: 75px;
   filter: blur(7px);
-  border: 30px solid var(--lighter-light);
+  border: 20px solid var(--lighter-light);
   position: absolute;
-  width: 90vw;
+  width: 100vw;
   height: 90vh;
   bottom: 0;
   right: 0;
 }
 
 .map-ambient {
-  border-radius: 100px;
+  border-radius: 75px;
   filter: blur(7px);
-  border: 30px solid var(--shadow);
+  border: 20px solid var(--shadow);
   position: absolute;
-  width: 75vw;
+  width: 85vw;
   height: 75vh;
 }
 
@@ -89,8 +90,8 @@
   align-items: center;
   justify-content: center;
   filter: blur(4px);
-  border-radius: 100px;
-  width: 80vw;
+  border-radius: 75px;
+  width: 90vw;
   height: 80vh;
   position: absolute;
 }

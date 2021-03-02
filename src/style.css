@@ -119,8 +119,9 @@
   --semi-background: rgba(238, 242, 251, 0.3);
   --spindle: rgba(191, 208, 242, 1);
 
-  --light: rgba(249, 251, 255, 1);
+  --light: rgb(249, 251, 255);
   --shadow: rgb(227, 233, 245);
-  --lighter-light: rgba(255, 255, 255, 1);
+  --lighter-light: rgb(255, 255, 255);
   --darker-shadow: rgb(210, 220, 241);
+  --darkest-shadow: rgb(185, 200, 231);
 }

@@ -13,7 +13,7 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 
 function ItemMap(props: { itemName: string }) {
   const [viewport, setViewport] = useState({
-    width: '80vw',
+    width: '90vw',
     height: '80vh',
     latitude: 46.440896,
     longitude: 6.891924,
@@ -191,8 +191,13 @@ export default ItemMap;
 // import { getItems } from '../../api/items';
 //
 // import ReactMapGl from 'react-map-gl';
+// import mapboxgl from 'mapbox-gl';
 // import { getPrettyItems, Item } from '../../utils/items';
 // import MapMarker from '../MapMarker/MapMarker';
+//
+// // @ts-ignore
+// // eslint-disable-next-line import/no-webpack-loader-syntax
+// mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 //
 // function ItemMap(props: { itemName: string }) {
 //   const [viewport, setViewport] = useState({
