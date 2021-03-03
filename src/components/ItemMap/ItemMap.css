@@ -4,9 +4,8 @@
   display: flex;
   width: 90vw;
   height: 80vh;
-  top: 15vh;
-  bottom: 5vh;
-  position: absolute;
+  top: 4vh;
+  position: relative;
 }
 
 .map {

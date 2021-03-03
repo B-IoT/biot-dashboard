@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
 import './MapMarker.css';
 import tracker from '../../img/marker.svg';
@@ -6,7 +6,7 @@ import OutsideAlerter from '../OutsideAlerter';
 import { Item } from '../../utils/items';
 
 export default function MapMarker(props: { item: Item }) {
-  const [showPopup, togglePopup] = React.useState(false);
+  const [showPopup, togglePopup] = useState(false);
 
   return (
     <div>
@@ -51,8 +51,17 @@ export default function MapMarker(props: { item: Item }) {
         offsetLeft={-15}
         offsetTop={-30}
       >
-        <OutsideAlerter action={() => togglePopup(false)}>
-          <button className="tracker" onClick={() => togglePopup(!showPopup)}>
+        <OutsideAlerter
+          action={() => {
+            togglePopup(false);
+          }}
+        >
+          <button
+            className={showPopup ? 'tracker tracker-animation' : 'tracker'}
+            onClick={() => {
+              togglePopup(!showPopup);
+            }}
+          >
             <img src={tracker} alt="Tracker" width={30} />
           </button>
         </OutsideAlerter>
