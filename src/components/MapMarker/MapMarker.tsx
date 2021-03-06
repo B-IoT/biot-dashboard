@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
-import './MapMarker.css';
-import tracker from '../../img/marker.svg';
 import OutsideAlerter from '../OutsideAlerter';
 import { Item } from '../../utils/items';
+import tracker from '../../img/marker.svg';
+import './MapMarker.css';
 
 export default function MapMarker(props: { item: Item }) {
   const [showPopup, togglePopup] = useState(false);

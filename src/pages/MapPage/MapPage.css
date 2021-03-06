@@ -3,5 +3,18 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
-  padding-top: 65px;
+}
+
+.map-title {
+  margin-top: auto;
+  margin-bottom: 30px;
+}
+
+.top-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  height: 15vh;
+  width: 100vw;
 }

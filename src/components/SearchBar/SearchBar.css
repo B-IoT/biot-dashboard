@@ -49,6 +49,41 @@
 }
 
 .search-text {
-  left: 70px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
+  background: transparent;
+  border: none;
+  width: 75%;
+  outline-color: transparent;
+  outline-style: none;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: var(--half-blue);
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: var(--half-blue);
+  opacity: 1;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: var(--half-blue);
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--half-blue);
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--half-blue);
+}
+
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: var(--half-blue);
 }

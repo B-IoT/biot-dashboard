@@ -4,7 +4,6 @@
   display: flex;
   width: 90vw;
   height: 80vh;
-  top: 4vh;
   position: relative;
 }
 
@@ -56,7 +55,7 @@
 .map-shadow {
   border-radius: 75px;
   filter: blur(7px);
-  border: 20px solid var(--darkest-shadow);
+  border: 20px solid var(--darker-shadow);
   position: absolute;
   width: 100vw;
   height: 90vh;

@@ -11,14 +11,10 @@
   text-align: center;
 }
 
-.auto-flex {
-  display: flex;
-  flex-direction: column;
-}
-
 .result-grid {
   align-items: center;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 50px;
   margin-bottom: 50px;
 }

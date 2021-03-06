@@ -1,6 +1,10 @@
 import './SearchBar.css';
+import { Dispatch, SetStateAction } from 'react';
 
-export default function SearchBar(props: { searchText: string }) {
+export default function SearchBar(props: {
+  keyword: string;
+  setKeyword: Dispatch<SetStateAction<string>>;
+}) {
   return (
     <div className="search-bar">
       <div className="search-mask">
@@ -8,9 +12,11 @@ export default function SearchBar(props: { searchText: string }) {
         <div className="search-light" />
       </div>
       <div className="search-blur">
-        <div className="search-text axiforma-light-blue-21px">
-          {props.searchText}
-        </div>
+        <input
+          className="search-text axiforma-light-blue-21px"
+          placeholder={'Rechercher'}
+          onChange={(e) => props.setKeyword(e.target.value)}
+        />
       </div>
     </div>
   );

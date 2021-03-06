@@ -6,8 +6,8 @@
   height: 75px;
   position: absolute;
   width: 180px;
-  top: 50px;
   left: 7.5vw;
+  bottom: 25px;
 }
 
 .back-pressed {
