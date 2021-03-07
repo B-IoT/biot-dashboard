@@ -8,10 +8,16 @@ const credentials = {
   username: 'andrea',
   password: 'andrea',
 };
-API.post('/oauth/token', credentials).then(
-  (response) =>
-    (API.defaults.headers.common = { Authorization: `Bearer ${response.data}` })
-);
+
+if (localStorage.getItem('token') === null) {
+  API.post('/oauth/token', credentials).then((response) =>
+    localStorage.setItem('token', response.data)
+  );
+}
+
+API.defaults.headers.common = {
+  Authorization: `Bearer ${localStorage.getItem('token')}`,
+};
 
 /**
  * Get all items (limited to the first 100).

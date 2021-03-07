@@ -11,17 +11,23 @@ import { getCategories } from '../../api/items';
 
 function SearchPage() {
   const [categories, setCategories] = useState([] as string[]);
-  const { data } = useQuery('items', getCategories);
+  const { data } = useQuery('categories', getCategories);
 
   useEffect(() => {
     if (data) {
       setCategories(data);
     }
   }, [data]);
-  const placeholders = new Array(17).fill(1).map(() => <PlaceholderButton />);
+  const placeholders = new Array(17)
+    .fill(1)
+    .map((_, index) => (
+      <PlaceholderButton key={'PlaceholderButton_' + index} />
+    ));
 
   const [keyword, setKeyword] = useState('');
-  const [buttons, setButtons] = useState([<PlaceholderButton />]);
+  const [buttons, setButtons] = useState([
+    <PlaceholderButton key="PlaceholderButton_init" />,
+  ]);
   useEffect(
     () =>
       setButtons(
@@ -31,7 +37,7 @@ function SearchPage() {
               keyword === '' ||
               simplifyText(category).includes(simplifyText(keyword))
           )
-          .map((category) => <ItemButton itemName={category} />)
+          .map((category) => <ItemButton key={category} itemName={category} />)
       ),
     [categories, keyword]
   );
