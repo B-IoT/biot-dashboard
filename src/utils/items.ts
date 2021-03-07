@@ -32,3 +32,7 @@ export function simplifyText(text: string): string {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
 }
+
+export function getIconPath(itemName: string) {
+  return '/itemIcons/' + itemName + '.svg';
+}

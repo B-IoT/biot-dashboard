@@ -1,26 +1,23 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ItemButton from '../../components/ItemButton/ItemButton';
 import PlaceholderButton from '../../components/ItemButton/PlaceholderButton';
 
-import ecgIcon from '../../img/ecgIcon.svg';
-import bedIcon from '../../img/bedIcon.svg';
-import oxygenIcon from '../../img/oxygenIcon.svg';
-
 import './SearchPage.css';
 import Logo from '../../components/Logo/Logo';
 import { simplifyText } from '../../utils/items';
+import { useQuery } from 'react-query';
+import { getCategories } from '../../api/items';
 
 function SearchPage() {
-  // useQuery getCategories
-  const items = useMemo(
-    () => [
-      { itemName: 'ECG', itemIcon: ecgIcon },
-      { itemName: 'Lit', itemIcon: bedIcon },
-      { itemName: 'Oxygène', itemIcon: oxygenIcon },
-    ],
-    []
-  );
+  const [categories, setCategories] = useState([] as string[]);
+  const { data } = useQuery('items', getCategories);
+
+  useEffect(() => {
+    if (data) {
+      setCategories(data);
+    }
+  }, [data]);
   const placeholders = new Array(17).fill(1).map(() => <PlaceholderButton />);
 
   const [keyword, setKeyword] = useState('');
@@ -28,17 +25,15 @@ function SearchPage() {
   useEffect(
     () =>
       setButtons(
-        items
+        categories
           .filter(
-            (item) =>
+            (category) =>
               keyword === '' ||
-              simplifyText(item.itemName).includes(simplifyText(keyword))
+              simplifyText(category).includes(simplifyText(keyword))
           )
-          .map((item) => (
-            <ItemButton text={item.itemName} icon={item.itemIcon} />
-          ))
+          .map((category) => <ItemButton itemName={category} />)
       ),
-    [items, keyword]
+    [categories, keyword]
   );
 
   return (
