@@ -14,7 +14,7 @@ mapboxgl.workerClass = require('worker-loader!../../../node_modules/mapbox-gl/di
 function ItemMap(props: { itemName: string }) {
   const [viewport, setViewport] = useState({
     width: '90vw',
-    height: '80vh',
+    height: '100vh',
     latitude: 46.440896,
     longitude: 6.891924,
     zoom: 19,
@@ -203,7 +203,7 @@ export default ItemMap;
 // function ItemMap(props: { itemName: string }) {
 //   const [viewport, setViewport] = useState({
 //     width: '90vw',
-//     height: '80vh',
+//     height: '100vh',
 //     latitude: 46.440896,
 //     longitude: 6.891924,
 //     zoom: 19,

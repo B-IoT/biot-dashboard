@@ -4,10 +4,12 @@
   justify-content: center;
   border-radius: 37px;
   height: 75px;
-  position: absolute;
   width: 180px;
-  left: 7.5vw;
-  bottom: 25px;
+  position: absolute;
+  left: 5vw;
+  margin: auto;
+  top: 0;
+  bottom: 0;
 }
 
 .back-pressed {
