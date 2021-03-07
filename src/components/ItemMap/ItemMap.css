@@ -93,3 +93,8 @@
   height: 80vh;
   position: absolute;
 }
+
+.nav-bar {
+  right: 100px;
+  top: 100px;
+}

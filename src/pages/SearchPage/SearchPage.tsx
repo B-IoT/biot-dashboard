@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import ItemButton from '../../components/ItemButton/ItemButton';
 import PlaceholderButton from '../../components/ItemButton/PlaceholderButton';
@@ -12,11 +12,15 @@ import Logo from '../../components/Logo/Logo';
 import { simplifyText } from '../../utils/items';
 
 function SearchPage() {
-  const items = [
-    { itemName: 'ECG', itemIcon: ecgIcon },
-    { itemName: 'Lit', itemIcon: bedIcon },
-    { itemName: 'Oxygène', itemIcon: oxygenIcon },
-  ];
+  // useQuery getCategories
+  const items = useMemo(
+    () => [
+      { itemName: 'ECG', itemIcon: ecgIcon },
+      { itemName: 'Lit', itemIcon: bedIcon },
+      { itemName: 'Oxygène', itemIcon: oxygenIcon },
+    ],
+    []
+  );
   const placeholders = new Array(17).fill(1).map(() => <PlaceholderButton />);
 
   const [keyword, setKeyword] = useState('');

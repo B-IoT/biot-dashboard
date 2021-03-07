@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import ReactMapGl from 'react-map-gl';
+import ReactMapGl, { NavigationControl } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import { getPrettyItems } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
@@ -165,6 +165,7 @@ function ItemMap(props: { itemName: string }) {
           mapStyle={'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g'}
         >
           {markers}
+          <NavigationControl className="nav-bar" />
         </ReactMapGl>
         <div className="mask-edges clear" />
         <div className="blurred-edges clear" />

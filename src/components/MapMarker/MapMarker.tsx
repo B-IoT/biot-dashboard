@@ -17,31 +17,33 @@ export default function MapMarker(props: { item: Item }) {
         closeButton={false}
         anchor="top"
       >
-        <div className="axiforma-medium-blue-22px">
-          {props.item.category} {props.item.status}
-          <br />
-          <br />
-        </div>
-        <div
-          className={
-            props.item.floor == null ? 'hidden' : 'axiforma-light-blue-20px'
-          }
-        >
-          {'Étage: ' + props.item.floor}
-        </div>
-        <div
-          className={
-            props.item.service == null ? 'hidden' : 'axiforma-light-blue-20px'
-          }
-        >
-          {'Service: ' + props.item.service}
-        </div>
-        <div
-          className={
-            props.item.battery == null ? 'hidden' : 'axiforma-light-blue-20px'
-          }
-        >
-          {'Batterie: ' + props.item.battery + '%'}
+        <div className={showPopup ? 'popup-animation' : 'hidden'}>
+          <div className="axiforma-medium-blue-22px">
+            {props.item.category} {props.item.status}
+            <br />
+            <br />
+          </div>
+          <div
+            className={
+              props.item.floor == null ? 'hidden' : 'axiforma-light-blue-20px'
+            }
+          >
+            {'Étage: ' + props.item.floor}
+          </div>
+          <div
+            className={
+              props.item.service == null ? 'hidden' : 'axiforma-light-blue-20px'
+            }
+          >
+            {'Service: ' + props.item.service}
+          </div>
+          <div
+            className={
+              props.item.battery == null ? 'hidden' : 'axiforma-light-blue-20px'
+            }
+          >
+            {'Batterie: ' + props.item.battery + '%'}
+          </div>
         </div>
       </Popup>
       <Marker
