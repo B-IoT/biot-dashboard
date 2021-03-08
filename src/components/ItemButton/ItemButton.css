@@ -35,9 +35,9 @@
 
 .item-light {
   background: linear-gradient(
-          141.8deg,
-          var(--light) 13.29%,
-          var(--shadow) 84.76%
+    141.8deg,
+    var(--light) 13.29%,
+    var(--shadow) 84.76%
   );
   border-radius: 50px;
   box-shadow: -20px -20px 30px var(--lighter-light);

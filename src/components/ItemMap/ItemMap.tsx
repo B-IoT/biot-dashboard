@@ -225,15 +225,23 @@ function ItemMap(props: { itemName: string }) {
         (item: Item) =>
           item.longitude != null &&
           item.latitude != null &&
-          item.category === props.itemName,
+          item.category === props.itemName
       );
       if (filterItems.length > 0) {
         setItems(getPrettyItems(filterItems));
         setItemsFetched(true);
-        setCenterLatitude(filterItems.map((item: Item) => item.latitude)
-          .reduce((acc: number, lat: number) => acc + lat) / filterItems.length);
-        setCenterLongitude(filterItems.map((item: Item) => item.longitude)
-          .reduce((acc: number, lon: number) => acc + lon) / filterItems.length);
+        setCenterLatitude(
+          filterItems
+            .map((item: Item) => item.latitude)
+            .reduce((acc: number, lat: number) => acc + lat) /
+            filterItems.length
+        );
+        setCenterLongitude(
+          filterItems
+            .map((item: Item) => item.longitude)
+            .reduce((acc: number, lon: number) => acc + lon) /
+            filterItems.length
+        );
       }
     }
   }, [data]);
@@ -247,7 +255,7 @@ function ItemMap(props: { itemName: string }) {
 
   const markers = useMemo(
     () => items.map((item) => <MapMarker key={item.id} item={item} />),
-    [items],
+    [items]
   );
 
   const zoomHandler = () => {
@@ -270,32 +278,34 @@ function ItemMap(props: { itemName: string }) {
   };
 
   return (
-    <div className='map-total-container'>
-      <div className='map-container'>
-        <div className='map-mask'>
+    <div className="map-total-container">
+      <div className="map-container">
+        <div className="map-mask">
           <ReactMapGl
             {...viewport}
             className={itemsFetched ? 'map' : 'hidden'}
             onViewportChange={setViewport}
-            mapStyle={'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g'}
+            mapStyle={
+              'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g'
+            }
           >
             {markers}
           </ReactMapGl>
-          <div className='mask-edges clear' />
-          <div className='blurred-edges clear' />
+          <div className="mask-edges clear" />
+          <div className="blurred-edges clear" />
         </div>
-        <div className='map-blur clear'>
-          <div className='map-mask clear'>
-            <div className='map-ambient clear' />
-            <div className='map-shadow clear' />
-            <div className='map-light clear' />
+        <div className="map-blur clear">
+          <div className="map-mask clear">
+            <div className="map-ambient clear" />
+            <div className="map-shadow clear" />
+            <div className="map-light clear" />
           </div>
         </div>
       </div>
 
-      <div className='map-control'>
+      <div className="map-control">
         <SquareButton iconPath={'center.svg'} onClickHandler={centerHandler} />
-        <div className='button-margin'/>
+        <div className="button-margin" />
         <SquareButton iconPath={'zoom.svg'} onClickHandler={zoomHandler} />
         <SquareButton iconPath={'dezoom.svg'} onClickHandler={dezoomHandler} />
       </div>
