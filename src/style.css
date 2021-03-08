@@ -114,11 +114,11 @@
 }
 
 :root {
-  --blue: rgba(38, 115, 232, 1);
+  --blue: rgb(38, 115, 232);
   --half-blue: rgb(143, 168, 207);
-  --background: rgba(238, 242, 251, 1);
+  --background: rgb(238, 242, 251);
   --semi-background: rgba(238, 242, 251, 0.3);
-  --spindle: rgba(191, 208, 242, 1);
+  --spindle: rgb(191, 208, 242);
 
   --light: rgb(249, 251, 255);
   --shadow: rgb(227, 233, 245);
