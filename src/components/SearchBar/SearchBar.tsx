@@ -2,7 +2,6 @@ import './SearchBar.css';
 import { Dispatch, SetStateAction } from 'react';
 
 export default function SearchBar(props: {
-  keyword: string;
   setKeyword: Dispatch<SetStateAction<string>>;
 }) {
   return (

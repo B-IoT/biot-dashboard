@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
-//import { useQuery } from 'react-query';
-//import { getItems } from '../../api/items';
+// import { useQuery } from 'react-query';
+// import { getItems } from '../../api/items';
 
 import ReactMapGl from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import { getPrettyItems, Item } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
-import SquareButton from '../SquareButton/SquareButton';
+import RoundButton from '../RoundButton/RoundButton';
+import RoundInput from '../RoundInput/RoundInput';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -17,7 +18,9 @@ mapboxgl.workerClass = require('worker-loader!../../../node_modules/mapbox-gl/di
 function ItemMap(props: { itemName: string }) {
   const [centerLatitude, setCenterLatitude] = useState(46.440896);
   const [centerLongitude, setCenterLongitude] = useState(6.891924);
-
+  const [floor, setFloor] = useState(0);
+  const [itemsFetched, setItemsFetched] = useState(false);
+  const [items, setItems] = useState([] as Item[]);
   const [viewport, setViewport] = useState({
     width: '90vw',
     height: '100vh',
@@ -28,9 +31,6 @@ function ItemMap(props: { itemName: string }) {
     minZoom: 17,
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   });
-
-  const [itemsFetched, setItemsFetched] = useState(false);
-  const [items, setItems] = useState([] as Item[]);
 
   const data = getPrettyItems([
     {
@@ -143,35 +143,55 @@ function ItemMap(props: { itemName: string }) {
     },
   ]);
 
-  //const { data } = useQuery('items', getItems); //, { refetchInterval: 3000 });
-  const [floor, setFloor] = useState(0);
+  if (!itemsFetched) {
+    setItemsFetched(true);
+    const filterItems = data.filter(
+      (item: Item) =>
+        item.longitude != null &&
+        item.latitude != null &&
+        item.category === props.itemName
+    );
+    setItems(getPrettyItems(filterItems));
+    setCenterLatitude(
+      filterItems
+        .map((item: Item) => item.latitude)
+        .reduce((acc: number, lat: number) => acc + lat) / filterItems.length
+    );
+    setCenterLongitude(
+      filterItems
+        .map((item: Item) => item.longitude)
+        .reduce((acc: number, lon: number) => acc + lon) / filterItems.length
+    );
+  }
 
-  useEffect(() => {
-    if (data !== undefined) {
-      let filterItems = data.filter(
-        (item: Item) =>
-          item.longitude != null &&
-          item.latitude != null &&
-          item.category === props.itemName
-      );
-      if (filterItems.length > 0) {
-        setItems(getPrettyItems(filterItems));
-        setItemsFetched(true);
-        setCenterLatitude(
-          filterItems
-            .map((item: Item) => item.latitude)
-            .reduce((acc: number, lat: number) => acc + lat) /
-            filterItems.length
-        );
-        setCenterLongitude(
-          filterItems
-            .map((item: Item) => item.longitude)
-            .reduce((acc: number, lon: number) => acc + lon) /
-            filterItems.length
-        );
-      }
-    }
-  }, [data]);
+  // const { data } = useQuery('items', getItems); //, { refetchInterval: 3000 });
+  //
+  // useEffect(() => {
+  //   if (data !== undefined) {
+  //     const filterItems = data.filter(
+  //       (item: Item) =>
+  //         item.longitude != null &&
+  //         item.latitude != null &&
+  //         item.category === props.itemName
+  //     );
+  //     if (filterItems.length > 0) {
+  //       setItems(getPrettyItems(filterItems));
+  //       setItemsFetched(true);
+  //       setCenterLatitude(
+  //         filterItems
+  //           .map((item: Item) => item.latitude)
+  //           .reduce((acc: number, lat: number) => acc + lat) /
+  //           filterItems.length
+  //       );
+  //       setCenterLongitude(
+  //         filterItems
+  //           .map((item: Item) => item.longitude)
+  //           .reduce((acc: number, lon: number) => acc + lon) /
+  //           filterItems.length
+  //       );
+  //     }
+  //   }
+  // }, [data]);
 
   useEffect(() => {
     let newViewport = { ...viewport };
@@ -242,26 +262,29 @@ function ItemMap(props: { itemName: string }) {
       </div>
 
       <div className="map-control">
-        <SquareButton
-          iconPath={'navbarIcons/center.svg'}
-          onClickHandler={centerHandler}
-        />
         <div className="control-buttons">
-          <SquareButton
+          <RoundButton
+            iconPath={'navbarIcons/center.svg'}
+            onClickHandler={centerHandler}
+          />
+        </div>
+        <div className="control-buttons">
+          <RoundButton
             iconPath={'navbarIcons/zoom.svg'}
             onClickHandler={zoomHandler}
           />
-          <SquareButton
+          <RoundButton
             iconPath={'navbarIcons/dezoom.svg'}
             onClickHandler={dezoomHandler}
           />
         </div>
         <div className="control-buttons">
-          <SquareButton
+          <RoundButton
             iconPath={'navbarIcons/floorUp.svg'}
             onClickHandler={floorUpHandler}
           />
-          <SquareButton
+          <RoundInput input={floor} setInput={setFloor} />
+          <RoundButton
             iconPath={'navbarIcons/floorDown.svg'}
             onClickHandler={floorDownHandler}
           />

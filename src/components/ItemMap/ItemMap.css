@@ -106,14 +106,17 @@
 }
 
 .map-control {
-  width: 150px;
+  width: 125px;
   height: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-direction: column;
+  margin-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .control-buttons {
-  margin-bottom: -20px;
+  margin-bottom: -25px;
 }

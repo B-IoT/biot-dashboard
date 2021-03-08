@@ -80,6 +80,7 @@
 }
 
 .placeholder-text {
+  cursor: default;
   position: relative;
   text-align: center;
   margin-top: -60px;

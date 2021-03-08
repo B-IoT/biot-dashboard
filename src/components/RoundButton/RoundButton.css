@@ -1,17 +1,16 @@
-.square-container {
+.round-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   border-radius: 200px;
-  height: 100px;
-  width: 100px;
-  transform: scale(0.9);
+  height: 75px;
+  width: 75px;
   -webkit-transform-origin: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.button-container {
+.round-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +21,7 @@
   background: none;
 }
 
-.square-shadow {
+.round-shadow {
   background: linear-gradient(
     141.8deg,
     var(--light) 13.29%,
@@ -32,21 +31,21 @@
   box-shadow: 8px 8px 8px var(--darker-shadow);
   filter: blur(4px);
   position: absolute;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
 }
 
-.square-light {
+.round-light {
   background: linear-gradient(141.8deg, var(--light) 35%, var(--shadow) 65%);
   border-radius: 200px;
   box-shadow: -10px -10px 10px var(--lighter-light);
   filter: blur(4px);
   position: absolute;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
 }
 
-.square-pressed {
+.round-pressed {
   background: linear-gradient(
     141.8deg,
     var(--darker-shadow) 13.29%,
@@ -55,8 +54,8 @@
   border-radius: 200px;
   filter: blur(6px);
   position: absolute;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
   will-change: opacity;
 }
 
@@ -67,7 +66,7 @@
   will-change: transform;
 }
 
-.square-icon {
+.round-icon {
   position: relative;
-  height: 40px;
+  height: 35px;
 }

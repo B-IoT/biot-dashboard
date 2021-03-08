@@ -47,7 +47,7 @@ function SearchPage() {
       <h1 className="search-title axiforma-bold-blue-70px">
         {'Que cherchez-vous ?'}
       </h1>
-      <SearchBar keyword={keyword} setKeyword={setKeyword} />
+      <SearchBar setKeyword={setKeyword} />
       <div className="result-grid">
         {buttons}
         {placeholders}

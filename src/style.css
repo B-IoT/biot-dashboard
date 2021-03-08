@@ -121,8 +121,8 @@
   --spindle: rgb(191, 208, 242);
 
   --light: rgb(249, 251, 255);
-  --shadow: rgb(227, 233, 245);
   --lighter-light: rgb(255, 255, 255);
+  --shadow: rgb(227, 233, 245);
   --darker-shadow: rgb(210, 220, 241);
   --darkest-shadow: rgb(185, 200, 231);
 }
