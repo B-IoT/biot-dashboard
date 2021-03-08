@@ -1,0 +1,77 @@
+.square-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 200px;
+    height: 100px;
+    width: 100px;
+    transform: scale(0.9);
+    -webkit-transform-origin: center;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    will-change: opacity;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.square-shadow {
+    background: linear-gradient(
+            141.8deg,
+            var(--light) 13.29%,
+            var(--shadow) 84.76%
+    );
+    border-radius: 200px;
+    box-shadow: 8px 8px 8px var(--darker-shadow);
+    filter: blur(4px);
+    position: absolute;
+    height: 100px;
+    width: 100px;
+}
+
+.square-light {
+    background: linear-gradient(
+            141.8deg,
+            var(--light) 13.29%,
+            var(--shadow) 84.76%
+    );
+    border-radius: 200px;
+    box-shadow: -10px -10px 10px var(--lighter-light);
+    filter: blur(4px);
+    position: absolute;
+    height: 100px;
+    width: 100px;
+}
+
+.square-pressed {
+    background: linear-gradient(
+            141.8deg,
+            var(--darker-shadow) 13.29%,
+            var(--lighter-light) 84.76%
+    );
+    border-radius: 200px;
+    filter: blur(6px);
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    will-change: opacity;
+}
+
+.icon-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    will-change: transform;
+}
+
+.square-icon {
+    position: relative;
+    height: 40px;
+}
