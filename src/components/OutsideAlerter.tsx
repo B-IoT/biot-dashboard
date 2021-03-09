@@ -1,28 +1,35 @@
-import { useRef, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import {
+  useRef,
+  useEffect,
+  MutableRefObject,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 
 /**
- * Component that alerts if you click outside of it
+ * Hook that alerts clicks outside of the passed ref
  */
-export default function OutsideAlerter(props: {
-  value: any;
-  setValue: Dispatch<SetStateAction<any>>;
-  children: ReactNode;
-}) {
-  const ref = useRef(null);
-
+function useOutsideAlerter(
+  ref: MutableRefObject<any>,
+  value: any,
+  setValue: Dispatch<SetStateAction<any>>,
+  detectDrag: boolean
+) {
   useEffect(() => {
     let drag = false;
 
-    document.addEventListener('mousedown', () => (drag = false));
-    document.addEventListener('mousemove', () => (drag = true));
+    if (detectDrag) {
+      document.addEventListener('mousedown', () => (drag = false));
+      document.addEventListener('mousemove', () => (drag = true));
+    }
 
     /**
      * Alert if clicked on outside of element
      */
     function handleClickOutside(event: MouseEvent) {
-      // @ts-ignore
       if (ref && !drag && ref.current && !ref.current.contains(event.target)) {
-        props.setValue(props.value);
+        setValue(value);
       }
     }
 
@@ -30,9 +37,22 @@ export default function OutsideAlerter(props: {
     document.addEventListener('mouseup', handleClickOutside);
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mouseup', handleClickOutside);
     };
-  }, [ref, props.value]);
+  }, [ref, value]);
+}
 
-  return <div ref={ref}>{props.children}</div>;
+/**
+ * Component that alerts if you click outside of it
+ */
+export default function OutsideAlerter(props: {
+  value: any;
+  setValue: Dispatch<SetStateAction<any>>;
+  detectDrag: boolean;
+  children: ReactNode;
+}) {
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, props.value, props.setValue, props.detectDrag);
+
+  return <div ref={wrapperRef}>{props.children}</div>;
 }

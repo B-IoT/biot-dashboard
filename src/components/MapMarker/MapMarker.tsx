@@ -53,7 +53,7 @@ export default function MapMarker(props: { item: Item }) {
         offsetLeft={-15}
         offsetTop={-30}
       >
-        <OutsideAlerter value={false} setValue={togglePopup}>
+        <OutsideAlerter value={false} setValue={togglePopup} detectDrag={true}>
           <button
             className={showPopup ? 'tracker tracker-animation' : 'tracker'}
             onClick={() => {
