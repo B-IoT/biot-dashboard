@@ -110,13 +110,25 @@
   height: 100%;
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
   margin-right: 10px;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-.control-buttons {
-  margin-bottom: -25px;
+.map-control-left {
+  width: 125px;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.separator {
+  height: 25px;
 }

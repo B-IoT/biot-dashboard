@@ -237,6 +237,18 @@ function ItemMap(props: { itemName: string }) {
 
   return (
     <div className="map-total-container">
+      <div className="map-control-left">
+        <RoundButton
+          iconPath={'navbarIcons/floorUp.svg'}
+          onClickHandler={floorUpHandler}
+        />
+        <RoundInput input={floor} setInput={setFloor} />
+        <RoundButton
+          iconPath={'navbarIcons/floorDown.svg'}
+          onClickHandler={floorDownHandler}
+        />
+      </div>
+
       <div className="map-container">
         <div className="map-mask">
           <ReactMapGl
@@ -262,33 +274,19 @@ function ItemMap(props: { itemName: string }) {
       </div>
 
       <div className="map-control">
-        <div className="control-buttons">
-          <RoundButton
-            iconPath={'navbarIcons/center.svg'}
-            onClickHandler={centerHandler}
-          />
-        </div>
-        <div className="control-buttons">
-          <RoundButton
-            iconPath={'navbarIcons/zoom.svg'}
-            onClickHandler={zoomHandler}
-          />
-          <RoundButton
-            iconPath={'navbarIcons/dezoom.svg'}
-            onClickHandler={dezoomHandler}
-          />
-        </div>
-        <div className="control-buttons">
-          <RoundButton
-            iconPath={'navbarIcons/floorUp.svg'}
-            onClickHandler={floorUpHandler}
-          />
-          <RoundInput input={floor} setInput={setFloor} />
-          <RoundButton
-            iconPath={'navbarIcons/floorDown.svg'}
-            onClickHandler={floorDownHandler}
-          />
-        </div>
+        <RoundButton
+          iconPath={'navbarIcons/center.svg'}
+          onClickHandler={centerHandler}
+        />
+        <div className="separator" />
+        <RoundButton
+          iconPath={'navbarIcons/zoom.svg'}
+          onClickHandler={zoomHandler}
+        />
+        <RoundButton
+          iconPath={'navbarIcons/dezoom.svg'}
+          onClickHandler={dezoomHandler}
+        />
       </div>
     </div>
   );
