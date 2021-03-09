@@ -12,14 +12,10 @@ export default function RoundInput(props: {
     setLocalInput('' + props.input);
   }, [props.input]);
 
-  function getInput() {
-    return props.input;
-  }
-
   return (
     <div className="round-input">
       <img className="round-input-img" src={roundInput} alt="Round input" />
-      <OutsideAlerter action={() => setLocalInput('' + getInput())}>
+      <OutsideAlerter value={props.input} setValue={setLocalInput}>
         <input
           className="round-input-text axiforma-book-normal-blue-30px"
           value={localInput}

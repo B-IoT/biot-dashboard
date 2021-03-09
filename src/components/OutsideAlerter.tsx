@@ -1,37 +1,38 @@
-import { useRef, useEffect, MutableRefObject, ReactNode } from 'react';
-
-/**
- * Hook that alerts clicks outside of the passed ref
- */
-function useOutsideAlerter(ref: MutableRefObject<any>, action: () => void) {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        action();
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [ref]);
-}
+import { useRef, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
 
 /**
  * Component that alerts if you click outside of it
  */
 export default function OutsideAlerter(props: {
-  action: () => void;
+  value: any;
+  setValue: Dispatch<SetStateAction<any>>;
   children: ReactNode;
 }) {
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, props.action);
+  const ref = useRef(null);
 
-  return <div ref={wrapperRef}>{props.children}</div>;
+  useEffect(() => {
+    let drag = false;
+
+    document.addEventListener('mousedown', () => (drag = false));
+    document.addEventListener('mousemove', () => (drag = true));
+
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event: MouseEvent) {
+      // @ts-ignore
+      if (ref && !drag && ref.current && !ref.current.contains(event.target)) {
+        props.setValue(props.value);
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener('mouseup', handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [ref, props.value]);
+
+  return <div ref={ref}>{props.children}</div>;
 }

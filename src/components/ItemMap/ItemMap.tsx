@@ -291,7 +291,7 @@ function ItemMap(props: { itemName: string }) {
         </div>
       </div>
 
-      <div className="map-control">
+      <div className="map-control-right">
         <RoundButton
           iconPath={'navbarIcons/center.svg'}
           onClickHandler={centerHandler}

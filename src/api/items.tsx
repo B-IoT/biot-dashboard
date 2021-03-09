@@ -20,12 +20,20 @@ API.defaults.headers.common = {
 };
 
 /**
- * Get all items (limited to the first 100).
+ * Get all items matching the category.
  */
 export async function getItems() {
   const { data } = await API.get('api/items');
   return data;
 }
+
+// /**
+//  * Get all items matching the category.
+//  */
+// export async function getItems(category: string) {
+//   const { data } = await API.get('api/items?category=' + category);
+//   return data;
+// }
 
 /**
  * Get the item with the following id.
