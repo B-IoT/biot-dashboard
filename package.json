@@ -87,7 +87,6 @@
     ]
   },
   "devDependencies": {
-    "@types/react-map-gl": "^5.2.9",
     "@types/react-router-dom": "^5.1.7",
     "check-peer-dependencies": "^4.0.0",
     "husky": "^4.3.6",
