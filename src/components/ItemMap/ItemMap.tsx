@@ -17,8 +17,16 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.workerClass = require('worker-loader!../../../node_modules/mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 function ItemMap(props: { itemName: string }) {
-  const [centerLatitude, setCenterLatitude] = useState(46.440896);
-  const [centerLongitude, setCenterLongitude] = useState(6.891924);
+  const [centerLatitude, setCenterLatitude] = useState(
+    localStorage.getItem('userLatitude')
+      ? localStorage.getItem('userLatitude')
+      : 46.440896
+  );
+  const [centerLongitude, setCenterLongitude] = useState(
+    localStorage.getItem('userLongitude')
+      ? localStorage.getItem('userLongitude')
+      : 6.891924
+  );
   const [floor, setFloor] = useState(0);
   const [itemsFetched, setItemsFetched] = useState(false);
   const [items, setItems] = useState([] as Item[]);
@@ -30,6 +38,28 @@ function ItemMap(props: { itemName: string }) {
     minZoom: 17,
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   } as any);
+
+  // Get user geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(
+      function (position) {
+        localStorage.setItem('userLatitude', String(position.coords.latitude));
+        localStorage.setItem(
+          'userLongitude',
+          String(position.coords.longitude)
+        );
+        setCenterLatitude(position.coords.latitude);
+        setCenterLongitude(position.coords.longitude);
+      },
+      () => null,
+      // (e) => alert('Geolocation failed ' + e.code + ' ' + e.message),
+      {
+        maximumAge: 60000,
+        timeout: 10000,
+        enableHighAccuracy: true,
+      }
+    );
+  }
 
   const centerHandler = () => {
     let newViewport = { ...viewport };
@@ -235,18 +265,18 @@ function ItemMap(props: { itemName: string }) {
   const markers = useMemo(() => {
     const filterItems = items.filter((item) => item.floor === floor);
 
-    if (filterItems.length > 0) {
-      setCenterLatitude(
-        filterItems
-          .map((item: Item) => item.latitude)
-          .reduce((acc: number, lat: number) => acc + lat) / filterItems.length
-      );
-      setCenterLongitude(
-        filterItems
-          .map((item: Item) => item.longitude)
-          .reduce((acc: number, lon: number) => acc + lon) / filterItems.length
-      );
-    }
+    // if (filterItems.length > 0) {
+    //   setCenterLatitude(
+    //     filterItems
+    //       .map((item: Item) => item.latitude)
+    //       .reduce((acc: number, lat: number) => acc + lat) / filterItems.length,
+    //   );
+    //   setCenterLongitude(
+    //     filterItems
+    //       .map((item: Item) => item.longitude)
+    //       .reduce((acc: number, lon: number) => acc + lon) / filterItems.length,
+    //   );
+    // }
 
     return filterItems.map((item) => <MapMarker key={item.id} item={item} />);
   }, [items, floor]);
