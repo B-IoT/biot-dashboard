@@ -115,26 +115,36 @@ function ItemMap(props: { itemName: string }) {
           item.latitude != null &&
           item.category === props.itemName
       );
-      console.log(props.itemName);
+
       if (filterItems.length > 0) {
         setItems(getPrettyItems(filterItems));
+
+        if (!itemsFetched) {
+          const latitude =
+            filterItems
+              .map((item: Item) => item.latitude)
+              .reduce((acc: number, lat: number) => acc + lat) /
+            filterItems.length;
+          const longitude =
+            filterItems
+              .map((item: Item) => item.longitude)
+              .reduce((acc: number, lon: number) => acc + lon) /
+            filterItems.length;
+
+          let newViewport = { ...viewport };
+          newViewport.latitude = latitude;
+          newViewport.longitude = longitude;
+          setViewport(newViewport);
+
+          setFloor(
+            Math.min.apply(
+              null,
+              filterItems.map((item: Item) => item.floor)
+            )
+          );
+        }
+
         setItemsFetched(true);
-
-        const latitude =
-          filterItems
-            .map((item: Item) => item.latitude)
-            .reduce((acc: number, lat: number) => acc + lat) /
-          filterItems.length;
-        const longitude =
-          filterItems
-            .map((item: Item) => item.longitude)
-            .reduce((acc: number, lon: number) => acc + lon) /
-          filterItems.length;
-
-        let newViewport = { ...viewport };
-        newViewport.latitude = latitude;
-        newViewport.longitude = longitude;
-        setViewport(newViewport);
       }
     }
   }, [data]);
