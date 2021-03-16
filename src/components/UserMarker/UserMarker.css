@@ -1,0 +1,49 @@
+@keyframes expand-and-fade {
+  0% {
+    transform: scale(0.3333);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.user-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.user-animation {
+  background-color: var(--blue);
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  left: -30px;
+  top: -30px;
+  position: absolute;
+
+  animation-name: expand-and-fade;
+  -moz-animation-name: expand-and-fade;
+
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.user-marker {
+  background-color: var(--blue);
+  border-radius: 15px;
+  box-shadow: 0 0 30px var(--darkest-shadow);
+  height: 20px;
+  width: 20px;
+  left: -10px;
+  top: -10px;
+  position: absolute;
+}

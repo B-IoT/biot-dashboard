@@ -1,17 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import { useQuery } from 'react-query';
-// import { getItems } from '../../api/items';
+import { useQuery } from 'react-query';
+import { getItems } from '../../api/items';
 
-import ReactMapGl, { FlyToInterpolator } from 'react-map-gl';
-import { Item, itemExamples } from '../../utils/items';
+import ReactMapGl, { FlyToInterpolator, Layer, Source } from 'react-map-gl';
+import { getPrettyItems, Item } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
 import RoundButton from '../RoundButton/RoundButton';
 import RoundInput from '../RoundInput/RoundInput';
 
 import mapboxgl from 'mapbox-gl';
-import UserMarker from '../UserMarker';
+import UserMarker from '../UserMarker/UserMarker';
+import blueprint from '../../img/blueprint.png';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -24,6 +25,7 @@ function ItemMap(props: { itemName: string }) {
   const [userLat, setUserLat] = useState(0);
   const [floor, setFloor] = useState(0);
   const [itemsFetched, setItemsFetched] = useState(false);
+  const [userFetched, setUserFetched] = useState(false);
   const [items, setItems] = useState([] as Item[]);
   const [viewport, setViewport] = useState({
     latitude: 46.440896,
@@ -34,32 +36,15 @@ function ItemMap(props: { itemName: string }) {
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   } as any);
 
-  useEffect(() => {
-    // Get user geolocation
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          setUserLon(position.coords.longitude);
-          setUserLat(position.coords.latitude);
-        },
-        // () => null,
-        (e) => alert('Geolocation failed ' + e.code + ' ' + e.message),
-        {
-          maximumAge: 60000,
-          timeout: 2000,
-          enableHighAccuracy: false,
-        }
-      );
-    }
-  }, []);
-
   const centerHandler = () => {
-    let newViewport = { ...viewport };
-    newViewport.latitude = userLat;
-    newViewport.longitude = userLon;
-    newViewport.transitionDuration = 'auto';
-    newViewport.transitionInterpolator = flyToOperator;
-    setViewport(newViewport);
+    if (userFetched) {
+      let newViewport = { ...viewport };
+      newViewport.latitude = userLat;
+      newViewport.longitude = userLon;
+      newViewport.transitionDuration = 'auto';
+      newViewport.transitionInterpolator = flyToOperator;
+      setViewport(newViewport);
+    }
   };
 
   const zoomHandler = () => {
@@ -78,58 +63,81 @@ function ItemMap(props: { itemName: string }) {
     setViewport(newViewport);
   };
 
-  if (!itemsFetched) {
-    setItemsFetched(true);
-    const filterItems = itemExamples.filter(
-      (item: Item) =>
-        item.longitude != null &&
-        item.latitude != null &&
-        item.category === props.itemName
-    );
-    setItems(filterItems);
-    const latitude =
-      filterItems
-        .map((item: Item) => item.latitude)
-        .reduce((acc: number, lat: number) => acc + lat) / filterItems.length;
-    const longitude =
-      filterItems
-        .map((item: Item) => item.longitude)
-        .reduce((acc: number, lon: number) => acc + lon) / filterItems.length;
+  // if (!itemsFetched) {
+  //   setItemsFetched(true);
+  //   const filterItems = itemExamples.filter(
+  //     (item: Item) =>
+  //       item.longitude != null &&
+  //       item.latitude != null &&
+  //       item.category === props.itemName,
+  //   );
+  //   setItems(filterItems);
+  //   const latitude =
+  //     filterItems
+  //       .map((item: Item) => item.latitude)
+  //       .reduce((acc: number, lat: number) => acc + lat) / filterItems.length;
+  //   const longitude =
+  //     filterItems
+  //       .map((item: Item) => item.longitude)
+  //       .reduce((acc: number, lon: number) => acc + lon) / filterItems.length;
+  //
+  //   let newViewport = { ...viewport };
+  //   newViewport.latitude = latitude;
+  //   newViewport.longitude = longitude;
+  //   setViewport(newViewport);
+  // }
 
-    let newViewport = { ...viewport };
-    newViewport.latitude = latitude;
-    newViewport.longitude = longitude;
-    setViewport(newViewport);
-  }
+  useEffect(() => {
+    if (navigator.geolocation) {
+      setInterval(
+        () =>
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              setUserLon(position.coords.longitude);
+              setUserLat(position.coords.latitude);
+              setUserFetched(true);
+            },
+            () => null,
+            //(e) => console.log('Geolocation failed ' + e.code + ' ' + e.message),
+            { enableHighAccuracy: false, timeout: 2000, maximumAge: 2000 }
+          ),
+        2000
+      );
+    }
+  }, []);
 
-  // const { data } = useQuery('items', getItems); //, { refetchInterval: 3000 });
-  //
-  // useEffect(() => {
-  //   if (data !== undefined) {
-  //     const filterItems = data.filter(
-  //       (item: Item) =>
-  //         item.longitude != null &&
-  //         item.latitude != null &&
-  //         item.category === props.itemName,
-  //     );
-  //     if (filterItems.length > 0) {
-  //       setItems(getPrettyItems(filterItems));
-  //       setItemsFetched(true);
-  //
-  //       const latitude = filterItems
-  //         .map((item: Item) => item.latitude)
-  //         .reduce((acc: number, lat: number) => acc + lat) / filterItems.length;
-  //       const longitude = filterItems
-  //         .map((item: Item) => item.longitude)
-  //         .reduce((acc: number, lon: number) => acc + lon) / filterItems.length;
-  //
-  //       let newViewport = { ...viewport };
-  //       newViewport.latitude = latitude;
-  //       newViewport.longitude = longitude;
-  //       setViewport(newViewport);
-  //     }
-  //   }
-  // }, [data]);
+  const { data } = useQuery('items', getItems, { refetchInterval: 1000 });
+  useEffect(() => {
+    if (data !== undefined) {
+      const filterItems = data.filter(
+        (item: Item) =>
+          item.longitude != null &&
+          item.latitude != null &&
+          item.category === props.itemName
+      );
+      console.log(props.itemName);
+      if (filterItems.length > 0) {
+        setItems(getPrettyItems(filterItems));
+        setItemsFetched(true);
+
+        const latitude =
+          filterItems
+            .map((item: Item) => item.latitude)
+            .reduce((acc: number, lat: number) => acc + lat) /
+          filterItems.length;
+        const longitude =
+          filterItems
+            .map((item: Item) => item.longitude)
+            .reduce((acc: number, lon: number) => acc + lon) /
+          filterItems.length;
+
+        let newViewport = { ...viewport };
+        newViewport.latitude = latitude;
+        newViewport.longitude = longitude;
+        setViewport(newViewport);
+      }
+    }
+  }, [data]);
 
   const markers = useMemo(
     () =>
@@ -166,7 +174,26 @@ function ItemMap(props: { itemName: string }) {
             }
           >
             {markers}
-            <UserMarker longitude={userLon} latitude={userLat} />
+            {userFetched && (
+              <UserMarker longitude={userLon} latitude={userLat} />
+            )}
+            <Source
+              id="map-source"
+              type="image"
+              url={blueprint}
+              coordinates={[
+                [6.6221621976, 46.5298994022],
+                [6.623383043, 46.5294103301],
+                [6.6229855116, 46.5289365281],
+                [6.6217625055, 46.5294240453],
+              ]}
+            />
+            <Layer
+              id="overlay"
+              source="map-source"
+              type="raster"
+              paint={{ 'raster-opacity': 0.95 }}
+            />
           </ReactMapGl>
           <div className="mask-edges clear" />
           <div className="blurred-edges clear" />
