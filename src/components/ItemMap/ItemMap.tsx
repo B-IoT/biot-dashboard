@@ -202,7 +202,7 @@ function ItemMap(props: { itemName: string }) {
               id="overlay"
               source="map-source"
               type="raster"
-              paint={{ 'raster-opacity': 0.95 }}
+              paint={{ 'raster-opacity': 0.5 }}
             />
           </ReactMapGl>
           <div className="mask-edges clear" />

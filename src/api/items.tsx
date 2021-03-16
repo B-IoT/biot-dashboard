@@ -11,11 +11,11 @@ const credentials = {
 
 async function getToken() {
   if (localStorage.getItem('token') === null) {
-    API.post('/oauth/token', credentials).then((response) =>
-      localStorage.setItem('token', response.data)
-    );
+    const { data } = await API.post('/oauth/token', credentials);
+    localStorage.setItem('token', data);
   }
 
+  // Set headers -> return token
   API.defaults.headers.common = {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   };
