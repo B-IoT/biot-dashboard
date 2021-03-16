@@ -1,72 +1,64 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 // import { useQuery } from 'react-query';
 // import { getItems } from '../../api/items';
 
 import ReactMapGl, { FlyToInterpolator } from 'react-map-gl';
-import { getPrettyItems, Item } from '../../utils/items';
+import { Item, itemExamples } from '../../utils/items';
 import MapMarker from '../MapMarker/MapMarker';
 import RoundButton from '../RoundButton/RoundButton';
 import RoundInput from '../RoundInput/RoundInput';
 
 import mapboxgl from 'mapbox-gl';
+import UserMarker from '../UserMarker';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!../../../node_modules/mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
+const flyToOperator = new FlyToInterpolator({ speed: 6 });
+
 function ItemMap(props: { itemName: string }) {
-  const [centerLatitude, setCenterLatitude] = useState(
-    localStorage.getItem('userLatitude')
-      ? localStorage.getItem('userLatitude')
-      : 46.440896
-  );
-  const [centerLongitude, setCenterLongitude] = useState(
-    localStorage.getItem('userLongitude')
-      ? localStorage.getItem('userLongitude')
-      : 6.891924
-  );
+  const [userLon, setUserLon] = useState(0);
+  const [userLat, setUserLat] = useState(0);
   const [floor, setFloor] = useState(0);
   const [itemsFetched, setItemsFetched] = useState(false);
   const [items, setItems] = useState([] as Item[]);
   const [viewport, setViewport] = useState({
-    latitude: centerLatitude,
-    longitude: centerLongitude,
+    latitude: 46.440896,
+    longitude: 6.891924,
     zoom: 19,
     maxZoom: 22,
     minZoom: 17,
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   } as any);
 
-  // Get user geolocation
-  if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(
-      function (position) {
-        localStorage.setItem('userLatitude', String(position.coords.latitude));
-        localStorage.setItem(
-          'userLongitude',
-          String(position.coords.longitude)
-        );
-        setCenterLatitude(position.coords.latitude);
-        setCenterLongitude(position.coords.longitude);
-      },
-      () => null,
-      // (e) => alert('Geolocation failed ' + e.code + ' ' + e.message),
-      {
-        maximumAge: 60000,
-        timeout: 10000,
-        enableHighAccuracy: true,
-      }
-    );
-  }
+  useEffect(() => {
+    // Get user geolocation
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          setUserLon(position.coords.longitude);
+          setUserLat(position.coords.latitude);
+        },
+        // () => null,
+        (e) => alert('Geolocation failed ' + e.code + ' ' + e.message),
+        {
+          maximumAge: 60000,
+          timeout: 2000,
+          enableHighAccuracy: false,
+        }
+      );
+    }
+  }, []);
 
   const centerHandler = () => {
     let newViewport = { ...viewport };
-    newViewport.latitude = centerLatitude;
-    newViewport.longitude = centerLongitude;
+    newViewport.latitude = userLat;
+    newViewport.longitude = userLon;
     newViewport.transitionDuration = 'auto';
-    newViewport.transitionInterpolator = new FlyToInterpolator();
+    newViewport.transitionInterpolator = flyToOperator;
     setViewport(newViewport);
   };
 
@@ -74,7 +66,7 @@ function ItemMap(props: { itemName: string }) {
     let newViewport = { ...viewport };
     newViewport.zoom = Math.min(newViewport.zoom + 1, newViewport.maxZoom);
     newViewport.transitionDuration = 'auto';
-    newViewport.transitionInterpolator = new FlyToInterpolator({ speed: 6 });
+    newViewport.transitionInterpolator = flyToOperator;
     setViewport(newViewport);
   };
 
@@ -82,132 +74,13 @@ function ItemMap(props: { itemName: string }) {
     let newViewport = { ...viewport };
     newViewport.zoom = Math.max(newViewport.zoom - 1, newViewport.minZoom);
     newViewport.transitionDuration = 'auto';
-    newViewport.transitionInterpolator = new FlyToInterpolator({ speed: 6 });
+    newViewport.transitionInterpolator = flyToOperator;
     setViewport(newViewport);
   };
 
-  const floorUpHandler = () => {
-    setFloor(floor + 1);
-  };
-
-  const floorDownHandler = () => {
-    setFloor(floor - 1);
-  };
-
-  const data = getPrettyItems([
-    {
-      id: 1,
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 2,
-      category: 'Oxygène',
-      status: 'available',
-      battery: 94,
-      latitude: 46.440896,
-      longitude: 6.891924,
-      timestamp: '2020-10-26T08:54:14',
-      service: 'Bloc 1',
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 0,
-      timestamp: '2020-10-26T08:54:14',
-      status: 'available',
-      battery: 87,
-      latitude: 46.44092,
-      longitude: 6.891924,
-      category: 'Lit',
-      service: 'Bloc 1',
-      id: 2,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 1,
-      timestamp: '2020-10-26T08:54:14',
-      status: 'available',
-      battery: 56,
-      latitude: 46.44089,
-      longitude: 6.891944,
-      category: 'ECG',
-      service: 'Bloc 1',
-      id: 3,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 2,
-      timestamp: '2020-10-26T08:54:14',
-      category: 'Oxygène',
-      status: 'needMaintenance',
-      battery: 20,
-      latitude: 46.44099,
-      longitude: 6.891984,
-      service: 'Bloc 1',
-      id: 4,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 0,
-      timestamp: '2020-10-26T08:54:14',
-      category: 'Lit',
-      status: 'unavailable',
-      battery: 0,
-      latitude: 46.44079,
-      longitude: 6.891984,
-      service: 'Bloc 2',
-      id: 5,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 1,
-      timestamp: '2020-10-26T08:54:14',
-      category: 'Lit',
-      status: 'available',
-      battery: 12,
-      latitude: 46.44089,
-      longitude: 6.891684,
-      service: 'Bloc 2',
-      id: 6,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 2,
-      timestamp: '2020-10-26T08:54:14',
-      category: 'ECG',
-      status: 'available',
-      battery: 12,
-      latitude: 46.440898,
-      longitude: 6.892268,
-      service: 'Bloc 2',
-      id: 7,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 1,
-      timestamp: '2020-10-26T08:54:14',
-      category: 'ECG',
-      status: 'needMaintenance',
-      battery: 20,
-      latitude: 46.441019,
-      longitude: 6.891783,
-      service: 'Bloc 2',
-      id: 8,
-    },
-    {
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      floor: 0,
-      timestamp: '2020-10-26T08:54:14',
-      id: 9,
-      category: 'ECG',
-      status: 'available',
-      battery: 73,
-      latitude: 46.440754,
-      longitude: 6.892197,
-      service: 'Bloc 2',
-    },
-  ]);
-
   if (!itemsFetched) {
     setItemsFetched(true);
-    const filterItems = data.filter(
+    const filterItems = itemExamples.filter(
       (item: Item) =>
         item.longitude != null &&
         item.latitude != null &&
@@ -222,8 +95,6 @@ function ItemMap(props: { itemName: string }) {
       filterItems
         .map((item: Item) => item.longitude)
         .reduce((acc: number, lon: number) => acc + lon) / filterItems.length;
-    setCenterLatitude(latitude);
-    setCenterLongitude(longitude);
 
     let newViewport = { ...viewport };
     newViewport.latitude = latitude;
@@ -251,8 +122,6 @@ function ItemMap(props: { itemName: string }) {
   //       const longitude = filterItems
   //         .map((item: Item) => item.longitude)
   //         .reduce((acc: number, lon: number) => acc + lon) / filterItems.length;
-  //       setCenterLatitude(latitude);
-  //       setCenterLongitude(longitude);
   //
   //       let newViewport = { ...viewport };
   //       newViewport.latitude = latitude;
@@ -262,36 +131,25 @@ function ItemMap(props: { itemName: string }) {
   //   }
   // }, [data]);
 
-  const markers = useMemo(() => {
-    const filterItems = items.filter((item) => item.floor === floor);
-
-    // if (filterItems.length > 0) {
-    //   setCenterLatitude(
-    //     filterItems
-    //       .map((item: Item) => item.latitude)
-    //       .reduce((acc: number, lat: number) => acc + lat) / filterItems.length,
-    //   );
-    //   setCenterLongitude(
-    //     filterItems
-    //       .map((item: Item) => item.longitude)
-    //       .reduce((acc: number, lon: number) => acc + lon) / filterItems.length,
-    //   );
-    // }
-
-    return filterItems.map((item) => <MapMarker key={item.id} item={item} />);
-  }, [items, floor]);
+  const markers = useMemo(
+    () =>
+      items
+        .filter((item) => item.floor === floor)
+        .map((item) => <MapMarker key={item.id} item={item} />),
+    [items, floor]
+  );
 
   return (
     <div className="map-total-container">
       <div className="map-control-left">
         <RoundButton
           iconPath={'navbarIcons/floorUp.svg'}
-          onClickHandler={floorUpHandler}
+          onClickHandler={() => setFloor(floor + 1)}
         />
         <RoundInput input={floor} setInput={setFloor} />
         <RoundButton
           iconPath={'navbarIcons/floorDown.svg'}
-          onClickHandler={floorDownHandler}
+          onClickHandler={() => setFloor(floor - 1)}
         />
       </div>
 
@@ -308,6 +166,7 @@ function ItemMap(props: { itemName: string }) {
             }
           >
             {markers}
+            <UserMarker longitude={userLon} latitude={userLat} />
           </ReactMapGl>
           <div className="mask-edges clear" />
           <div className="blurred-edges clear" />

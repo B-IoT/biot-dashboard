@@ -1,7 +1,7 @@
 import './RoundInput.css';
 import roundInput from '../../img/roundInput.png';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import OutsideAlerter from '../OutsideAlerter';
+import OutsideAlerter from '../../utils/OutsideAlerter';
 
 export default function RoundInput(props: {
   input: number;
