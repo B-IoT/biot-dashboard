@@ -6,27 +6,15 @@ const credentials = {
   password: 'andrea',
 };
 
-if (localStorage.getItem('token') === null) {
-  API.post('/oauth/token', credentials)
-    .then((response) => localStorage.setItem('token', response.data));
+const token = localStorage.getItem('token');
+if (token === null) {
+  API.post('/oauth/token', credentials).then((response) => {
+    localStorage.setItem('token', response.data);
+    API.defaults.headers.common = { Authorization: 'Bearer ' + response.data };
+  });
+} else {
+  API.defaults.headers.common = { Authorization: 'Bearer ' + token };
 }
-
-API.defaults.headers.common = {
-  Authorization: `Bearer ${localStorage.getItem('token')}`,
-};
-
-axios.interceptors.response.use(response => {
-  return response;
-}, error => {
-  if (error.response.status === 401) {
-    API.post('/oauth/token', credentials)
-      .then((response) => localStorage.setItem('token', response.data));
-    API.defaults.headers.common = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-  }
-  return error;
-});
 
 /**
  * Get all items matching the category.
