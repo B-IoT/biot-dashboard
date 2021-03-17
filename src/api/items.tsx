@@ -1,31 +1,37 @@
 import axios from 'axios';
 
-const API_URL = 'https://api.b-iot.ch:8080';
-const API = axios.create({
-  baseURL: API_URL,
-});
+const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
 const credentials = {
   username: 'andrea',
   password: 'andrea',
 };
 
-async function getToken() {
-  if (localStorage.getItem('token') === null) {
-    const { data } = await API.post('/oauth/token', credentials);
-    localStorage.setItem('token', data);
-  }
-
-  // Set headers -> return token
-  API.defaults.headers.common = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
+if (localStorage.getItem('token') === null) {
+  API.post('/oauth/token', credentials)
+    .then((response) => localStorage.setItem('token', response.data));
 }
+
+API.defaults.headers.common = {
+  Authorization: `Bearer ${localStorage.getItem('token')}`,
+};
+
+axios.interceptors.response.use(response => {
+  return response;
+}, error => {
+  if (error.response.status === 401) {
+    API.post('/oauth/token', credentials)
+      .then((response) => localStorage.setItem('token', response.data));
+    API.defaults.headers.common = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+  }
+  return error;
+});
 
 /**
  * Get all items matching the category.
  */
 export async function getItems() {
-  await getToken();
   const { data } = await API.get('api/items');
   return data;
 }
@@ -44,7 +50,6 @@ export async function getItems() {
  * @param {number} itemID the id of the item
  */
 export async function getItem(itemID: number) {
-  await getToken();
   const { data } = await API.get(`api/items/${itemID}`);
   return data;
 }
@@ -53,7 +58,6 @@ export async function getItem(itemID: number) {
  * Get the list of categories having at least one item.
  */
 export async function getCategories() {
-  await getToken();
   const { data } = await API.get(`api/items/categories`);
   return data;
 }
@@ -64,6 +68,5 @@ export async function getCategories() {
  * @param {object} item the item to create
  */
 export async function createItem(item: object) {
-  await getToken();
   return await API.post(`api/items`, item);
 }
