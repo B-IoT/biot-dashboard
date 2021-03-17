@@ -113,8 +113,7 @@
   justify-content: center;
   flex-direction: column;
   margin-right: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
 }
 
 .map-control-left {
@@ -125,8 +124,7 @@
   justify-content: center;
   flex-direction: column;
   margin-right: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
 }
 
 .separator {
