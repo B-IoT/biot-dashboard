@@ -90,12 +90,16 @@ function ItemMap(props: { itemName: string }) {
   const { data } = useQuery('items', getItems, { refetchInterval: 1000 });
   useEffect(() => {
     if (data !== undefined) {
-      const filterItems = data.filter(
-        (item: Item) =>
+      const filterItems = data.filter((item: any) => {
+        console.log(item);
+        return (
           item.longitude != null &&
           item.latitude != null &&
+          item.longitude !== 'NaN' &&
+          item.latitude !== 'NaN' &&
           item.category === props.itemName
-      );
+        );
+      });
 
       if (filterItems.length > 0) {
         setItems(getPrettyItems(filterItems));
