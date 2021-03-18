@@ -65,12 +65,12 @@ function ItemMap(props: { itemName: string }) {
 
   // if (!itemsFetched) {
   //   setItemsFetched(true);
-  //   const filterItems = itemExamples.filter(
-  //     (item: Item) =>
-  //       item.longitude != null &&
-  //       item.latitude != null &&
-  //       item.category === props.itemName,
-  //   );
+  //   const filterItems = itemExamples.filter((item: any) =>
+  //         item.longitude != null &&
+  //         item.latitude != null &&
+  //         item.longitude !== 'NaN' &&
+  //         item.latitude !== 'NaN' &&
+  //         item.category === props.itemName);
   //   setItems(filterItems);
   //   const latitude =
   //     filterItems
@@ -90,16 +90,14 @@ function ItemMap(props: { itemName: string }) {
   const { data } = useQuery('items', getItems, { refetchInterval: 1000 });
   useEffect(() => {
     if (data !== undefined) {
-      const filterItems = data.filter((item: any) => {
-        console.log(item);
-        return (
+      const filterItems = data.filter(
+        (item: any) =>
           item.longitude != null &&
           item.latitude != null &&
           item.longitude !== 'NaN' &&
           item.latitude !== 'NaN' &&
           item.category === props.itemName
-        );
-      });
+      );
 
       if (filterItems.length > 0) {
         setItems(getPrettyItems(filterItems));
@@ -183,7 +181,7 @@ function ItemMap(props: { itemName: string }) {
               id="overlay"
               source="map-source"
               type="raster"
-              paint={{ 'raster-opacity': 0.5 }}
+              paint={{ 'raster-opacity': 0.35 }}
             />
             {markers}
             <UserMarker
