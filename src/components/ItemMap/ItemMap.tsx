@@ -12,7 +12,8 @@ import RoundInput from '../RoundInput/RoundInput';
 
 import mapboxgl from 'mapbox-gl';
 import UserMarker from '../UserMarker/UserMarker';
-import blueprint from '../../img/blueprint.png';
+import floor1 from '../../img/floor1.png';
+import floor2 from '../../img/floor2.png';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -169,7 +170,7 @@ function ItemMap(props: { itemName: string }) {
             <Source
               id="map-source"
               type="image"
-              url={blueprint}
+              url={floor < 2 ? floor1 : floor2}
               coordinates={[
                 [6.6221621976, 46.5298994022],
                 [6.623383043, 46.5294103301],
@@ -181,7 +182,7 @@ function ItemMap(props: { itemName: string }) {
               id="overlay"
               source="map-source"
               type="raster"
-              paint={{ 'raster-opacity': 0.35 }}
+              paint={{ 'raster-opacity': 1 }}
             />
             {markers}
             <UserMarker
