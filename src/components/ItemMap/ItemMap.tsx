@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './ItemMap.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useQuery } from 'react-query';
-import { getItems } from '../../api/items';
+import { getItemsByCategory } from '../../api/items';
 
 import ReactMapGl, { FlyToInterpolator, Layer, Source } from 'react-map-gl';
 import { getPrettyItems, Item } from '../../utils/items';
@@ -37,7 +37,7 @@ function ItemMap(props: { itemName: string }) {
     mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
   } as any);
 
-  const centerHandler = () => {
+  function centerHandler() {
     if (userFetched) {
       let newViewport = { ...viewport };
       newViewport.latitude = userLat;
@@ -46,23 +46,23 @@ function ItemMap(props: { itemName: string }) {
       newViewport.transitionInterpolator = flyToOperator;
       setViewport(newViewport);
     }
-  };
+  }
 
-  const zoomHandler = () => {
+  function zoomHandler() {
     let newViewport = { ...viewport };
     newViewport.zoom = Math.min(newViewport.zoom + 1, newViewport.maxZoom);
     newViewport.transitionDuration = 'auto';
     newViewport.transitionInterpolator = flyToOperator;
     setViewport(newViewport);
-  };
+  }
 
-  const dezoomHandler = () => {
+  function dezoomHandler() {
     let newViewport = { ...viewport };
     newViewport.zoom = Math.max(newViewport.zoom - 1, newViewport.minZoom);
     newViewport.transitionDuration = 'auto';
     newViewport.transitionInterpolator = flyToOperator;
     setViewport(newViewport);
-  };
+  }
 
   // if (!itemsFetched) {
   //   setItemsFetched(true);
@@ -88,15 +88,17 @@ function ItemMap(props: { itemName: string }) {
   //   setViewport(newViewport);
   // }
 
-  const { data } = useQuery('items', getItems, { refetchInterval: 1000 });
+  const { data } = useQuery('items', () => getItemsByCategory(props.itemName), {
+    refetchInterval: 1000,
+  });
   useEffect(() => {
     if (data !== undefined) {
       const filterItems = data.filter(
         (item: any) =>
+          !isNaN(item.longitude) &&
+          !isNaN(item.latitude) &&
           item.longitude != null &&
           item.latitude != null &&
-          item.longitude !== 'NaN' &&
-          item.latitude !== 'NaN' &&
           item.category === props.itemName
       );
 

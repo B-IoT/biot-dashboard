@@ -19,18 +19,15 @@ if (token === null) {
 /**
  * Get all items matching the category.
  */
-export async function getItems() {
-  const { data } = await API.get('api/items');
+export async function getItemsByCategory(category: string) {
+  const params = {
+    params: {
+      category: category,
+    },
+  };
+  const { data } = await API.get('api/items', params);
   return data;
 }
-
-// /**
-//  * Get all items matching the category.
-//  */
-// export async function getItems(category: string) {
-//   const { data } = await API.get('api/items?category=' + category);
-//   return data;
-// }
 
 /**
  * Get the item with the following id.
