@@ -7,9 +7,17 @@ const credentials = {
 };
 
 const token = localStorage.getItem('token');
-if (token === null) {
+const tokenDate = localStorage.getItem('tokenDate');
+
+// Check if token exists and if it is younger than 6 days (in milliseconds)
+if (
+  token === null ||
+  tokenDate === null ||
+  Date.now() - parseInt(tokenDate) > 518400000
+) {
   API.post('/oauth/token', credentials).then((response) => {
     localStorage.setItem('token', response.data);
+    localStorage.setItem('tokenDate', Date.now().toString());
     API.defaults.headers.common = { Authorization: 'Bearer ' + response.data };
   });
 } else {
