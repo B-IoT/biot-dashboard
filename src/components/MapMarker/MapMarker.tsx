@@ -44,6 +44,13 @@ export default function MapMarker(props: { item: Item }) {
           >
             {'Batterie: ' + props.item.battery + '%'}
           </div>
+          <div
+            className={
+              props.item.beacon == null ? 'hidden' : 'axiforma-light-blue-20px'
+            }
+          >
+            {'MAC: ' + props.item.beacon}
+          </div>
         </div>
       </Popup>
       <Marker
