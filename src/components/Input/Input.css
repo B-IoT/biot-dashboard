@@ -3,14 +3,11 @@
   align-items: center;
   display: flex;
   height: 103px;
-  width: 557px;
-  margin-top: 30px;
 }
 
 .search-mask {
   border-radius: 39px;
   height: 77px;
-  width: 501px;
   overflow: hidden;
   position: absolute;
 }
@@ -21,7 +18,6 @@
   border: 15px solid var(--darker-shadow);
   height: 150px;
   position: absolute;
-  width: 600px;
   top: 0;
   left: 0;
 }
@@ -32,7 +28,6 @@
   border: 15px solid var(--lighter-light);
   height: 150px;
   position: absolute;
-  width: 600px;
   bottom: 0;
   right: 0;
 }
@@ -44,7 +39,6 @@
   backdrop-filter: blur(4px) brightness(100%);
   border-radius: 39px;
   height: 103px;
-  width: 557px;
   position: absolute;
 }
 
@@ -55,7 +49,6 @@
   position: relative;
   background: transparent;
   border: none;
-  width: 75%;
   outline-color: transparent;
   outline-style: none;
 }

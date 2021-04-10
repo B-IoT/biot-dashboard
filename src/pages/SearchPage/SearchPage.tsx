@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import Input from '../../components/Input/Input';
 import ItemButton from '../../components/ItemButton/ItemButton';
 import PlaceholderButton from '../../components/ItemButton/PlaceholderButton';
 
@@ -47,7 +47,12 @@ function SearchPage() {
       <h1 className="search-title axiforma-bold-blue-70px">
         {'Que cherchez-vous ?'}
       </h1>
-      <SearchBar setKeyword={setKeyword} />
+      <Input
+        setKeyword={setKeyword}
+        defaultText="Rechercher"
+        width={550}
+        style={{ marginTop: 10 }}
+      />
       <div className="result-grid">
         {buttons}
         {placeholders}

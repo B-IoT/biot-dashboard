@@ -1,0 +1,53 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 37px;
+  height: 75px;
+  width: 180px;
+}
+
+.button-pressed {
+  background: linear-gradient(
+    157.37deg,
+    var(--darker-shadow) 13.29%,
+    var(--lighter-light) 84.76%
+  );
+  border-radius: 37px;
+  filter: blur(6px);
+  position: absolute;
+  height: 75px;
+  width: 180px;
+  will-change: opacity;
+}
+
+.button-shadow {
+  box-shadow: 10px 10px 10px var(--darker-shadow);
+  border-radius: 37px;
+  filter: blur(4px);
+  position: absolute;
+  height: 75px;
+  width: 180px;
+  will-change: opacity;
+}
+
+.button-light {
+  background: linear-gradient(
+    157.37deg,
+    var(--light) 13.29%,
+    var(--shadow) 84.76%
+  );
+  box-shadow: -10px -10px 10px var(--lighter-light);
+  border-radius: 37px;
+  filter: blur(4px);
+  position: absolute;
+  height: 75px;
+  width: 180px;
+  will-change: opacity;
+}
+
+.button-text {
+  position: absolute;
+  will-change: transform;
+  text-align: center;
+}
