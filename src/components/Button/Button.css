@@ -51,3 +51,8 @@
   will-change: transform;
   text-align: center;
 }
+
+.password {
+  -webkit-text-security: disc;
+  text-security: disc;
+}

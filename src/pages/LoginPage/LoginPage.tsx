@@ -4,10 +4,24 @@ import './LoginPage.css';
 import Input from '../../components/Input/Input';
 import logo from '../../img/logoColor.png';
 import Button from '../../components/Button/Button';
+import { authenticate } from '../../api/items';
+import { useHistory } from 'react-router-dom';
 
 function LoginPage() {
-  const [keyword, setKeyword] = useState('');
-  console.log(keyword);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  async function handleSignIn() {
+    console.log(username);
+    console.log(password);
+    const success = await authenticate(username, password);
+    console.log(success);
+
+    if (success) {
+      history.push('/');
+    }
+  }
 
   return (
     <div className="center-login">
@@ -15,19 +29,26 @@ function LoginPage() {
         <img className="login-logo" src={logo} alt="BIoT logo" />
       </a>
       <Input
-        setKeyword={setKeyword}
+        setKeyword={setUsername}
         defaultText="Nom d'utilisateur"
         width={400}
-        style={{ marginTop: 20 }}
+        style={{}}
+        isPassword={false}
       />
       <Input
-        setKeyword={setKeyword}
+        setKeyword={setPassword}
         defaultText="Mot de passe"
         width={400}
         style={{}}
+        isPassword={true}
       />
 
-      <Button text="Connexion" width={200} style={{ marginTop: 50 }} />
+      <Button
+        text="Connexion"
+        onClick={() => handleSignIn()}
+        width={200}
+        style={{ marginTop: 35 }}
+      />
     </div>
   );
 }

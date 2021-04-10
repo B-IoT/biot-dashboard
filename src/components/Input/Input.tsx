@@ -6,6 +6,7 @@ export default function Input(props: {
   defaultText: string;
   width: number;
   style: {};
+  isPassword: boolean;
 }) {
   return (
     <div
@@ -18,6 +19,7 @@ export default function Input(props: {
       </div>
       <div className="search-blur" style={{ width: props.width }}>
         <input
+          type={props.isPassword ? 'password' : ''}
           className="search-text axiforma-light-blue-21px"
           placeholder={props.defaultText}
           onChange={(e) => props.setKeyword(e.target.value)}

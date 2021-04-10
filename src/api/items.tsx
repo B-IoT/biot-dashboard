@@ -1,11 +1,6 @@
 import axios from 'axios';
 
 const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
-const credentials = {
-  username: 'andrea',
-  password: 'andrea',
-};
-
 const token = localStorage.getItem('token');
 const tokenDate = localStorage.getItem('tokenDate');
 
@@ -15,13 +10,30 @@ if (
   tokenDate === null ||
   Date.now() - parseInt(tokenDate) > 518400000
 ) {
-  API.post('/oauth/token', credentials).then((response) => {
-    localStorage.setItem('token', response.data);
-    localStorage.setItem('tokenDate', Date.now().toString());
-    API.defaults.headers.common = { Authorization: 'Bearer ' + response.data };
-  });
+  // Route to login page
 } else {
   API.defaults.headers.common = { Authorization: 'Bearer ' + token };
+}
+
+/**
+ * Get all items matching the category.
+ */
+export async function authenticate(username: string, password: string) {
+  const credentials = {
+    username: username,
+    password: password,
+  };
+
+  try {
+    const { data } = await API.post('/oauth/token', credentials);
+    localStorage.setItem('token', data);
+    localStorage.setItem('tokenDate', Date.now().toString());
+    API.defaults.headers.common = { Authorization: 'Bearer ' + data };
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 /**

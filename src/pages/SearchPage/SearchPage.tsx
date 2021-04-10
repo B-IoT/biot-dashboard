@@ -52,6 +52,7 @@ function SearchPage() {
         defaultText="Rechercher"
         width={550}
         style={{ marginTop: 10 }}
+        isPassword={false}
       />
       <div className="result-grid">
         {buttons}
