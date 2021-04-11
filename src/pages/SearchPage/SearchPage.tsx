@@ -53,6 +53,7 @@ function SearchPage() {
         width={550}
         style={{ marginTop: 50 }}
         isPassword={false}
+        enterHandler={() => null}
       />
       <div className="result-grid">
         {buttons}

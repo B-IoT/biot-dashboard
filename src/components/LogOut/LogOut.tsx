@@ -13,7 +13,7 @@ export default function LogOut() {
   }
 
   return (
-    <div className='log-out'>
+    <div className="log-out">
       <RoundButton
         iconPath={'navbarIcons/logOut.svg'}
         onClickHandler={() => handleLogOut()}

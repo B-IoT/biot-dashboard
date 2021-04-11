@@ -6,6 +6,7 @@ export default function Input(props: {
   defaultText: string;
   width: number;
   style: {};
+  enterHandler: () => void;
   isPassword: boolean;
 }) {
   return (
@@ -23,6 +24,7 @@ export default function Input(props: {
           className="search-text axiforma-light-blue-21px"
           placeholder={props.defaultText}
           onChange={(e) => props.setKeyword(e.target.value)}
+          onKeyPress={(e) => (e.key === 'Enter' ? props.enterHandler() : null)}
           style={{ width: props.width - 75 }}
         />
       </div>

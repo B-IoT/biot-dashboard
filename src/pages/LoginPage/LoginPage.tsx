@@ -34,6 +34,7 @@ function LoginPage() {
         width={350}
         style={{}}
         isPassword={false}
+        enterHandler={() => null}
       />
       <Input
         setKeyword={setPassword}
@@ -41,6 +42,7 @@ function LoginPage() {
         width={350}
         style={{ marginTop: 15 }}
         isPassword={true}
+        enterHandler={handleSignIn}
       />
       {showError && (
         <div className="error-text login-error">
