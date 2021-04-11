@@ -8,5 +8,9 @@
 
 .login-logo {
   width: 200px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+}
+
+.login-error {
+  margin-top: 25px;
 }

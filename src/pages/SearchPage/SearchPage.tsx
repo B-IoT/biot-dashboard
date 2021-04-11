@@ -51,7 +51,7 @@ function SearchPage() {
         setKeyword={setKeyword}
         defaultText="Rechercher"
         width={550}
-        style={{ marginTop: 10 }}
+        style={{ marginTop: 50 }}
         isPassword={false}
       />
       <div className="result-grid">

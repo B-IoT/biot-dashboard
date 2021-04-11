@@ -13,17 +13,17 @@ export default function Input(props: {
       className="search-bar"
       style={Object.assign({}, { width: props.width }, props.style)}
     >
-      <div className="search-mask" style={{ width: props.width - 50 }}>
-        <div className="search-shadow" style={{ width: props.width + 50 }} />
-        <div className="search-light" style={{ width: props.width + 50 }} />
+      <div className="search-mask" style={{ width: props.width }}>
+        <div className="search-shadow" style={{ width: props.width + 100 }} />
+        <div className="search-light" style={{ width: props.width + 100 }} />
       </div>
-      <div className="search-blur" style={{ width: props.width }}>
+      <div className="search-blur" style={{ width: props.width + 5 }}>
         <input
           type={props.isPassword ? 'password' : ''}
           className="search-text axiforma-light-blue-21px"
           placeholder={props.defaultText}
           onChange={(e) => props.setKeyword(e.target.value)}
-          style={{ width: props.width - 125 }}
+          style={{ width: props.width - 75 }}
         />
       </div>
     </div>

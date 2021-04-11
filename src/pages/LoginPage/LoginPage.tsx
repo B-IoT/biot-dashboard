@@ -10,16 +10,16 @@ import { useHistory } from 'react-router-dom';
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false);
   const history = useHistory();
 
   async function handleSignIn() {
-    console.log(username);
-    console.log(password);
     const success = await authenticate(username, password);
-    console.log(success);
 
     if (success) {
       history.push('/');
+    } else {
+      setShowError(true);
     }
   }
 
@@ -31,18 +31,22 @@ function LoginPage() {
       <Input
         setKeyword={setUsername}
         defaultText="Nom d'utilisateur"
-        width={400}
+        width={350}
         style={{}}
         isPassword={false}
       />
       <Input
         setKeyword={setPassword}
         defaultText="Mot de passe"
-        width={400}
-        style={{}}
+        width={350}
+        style={{ marginTop: 15 }}
         isPassword={true}
       />
-
+      {showError && (
+        <div className="error-text login-error">
+          {'Identifiant ou mot de passe incorrect.'}
+        </div>
+      )}
       <Button
         text="Connexion"
         onClick={() => handleSignIn()}

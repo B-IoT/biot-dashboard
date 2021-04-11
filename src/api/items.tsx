@@ -1,22 +1,14 @@
 import axios from 'axios';
 
 const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
-const token = localStorage.getItem('token');
-const tokenDate = localStorage.getItem('tokenDate');
 
-// Check if token exists and if it is younger than 6 days (in milliseconds)
-if (
-  token === null ||
-  tokenDate === null ||
-  Date.now() - parseInt(tokenDate) > 518400000
-) {
-  // Route to login page
-} else {
+export function fetchToken() {
+  const token = localStorage.getItem('token');
   API.defaults.headers.common = { Authorization: 'Bearer ' + token };
 }
 
 /**
- * Get all items matching the category.
+ * Request the authentication token
  */
 export async function authenticate(username: string, password: string) {
   const credentials = {

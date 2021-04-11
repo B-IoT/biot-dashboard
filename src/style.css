@@ -104,6 +104,14 @@
   font-weight: 600;
 }
 
+.error-text {
+  color: var(--error-red);
+  font-family: 'Axiforma-Light', Helvetica, Arial, serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+}
+
 .hidden {
   display: none;
   visibility: hidden;
@@ -119,6 +127,7 @@
   --background: rgb(238, 242, 251);
   --semi-background: rgba(238, 242, 251, 0.3);
   --spindle: rgb(191, 208, 242);
+  --error-red: rgb(255, 75, 76);
 
   --light: rgb(249, 251, 255);
   --lighter-light: rgb(255, 255, 255);
