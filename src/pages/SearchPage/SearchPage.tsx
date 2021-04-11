@@ -4,10 +4,10 @@ import ItemButton from '../../components/ItemButton/ItemButton';
 import PlaceholderButton from '../../components/ItemButton/PlaceholderButton';
 
 import './SearchPage.css';
-import Logo from '../../components/Logo/Logo';
 import { simplifyText } from '../../utils/items';
 import { useQuery } from 'react-query';
 import { getCategories } from '../../api/items';
+import LogOut from '../../components/LogOut/LogOut';
 
 function SearchPage() {
   const [categories, setCategories] = useState([] as string[]);
@@ -58,7 +58,7 @@ function SearchPage() {
         {buttons}
         {placeholders}
       </div>
-      <Logo />
+      <LogOut />
     </div>
   );
 }
