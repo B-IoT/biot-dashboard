@@ -1,0 +1,41 @@
+.ellipse-1 {
+  align-self: flex-end;
+  background-color: var(--blue);
+  border-radius: 340px;
+  height: 680px;
+  margin-left: 51px;
+  opacity: 0.54;
+  width: 680px;
+}
+.ellipse-5 {
+  align-self: center;
+  background-color: var(--caribbean-green);
+  border-radius: 250px;
+  height: 500px;
+  opacity: 0.54;
+  width: 500px;
+}
+.ellipse-6 {
+  background-color: var(--blue);
+  border-radius: 154px;
+  height: 308px;
+  margin-left: 704px;
+  opacity: 0.54;
+  width: 308px;
+}
+.group-65 {
+  align-items: flex-start;
+  display: flex;
+  height: 1468px;
+  left: 0px;
+  min-width: 2243px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+}
+.group-652 {
+  align-items: unset;
+  display: unset;
+  min-width: unset;
+  width: 2243px;
+}

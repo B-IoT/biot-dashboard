@@ -1,0 +1,13 @@
+.exclusion-1 {
+  -webkit-backdrop-filter: blur(25px) brightness(105%);
+  backdrop-filter: blur(25px) brightness(105%);
+  border-radius: 41px;
+  height: 190px;
+  left: 1109px;
+  position: absolute;
+  top: 878px;
+  width: 280px;
+}
+.exclusion-2 {
+  left: 785px;
+}

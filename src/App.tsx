@@ -2,8 +2,8 @@ import React from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SearchPage from './pages/SearchPage/SearchPage';
-import MapPage from './pages/MapPage/MapPage';
+import AnalyticsPage from './pages/AnalyticsPage/AnalyticsPage';
+import MaintenancePage from './pages/MaintenancePage/MaintenancePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SecureRoute from './utils/SecureRoute';
 
@@ -14,9 +14,9 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Switch>
-          <SecureRoute exact path="/" component={SearchPage} />
+          <SecureRoute exact path="/" component={AnalyticsPage} />
           <Route path="/login" component={LoginPage} />
-          <SecureRoute path="/tracking" component={MapPage} />
+          <SecureRoute path="/tracking" component={MaintenancePage} />
         </Switch>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen />

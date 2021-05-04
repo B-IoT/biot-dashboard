@@ -1,0 +1,32 @@
+.group-1002 {
+  bottom: calc(49.62% - 28px);
+  height: 57px;
+  position: absolute;
+  right: calc(49.78% - 28px);
+  width: 57px;
+}
+.group-102 {
+  bottom: calc(50.00% - 28px);
+  right: calc(50.00% - 28px);
+}
+.rectangle-5092 {
+  -webkit-backdrop-filter: blur(25px) brightness(105%);
+  backdrop-filter: blur(25px) brightness(105%);
+  border-radius: 11px;
+  height: 100%;
+  left: calc(50.00% - 8px);
+  position: absolute;
+  top: 0px;
+  width: 15px;
+}
+.rectangle-5102 {
+  -webkit-backdrop-filter: blur(25px) brightness(105%);
+  backdrop-filter: blur(25px) brightness(105%);
+  border-radius: 11px;
+  height: 57px;
+  left: 21px;
+  position: absolute;
+  top: calc(50.00% - 28px);
+  transform: rotate(90deg);
+  width: calc(100.00% - 42px);
+}

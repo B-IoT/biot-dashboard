@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import './LoginPage.css';
 import Input from '../../components/Input/Input';
-import logo from '../../img/logoColor.png';
 import Button from '../../components/Button/Button';
 import { authenticate } from '../../api/items';
 import { useHistory } from 'react-router-dom';
@@ -26,7 +25,7 @@ function LoginPage() {
   return (
     <div className="center-login">
       <a href="https://biot.webflow.io">
-        <img className="login-logo" src={logo} alt="BIoT logo" />
+        <img className="login-logo" src={'/img/logoColor.png'} alt="BIoT logo" />
       </a>
       <Input
         setKeyword={setUsername}
