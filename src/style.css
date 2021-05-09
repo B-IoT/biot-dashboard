@@ -8,6 +8,13 @@
 }
 
 @font-face {
+    font-family: 'Axiforma-Light';
+    font-weight: 1 1000;
+    src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Light.ttf')
+    format('truetype');
+}
+
+@font-face {
     font-family: "Axiforma-SemiBold";
     font-style: normal;
     font-weight: 600;
@@ -203,6 +210,28 @@
     font-weight: 400;
 }
 
+.axiforma-medium-blue-22px {
+    color: var(--blue);
+    font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.axiforma-light-blue-21px {
+    color: var(--blue);
+    font-family: 'Axiforma-Light', Helvetica, Arial, serif;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.glass {
+    -webkit-backdrop-filter: blur(25px) brightness(105%);
+    backdrop-filter: blur(25px) brightness(105%);
+    border-radius: 45px;
+}
+
 :root {
     --blue: rgba(37, 114, 232, 1);
     --blue-jeans: rgba(105, 165, 243, 1);
@@ -214,4 +243,10 @@
     --white: rgba(255, 255, 255, 1);
     --white-2: rgba(255, 255, 255, 0.54);
     --zircon: rgba(245, 247, 255, 1);
+
+    --light: rgb(249, 251, 255);
+    --shadow: rgb(227, 233, 245);
+    --darker-shadow: rgb(210, 220, 241);
+    --lighter-light: rgb(255, 255, 255);
+    --background: rgb(238, 242, 251);
 }

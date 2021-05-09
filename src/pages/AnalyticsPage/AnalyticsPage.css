@@ -19,9 +19,6 @@
 }
 
 .side-bar {
-  -webkit-backdrop-filter: blur(25px) brightness(105%);
-  backdrop-filter: blur(25px) brightness(105%);
-  border-radius: 45px;
   height: 90%;
   width: 15%;
   left: 5%;
@@ -52,6 +49,7 @@
   background-color: var(--blue);
   border-radius: 200px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.102);;
+  margin-bottom: 5%;
   height: 4%;
   width: 75%;
 
@@ -61,7 +59,7 @@
 }
 
 .unselected-page  {
-  margin-top: 5%;
+  margin-bottom: 5%;
   height: 4%;
   width: 75%;
 
@@ -100,11 +98,13 @@
   margin-right: 5%;
 }
 
-
 .widgets {
-  left: 35%;
+  left: 25%;
   top: 5%;
   width: 70%;
+  height: 90%;
+  display: flex;
+  position: fixed;
 }
 
 

@@ -1,28 +1,28 @@
-import React from 'react';
 import { Hover, FadeIn, FadeOut, Scale } from '../../utils/animations';
 
 import './Button.css';
+import { ButtonProps } from './Button.props';
 
-export default function Button(props: {
-  text: string;
-  onClick: () => void;
-  width: number;
-  style: {};
-}) {
+/**
+ * Customizable button that executes a given function when clicked.
+ */
+export default function Button(props: ButtonProps) {
+  const { text, onClick, width, style } = props;
+
   return (
     <Hover
       className="button"
-      style={Object.assign({}, { width: props.width }, props.style)}
-      onClick={props.onClick}
+      style={Object.assign({}, { width: width }, style)}
+      onClick={onClick}
     >
-      <FadeIn className="button-pressed" style={{ width: props.width }} />
-      <FadeOut className="button-shadow" style={{ width: props.width }} />
-      <FadeOut className="button-light" style={{ width: props.width }} />
+      <FadeIn className="button-pressed" style={{ width: width }} />
+      <FadeOut className="button-shadow" style={{ width: width }} />
+      <FadeOut className="button-light" style={{ width: width }} />
       <Scale
         className="button-text axiforma-medium-blue-22px"
-        style={{ width: props.width }}
+        style={{ width: width }}
       >
-        {props.text}
+        {text}
       </Scale>
     </Hover>
   );

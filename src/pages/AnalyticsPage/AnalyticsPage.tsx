@@ -10,7 +10,7 @@ export default function AnalyticsPage() {
     <div className='page-container'>
       <img className='background-image' src={'/img/background.png'} alt={'background'} />
 
-      <div className='side-bar'>
+      <div className='glass side-bar'>
         <div className='side-bar-top'>
           <img className='logo' src={'/img/logoColor.png'} alt='BioT logo' />
 

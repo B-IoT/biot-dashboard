@@ -1,3 +1,19 @@
+.column {
+  height: 100%;
+  width: 48.5%;
+  padding: 3%;
+}
+
+.widgets-columns {
+  left: 25%;
+  top: 5%;
+  width: 70%;
+  height: 90%;
+  justify-content: space-between;
+  display: flex;
+  position: fixed;
+}
+
 .analyse {
   align-self: flex-end;
   letter-spacing: 0.00px;
@@ -349,16 +365,7 @@
   position: absolute;
   top: 0px;
 }
-.group-9903 {
-  -webkit-backdrop-filter: blur(25px) brightness(105%);
-  backdrop-filter: blur(25px) brightness(105%);
-  border-radius: 41px;
-  height: 664px;
-  left: 785px;
-  position: absolute;
-  top: 148px;
-  width: 535px;
-}
+
 .icon-awesome-map-marker-alt {
   height: 51px;
   left: 637px;
@@ -580,14 +587,7 @@
   top: 148px;
   width: 822px;
 }
-.matriel {
-  left: 45px;
-  letter-spacing: 0.00px;
-  line-height: 20px;
-  position: absolute;
-  top: 44px;
-  white-space: nowrap;
-}
+
 .number {
   left: 45px;
   letter-spacing: 0.00px;
@@ -1971,11 +1971,4 @@
 .user-cog {
   height: 17px;
   width: 16px;
-}
-.web-1920-2 {
-  background-color: var(--zircon);
-  height: 1080px;
-  overflow: hidden;
-  position: relative;
-  width: 1920px;
 }
