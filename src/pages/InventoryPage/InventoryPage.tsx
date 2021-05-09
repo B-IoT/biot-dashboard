@@ -1,4 +1,4 @@
-import './MaintenancePage.css';
+import './InventoryPage.css';
 import { Link } from 'react-router-dom';
 import { ANALYTICS_PATH } from '../../App';
 import LogOut from '../../components/LogOut/LogOut';
@@ -14,7 +14,7 @@ const data = [
 ];
 
 
-export default function MaintenancePage() {
+export default function InventoryPage() {
   return (
     <div className='page-container'>
       <img className='background-image' src={'/img/background.png'} alt={'background'} />
@@ -24,12 +24,12 @@ export default function MaintenancePage() {
           <img className='logo' src={'/img/logoColor.png'} alt='BioT logo' />
 
           <Link className='unselected-page' to={ANALYTICS_PATH} style={{ textDecoration: 'none' }}>
-            <img className='page-icon' src={'/img/inventory-icon.png'} alt='inventory icon' />
+            <img className='page-icon' src={'/img/analyticsIconBlue.svg'} alt='analytics icon' />
             <div className='axiforma-regular-normal-blue-16px'>{'Analyse'}</div>
           </Link>
 
           <div className='selected-page'>
-            <img className='page-icon' src={'/img/analysis-icon.png'} alt='analysis icon' />
+            <img className='page-icon' src={'/img/inventoryIconWhite.svg'} alt='inventory icon' />
             <div className='axiforma-regular-normal-white-16px'>{'Inventaire'}</div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import AnalyticsPage from './pages/AnalyticsPage/AnalyticsPage';
-import MaintenancePage from './pages/MaintenancePage/MaintenancePage';
+import InventoryPage from './pages/InventoryPage/InventoryPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SecureRoute from './utils/SecureRoute';
 
@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 
 export const ANALYTICS_PATH = '/';
 export const LOGIN_PATH = '/login';
-export const MAINTENANCE_PATH = '/maintenance';
+export const INVENTORY_PATH = '/inventory';
 
 export default function App() {
   return (
@@ -20,7 +20,8 @@ export default function App() {
         <Switch>
           <SecureRoute exact path={ANALYTICS_PATH} component={AnalyticsPage} />
           <Route path={LOGIN_PATH} component={LoginPage} />
-          <SecureRoute path={MAINTENANCE_PATH} component={MaintenancePage} />
+          <SecureRoute path={INVENTORY_PATH} component={InventoryPage} />
+          <Redirect to={ANALYTICS_PATH}/>
         </Switch>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen />

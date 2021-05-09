@@ -226,6 +226,14 @@
     font-weight: 300;
 }
 
+.error-text {
+    color: var(--error-red);
+    font-family: 'Axiforma-Light', Helvetica, Arial, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+}
+
 .glass {
     -webkit-backdrop-filter: blur(25px) brightness(105%);
     backdrop-filter: blur(25px) brightness(105%);
@@ -234,10 +242,11 @@
 
 :root {
     --blue: rgba(37, 114, 232, 1);
-    --blue-jeans: rgba(105, 165, 243, 1);
     --caribbean-green: rgba(5, 227, 145, 1);
-    --eerie-black: rgba(29, 29, 26, 1);
+    --error-red: rgb(255, 75, 76);
+    --blue-jeans: rgba(105, 165, 243, 1);
     --eucalyptus: rgba(64, 232, 176, 1);
+    --eerie-black: rgba(29, 29, 26, 1);
     --scarpa-flow: rgba(86, 97, 97, 1);
     --trout: rgba(78, 81, 90, 1);
     --white: rgba(255, 255, 255, 1);

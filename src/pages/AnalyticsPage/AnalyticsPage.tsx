@@ -1,7 +1,7 @@
 import Exclusion1 from '../../components/Exclusion1/Exclusion1';
 
 import './AnalyticsPage.css';
-import { MAINTENANCE_PATH } from '../../App';
+import { INVENTORY_PATH } from '../../App';
 import { Link } from 'react-router-dom';
 import LogOut from '../../components/LogOut/LogOut';
 
@@ -15,12 +15,12 @@ export default function AnalyticsPage() {
           <img className='logo' src={'/img/logoColor.png'} alt='BioT logo' />
 
           <div className='selected-page'>
-            <img className='page-icon' src={'/img/analysis-icon.png'} alt='analysis icon' />
+            <img className='page-icon' src={'/img/analyticsIconWhite.svg'} alt='analytics icon' />
             <div className='axiforma-regular-normal-white-16px'>{'Analyse'}</div>
           </div>
 
-          <Link className='unselected-page' to={MAINTENANCE_PATH} style={{ textDecoration: 'none' }}>
-            <img className='page-icon' src={'/img/inventory-icon.png'} alt='inventory icon' />
+          <Link className='unselected-page' to={INVENTORY_PATH} style={{ textDecoration: 'none' }}>
+            <img className='page-icon' src={'/img/inventoryIconBlue.svg'} alt='inventory icon' />
             <div className='axiforma-regular-normal-blue-16px'>{'Inventaire'}</div>
           </Link>
         </div>
