@@ -22,7 +22,7 @@
     "formik-material-ui": "^3.0.1",
     "lodash": "^4.17.20",
     "material-ui-search-bar": "^1.0.0",
-    "mui-datatables": "^3.7.3",
+    "mui-datatables": "^3.7.7",
     "node-sass": "^4.14.1",
     "notistack": "^1.0.3",
     "prop-types": "^15.7.2",
@@ -87,6 +87,7 @@
     ]
   },
   "devDependencies": {
+    "@types/mui-datatables": "^3.7.3",
     "@types/react-router-dom": "^5.1.7",
     "check-peer-dependencies": "^4.0.0",
     "husky": "^4.3.6",

@@ -2,6 +2,17 @@ import './MaintenancePage.css';
 import { Link } from 'react-router-dom';
 import { ANALYTICS_PATH } from '../../App';
 import LogOut from '../../components/LogOut/LogOut';
+import MUIDataTable from "mui-datatables";
+
+const columns = ["Name", "Company", "City", "State"];
+
+const data = [
+  ["Joe James", "Test Corp", "Yonkers", "NY"],
+  ["John Walsh", "Test Corp", "Hartford", "CT"],
+  ["Bob Herm", "Test Corp", "Tampa", "FL"],
+  ["James Houston", "Test Corp", "Dallas", "TX"],
+];
+
 
 export default function MaintenancePage() {
   return (
@@ -41,6 +52,14 @@ export default function MaintenancePage() {
       <div className='widgets-columns'>
         <div className='glass column'>
           <div className='widget-title axiforma-extra-bold-eerie-black-20px'>{'Matériel'}</div>
+          <MUIDataTable
+            title={"Employee List"}
+            data={data}
+            columns={columns}
+            options={{
+              filterType: 'checkbox',
+            }}
+          />
         </div>
 
         <div className='glass column'>
