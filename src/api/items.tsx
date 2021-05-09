@@ -42,6 +42,14 @@ export async function getItemsByCategory(category: string) {
 }
 
 /**
+ * Get all items.
+ */
+export async function getItems() {
+  const { data } = await API.get('api/items');
+  return data;
+}
+
+/**
  * Get the item with the following id.
  *
  * @param {number} itemID the id of the item

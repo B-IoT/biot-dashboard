@@ -42,6 +42,22 @@ export default function AnalyticsPage() {
 
 
       <div className='widgets'>
+        <div className='cheese-graph glass'>
+          <div className='widget-title axiforma-extra-bold-eerie-black-20px'>{'État actuel du matériel'}</div>
+          <img className='mask-group-2' src={'/img/mask-group-2@1x.png'} />
+          <div className='percent2 axiforma-bold-white-16px'>{'73%'}</div>
+          <div className='percent-12 axiforma-bold-white-16px'>{'9%'}</div>
+          <div className='percent-22 axiforma-bold-white-16px'>{'18%'}</div>
+          <div className='group-96'>
+            <div className='disponible2 axiforma-regular-normal-eerie-black-16px'>{'Disponible'}</div>
+            <div className='indisponible2 axiforma-regular-normal-eerie-black-16px'>{'Indisponible'}</div>
+            <div className='dfectueux2 axiforma-regular-normal-eerie-black-16px'>{'Défectueux'}</div>
+            <div className='rectangle-492' />
+            <div className='rectangle-493' />
+            <img className='path-429' src={'/img/path-429@1x.png'} />
+          </div>
+        </div>
+
         <div className='mask-group-12 hidden '>
           <div className='group-64' style={{ backgroundImage: '/img/banner-1@1x.png' }}>
             <div className='rectangle-2952' />
@@ -83,21 +99,6 @@ export default function AnalyticsPage() {
           <div className='text-1 axiforma-extra-bold-eerie-black-20px'>{'Évolution de la maintenance'}</div>
           <div
             className='text-2 axiforma-regular-normal-eerie-black-16px'>{'Pourcentage de matériel défectueux'}</div>
-        </div>
-        <div className='group-99'>
-          <img className='mask-group-2' src={'/img/mask-group-2@1x.png'} />
-          <div className='text-3 axiforma-extra-bold-eerie-black-20px'>{'État actuel du matériel'}</div>
-          <div className='percent2 axiforma-bold-white-16px'>{'73%'}</div>
-          <div className='percent-12 axiforma-bold-white-16px'>{'9%'}</div>
-          <div className='percent-22 axiforma-bold-white-16px'>{'18%'}</div>
-          <div className='group-96'>
-            <div className='disponible2 axiforma-regular-normal-eerie-black-16px'>{'Disponible'}</div>
-            <div className='indisponible2 axiforma-regular-normal-eerie-black-16px'>{'Indisponible'}</div>
-            <div className='dfectueux2 axiforma-regular-normal-eerie-black-16px'>{'Défectueux'}</div>
-            <div className='rectangle-492' />
-            <div className='rectangle-493' />
-            <img className='path-429' src={'/img/path-429@1x.png'} />
-          </div>
         </div>
         <div className='group-98'>
           <div className='tat-des-services axiforma-extra-bold-eerie-black-20px'>{'État des services'}</div>
