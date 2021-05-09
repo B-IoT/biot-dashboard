@@ -1,0 +1,11 @@
+.log-out {
+  width: 90%;
+  margin-left: 20%;
+  margin-bottom: 15%;
+  margin-top: 10%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: start;
+  cursor: pointer;
+}

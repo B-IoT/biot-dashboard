@@ -100,11 +100,12 @@
   margin-right: 5%;
 }
 
-.log-out {
-  margin: 10% 10% 20%;
+
+.widgets {
+  left: 35%;
+  top: 5%;
+  width: 70%;
 }
-
-
 
 
 .aug-2018 {
@@ -691,11 +692,6 @@
   position: absolute;
   text-align: center;
   width: 90px;
-}
-.widgets {
-  left: 35%;
-  top: 5%;
-  width: 70%;
 }
 .path-1-1 {
   height: calc(100.00% + 1px);

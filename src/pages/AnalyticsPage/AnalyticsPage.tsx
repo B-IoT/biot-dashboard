@@ -1,7 +1,9 @@
-import Group65 from '../../components/Group65/Group65';
 import Exclusion1 from '../../components/Exclusion1/Exclusion1';
 
 import './AnalyticsPage.css';
+import { MAINTENANCE_PATH } from '../../App';
+import { Link } from 'react-router-dom';
+import LogOut from '../../components/LogOut/LogOut';
 
 export default function AnalyticsPage() {
   return (
@@ -17,10 +19,10 @@ export default function AnalyticsPage() {
             <div className='axiforma-regular-normal-white-16px'>{'Analyse'}</div>
           </div>
 
-          <div className='unselected-page'>
+          <Link className='unselected-page' to={MAINTENANCE_PATH} style={{ textDecoration: 'none' }}>
             <img className='page-icon' src={'/img/inventory-icon.png'} alt='inventory icon' />
             <div className='axiforma-regular-normal-blue-16px'>{'Inventaire'}</div>
-          </div>
+          </Link>
         </div>
 
         <div className='side-bar-bottom'>
@@ -34,13 +36,12 @@ export default function AnalyticsPage() {
             <div className='axiforma-regular-normal-trout-16px'>{'Assistance'}</div>
           </div>
 
-          <div className='log-out axiforma-bold-blue-16px'>{'Déconnexion'}</div>
+          <LogOut />
         </div>
       </div>
 
 
       <div className='widgets'>
-        <Group65 className='group-652' />
         <div className='mask-group-12 hidden '>
           <div className='group-64' style={{ backgroundImage: '/img/banner-1@1x.png' }}>
             <div className='rectangle-2952' />
