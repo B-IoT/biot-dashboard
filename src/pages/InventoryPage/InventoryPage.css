@@ -1,6 +1,12 @@
-.column {
+.column-left {
   height: 100%;
-  width: 48.5%;
+  width: 67%;
+  padding: 3%;
+}
+
+.column-right {
+  height: 100%;
+  width: 30%;
   padding: 3%;
 }
 
