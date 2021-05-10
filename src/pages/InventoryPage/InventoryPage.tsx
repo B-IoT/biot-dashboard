@@ -6,7 +6,9 @@ import MUIDataTable from 'mui-datatables';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { useEffect, useState } from 'react';
-import { getPrettyItems, Item, itemExamples } from '../../utils/items';
+import { getPrettyItems, Item } from '../../utils/items';
+import { getItems } from '../../api/items';
+import { useQuery } from 'react-query';
 
 export default function InventoryPage() {
 
@@ -70,8 +72,8 @@ export default function InventoryPage() {
 
   const [items, setItems] = useState([] as Item[]);
   const [columns, setColumns] = useState([] as string[]);
-  // const { data } = useQuery('items', getItems);
-  const data = itemExamples;
+  const { data } = useQuery('items', getItems);
+  //const data = itemExamples;
 
   useEffect(() => {
     if (data !== undefined) {
@@ -134,7 +136,6 @@ export default function InventoryPage() {
               columns={columns}
               options={{
                 filterType: 'checkbox',
-                download: false,
                 print: false,
               }}
             />
