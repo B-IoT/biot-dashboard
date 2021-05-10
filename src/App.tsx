@@ -9,18 +9,18 @@ import SecureRoute from './utils/SecureRoute';
 
 const queryClient = new QueryClient();
 
-export const ANALYTICS_PATH = '/';
+export const ANALYTICS_PATH = '/analytics';
 export const LOGIN_PATH = '/login';
-export const INVENTORY_PATH = '/inventory';
+export const INVENTORY_PATH = '/';
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Switch>
-          <SecureRoute exact path={ANALYTICS_PATH} component={AnalyticsPage} />
+          <SecureRoute exact path={INVENTORY_PATH} component={InventoryPage} />
+          <SecureRoute path={ANALYTICS_PATH} component={AnalyticsPage} />
           <Route path={LOGIN_PATH} component={LoginPage} />
-          <SecureRoute path={INVENTORY_PATH} component={InventoryPage} />
           <Redirect to={ANALYTICS_PATH}/>
         </Switch>
       </BrowserRouter>

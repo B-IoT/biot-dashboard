@@ -1,6 +1,6 @@
 import './InventoryPage.css';
 import { Link } from 'react-router-dom';
-import { ANALYTICS_PATH } from '../../App';
+import { INVENTORY_PATH } from '../../App';
 import LogOut from '../../components/LogOut/LogOut';
 import MUIDataTable from 'mui-datatables';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -100,7 +100,7 @@ export default function InventoryPage() {
         <div className='side-bar-top'>
           <img className='logo' src={'/img/logoColor.png'} alt='BioT logo' />
 
-          <Link className='unselected-page' to={ANALYTICS_PATH} style={{ textDecoration: 'none' }}>
+          <Link className='unselected-page' to={INVENTORY_PATH} style={{ textDecoration: 'none' }}>
             <img className='page-icon' src={'/img/analyticsIconBlue.svg'} alt='analytics icon' />
             <div className='axiforma-regular-normal-blue-16px'>{'Analyse'}</div>
           </Link>
