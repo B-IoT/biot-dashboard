@@ -10,9 +10,4 @@ export interface ItemsTableProps {
    * Callback when an item is clicked
    */
   onItemClick: Dispatch<SetStateAction<number>>;
-
-  /**
-   * The default clicked item id
-   */
-  defaultItemClickedId: number;
 }

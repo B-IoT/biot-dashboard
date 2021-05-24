@@ -1,27 +1,16 @@
 import { useState } from 'react';
 import MUIDataTable, { FilterType, SelectableRows } from 'mui-datatables';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
 
 import { datatableLabels } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  selectedRow: {
-    borderLeftStyle: 'solid',
-    borderLeftColor: theme.palette.primary.main,
-  },
-}));
 
 /**
  * Interactive and editable item table.
  */
 export default function ItemsTable(props: ItemsTableProps) {
-  const { items, onItemClick, defaultItemClickedId } = props;
-  const [itemClickedId, setItemClickedId] = useState(defaultItemClickedId);
-  const classes = useStyles();
+  const { items, onItemClick } = props;
+  const [itemClickedId, setItemClickedId] = useState(-1);
   const getMuiTheme = () => createMuiTheme({
     overrides: {
       MUIDataTableBodyCell: {
@@ -200,12 +189,12 @@ export default function ItemsTable(props: ItemsTableProps) {
         sort: true,
         display: false,
       },
-    }
+    },
   ];
 
-  const handleRowClick = (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => {
-    onItemClick(rowMeta.dataIndex);
-    setItemClickedId(parseInt(rowData[0]));
+  const handleRowClick = (_rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => {
+    onItemClick(rowMeta.rowIndex);
+    setItemClickedId(rowMeta.rowIndex);
   };
 
   const noMatchString = 'Aucun objet correspondant trouvé';
@@ -217,12 +206,19 @@ export default function ItemsTable(props: ItemsTableProps) {
     selectableRows: 'none' as SelectableRows,
     selectableRowsHeader: false,
     onRowClick: handleRowClick,
-    setRowProps: (row: any[]) => {
-      return {
-        className: clsx({
-          [classes.selectedRow]: row[0] === itemClickedId,
-        }),
-      };
+    setRowProps: (_row: any[], _dataIndex: number, rowIndex: number) => {
+      console.log(rowIndex);
+      console.log(itemClickedId);
+      if (rowIndex == itemClickedId)
+        return {
+          style: {
+            background: '#FFFFFF99',
+            borderWidth: '5px',
+            borderLeftStyle: 'solid',
+            borderLeftColor: 'var(--blue)',
+          },
+        };
+      else return {}
     },
     textLabels: datatableLabels(noMatchString),
     print: false,
@@ -242,10 +238,3 @@ export default function ItemsTable(props: ItemsTableProps) {
     </MuiThemeProvider>
   );
 }
-
-ItemsTable.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onItemClick: PropTypes.func.isRequired,
-  searchText: PropTypes.string,
-  defaultItemClickedId: PropTypes.number.isRequired,
-};

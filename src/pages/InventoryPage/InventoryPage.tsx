@@ -62,7 +62,6 @@ export default function InventoryPage() {
           <ItemsTable
             items={items}
             onItemClick={setItemToShowIndex}
-            defaultItemClickedId={0}
           />
         </div>
       </div>
