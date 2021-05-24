@@ -2,92 +2,22 @@ import './InventoryPage.css';
 import { Link } from 'react-router-dom';
 import { INVENTORY_PATH } from '../../App';
 import LogOut from '../../components/LogOut/LogOut';
-import MUIDataTable from 'mui-datatables';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { useEffect, useState } from 'react';
-import { getPrettyItems, Item } from '../../utils/items';
-import { getItems } from '../../api/items';
-import { useQuery } from 'react-query';
+import { getPrettyItems, Item, itemExamples } from '../../utils/items';
+import ItemsTable from '../../components/ItemsTable/ItemsTable';
 
 export default function InventoryPage() {
-
-  const getMuiTheme = () => createMuiTheme({
-    overrides: {
-      MUIDataTableBodyCell: {
-        root: {
-          backgroundColor: 'none',
-        },
-      },
-      MuiPaper: {
-        root: {
-          backgroundColor: 'none',
-        },
-        elevation4: {
-          boxShadow: 'none',
-        },
-        elevation2: {
-          boxShadow: 'none',
-          backdropFilter: 'blur(25px) brightness(110%)',
-          borderRadius: '15px',
-        },
-      },
-      MuiTableCell: {
-        root: {
-          borderBottom: 'none',
-          fontFamily: '\'Axiforma-Regular\', Helvetica, Arial, serif',
-        },
-      },
-      MUIDataTableHeadCell: {
-        fixedHeader: {
-          backgroundColor: 'none',
-        },
-      },
-      MUIDataTableSelectCell: {
-        headerCell: {
-          backgroundColor: 'none',
-        },
-      },
-      MuiButton: {
-        root: {
-          fontFamily: '\'Axiforma-Bold\', Helvetica, Arial, serif',
-          color: 'var(--blue)',
-        },
-      },
-      MUIDataTableFilter: {
-        root: {
-          backgroundColor: 'none',
-        },
-      },
-      MUIDataTableToolbarSelect: {
-        root: {
-          backgroundColor: 'none',
-          backdropFilter: 'blur(25px) brightness(110%)',
-          borderRadius: '15px',
-          boxShadow: 'none',
-        },
-      },
-    },
-  });
-
   const [items, setItems] = useState([] as Item[]);
-  const [columns, setColumns] = useState([] as string[]);
-  const { data } = useQuery('items', getItems);
-  //const data = itemExamples;
+  const [itemToShowIndex, setItemToShowIndex] = useState(-1);
+  console.log(itemToShowIndex)
+  //const { data } = useQuery('items', getItems);
+  const data = itemExamples;
 
   useEffect(() => {
     if (data !== undefined) {
-      const filterItems = data.filter(
-        (item: Item) =>
-          !isNaN(item.longitude) &&
-          !isNaN(item.latitude) &&
-          item.longitude != null &&
-          item.latitude != null,
-      );
-
-      if (filterItems.length > 0) {
-        setColumns(Object.keys(filterItems[0]));
-        setItems(getPrettyItems(filterItems));
+      if (data.length > 0) {
+        setItems(getPrettyItems(data));
       }
     }
   }, [data]);
@@ -129,21 +59,11 @@ export default function InventoryPage() {
       <div className='widgets'>
         <div className='glass column-left'>
           <div className='widget-title axiforma-extra-bold-eerie-black-20px'>{'Matériel'}</div>
-          <MuiThemeProvider theme={getMuiTheme()}>
-            <MUIDataTable
-              title={''}
-              data={items}
-              columns={columns}
-              options={{
-                filterType: 'checkbox',
-                print: false,
-              }}
-            />
-          </MuiThemeProvider>
-        </div>
-
-        <div className='glass column-right'>
-          <div className='widget-title axiforma-extra-bold-eerie-black-20px'>{'Géolocalisation'}</div>
+          <ItemsTable
+            items={items}
+            onItemClick={setItemToShowIndex}
+            defaultItemClickedId={0}
+          />
         </div>
       </div>
     </div>
