@@ -75,3 +75,13 @@ export async function getCategories() {
 export async function createItem(item: object) {
   return await API.post(`api/items`, item);
 }
+
+/**
+ * Updates the item in the backend.
+ *
+ * @param {number} id the id of the item
+ * @param {object} item the item to update
+ */
+export async function updateItem(id: number, item: object) {
+  return await API.put(`api/items/` + id, item);
+}

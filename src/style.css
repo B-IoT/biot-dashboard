@@ -10,8 +10,7 @@
 @font-face {
     font-family: 'Axiforma-Light';
     font-weight: 1 1000;
-    src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Light.ttf')
-    format('truetype');
+    src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Light.ttf') format('truetype');
 }
 
 @font-face {
@@ -52,7 +51,7 @@
 
 .axiforma-bold-blue-16px {
     color: var(--blue);
-  font-family: "Axiforma-Bold", Helvetica, serif;
+    font-family: "Axiforma-Bold", Helvetica, serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -148,7 +147,7 @@
 
 .axiforma-regular-normal-eerie-black-16px {
     color: var(--eerie-black);
-  font-family: "Axiforma-Regular", Helvetica, sans-serif;
+    font-family: "Axiforma-Regular", Helvetica, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -234,16 +233,41 @@
     font-weight: 300;
 }
 
+.axiforma-regular-blue-semi-bold-14px {
+    color: var(--blue);
+    font-family: "Axiforma-SemiBold", Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.axiforma-regular-black-regular-14px {
+    color: black;
+    font-family: "Axiforma-Regular", Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .glass {
     -webkit-backdrop-filter: blur(25px) brightness(105%);
     backdrop-filter: blur(25px) brightness(105%);
     border-radius: 45px;
+    box-shadow: 0 0 20px var(--box-shadow);
+}
+
+.hidden {
+    display: none;
 }
 
 :root {
     --blue: rgba(37, 114, 232, 1);
     --caribbean-green: rgba(5, 227, 145, 1);
     --error-red: rgb(255, 75, 76);
+    --box-shadow: rgba(0, 0, 0, 0.06);
+    --transparent-white: rgba(255, 255, 255, 0.65);
+    --half-blue: rgb(143, 168, 207);
+
     --blue-jeans: rgba(105, 165, 243, 1);
     --eucalyptus: rgba(64, 232, 176, 1);
     --eerie-black: rgba(29, 29, 26, 1);

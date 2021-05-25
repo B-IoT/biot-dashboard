@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 export interface ItemsTableProps {
   /**
    * The items to display
@@ -9,5 +7,5 @@ export interface ItemsTableProps {
   /**
    * Callback when an item is clicked
    */
-  onItemClick: Dispatch<SetStateAction<number>>;
+  onItemClick: (index: number) => void;
 }

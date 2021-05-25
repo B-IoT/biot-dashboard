@@ -5,12 +5,19 @@ import { datatableLabels } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+const glassStyle = {
+  WebkitBackdropFilter: 'blur(25px) brightness(110%)',
+  backdropFilter: 'blur(25px) brightness(110%)',
+  borderRadius: '15px',
+  boxShadow: '0 0 20px var(--box-shadow)',
+}
+
 /**
  * Interactive and editable item table.
  */
 export default function ItemsTable(props: ItemsTableProps) {
   const { items, onItemClick } = props;
-  const [itemClickedId, setItemClickedId] = useState(-1);
+  const [itemIndex, setItemIndex] = useState(-1);
   const getMuiTheme = () => createMuiTheme({
     overrides: {
       MUIDataTableBodyCell: {
@@ -25,14 +32,11 @@ export default function ItemsTable(props: ItemsTableProps) {
         elevation1: {
           boxShadow: 'none',
         },
+        elevation2: glassStyle,
         elevation4: {
           boxShadow: 'none',
         },
-        elevation2: {
-          boxShadow: 'none',
-          backdropFilter: 'blur(25px) brightness(110%)',
-          borderRadius: '15px',
-        },
+        elevation8: glassStyle,
       },
       MuiTableCell: {
         root: {
@@ -62,12 +66,7 @@ export default function ItemsTable(props: ItemsTableProps) {
         },
       },
       MUIDataTableToolbarSelect: {
-        root: {
-          backgroundColor: 'none',
-          backdropFilter: 'blur(25px) brightness(110%)',
-          borderRadius: '15px',
-          boxShadow: 'none',
-        },
+        root: glassStyle,
       },
     },
   });
@@ -193,8 +192,13 @@ export default function ItemsTable(props: ItemsTableProps) {
   ];
 
   const handleRowClick = (_rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => {
-    onItemClick(rowMeta.rowIndex);
-    setItemClickedId(rowMeta.rowIndex);
+    if (rowMeta.rowIndex != itemIndex) {
+      onItemClick(rowMeta.rowIndex);
+      setItemIndex(rowMeta.rowIndex);
+    } else {
+      onItemClick(-1);
+      setItemIndex(-1);
+    }
   };
 
   const noMatchString = 'Aucun objet correspondant trouvé';
@@ -202,17 +206,15 @@ export default function ItemsTable(props: ItemsTableProps) {
   const options = {
     elevation: 1,
     rowsPerPage: 20,
-    rowsPerPageOptions: [5, 10, 20, 40],
+    rowsPerPageOptions: [5, 10, 20, 50],
     selectableRows: 'none' as SelectableRows,
     selectableRowsHeader: false,
     onRowClick: handleRowClick,
     setRowProps: (_row: any[], _dataIndex: number, rowIndex: number) => {
-      console.log(rowIndex);
-      console.log(itemClickedId);
-      if (rowIndex == itemClickedId)
+      if (rowIndex == itemIndex)
         return {
           style: {
-            background: '#FFFFFF99',
+            background: 'var(--transparent-white)',
             borderWidth: '5px',
             borderLeftStyle: 'solid',
             borderLeftColor: 'var(--blue)',
@@ -224,8 +226,6 @@ export default function ItemsTable(props: ItemsTableProps) {
     print: false,
     filterType: 'checkbox' as FilterType,
   };
-
-  // TODO: customize text labels to use French
 
   return (
     <MuiThemeProvider theme={getMuiTheme()}>

@@ -1,7 +1,19 @@
-.column-left {
+.item-table {
+  flex: 4;
   height: 100%;
-  width: 100%;
   padding: 3%;
+  overflow: scroll;
+  margin-right: 3%;
+}
+
+.item-info {
+  flex: 1;
+  height: 100%;
+  padding: 3%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .column-right {
@@ -18,4 +30,8 @@
   justify-content: space-between;
   display: flex;
   position: fixed;
+}
+
+.widget-title {
+  width: 100%
 }

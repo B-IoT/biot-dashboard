@@ -4,15 +4,19 @@ import { INVENTORY_PATH } from '../../App';
 import LogOut from '../../components/LogOut/LogOut';
 
 import { useEffect, useState } from 'react';
-import { getPrettyItems, Item, itemExamples } from '../../utils/items';
+import { getPrettyItems, Item } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
+import ItemEditor from '../../components/ItemEditor/ItemEditor';
+import { useQuery } from 'react-query';
+import { getItems } from '../../api/items';
 
+// const data = itemExamples();
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
-  const [itemToShowIndex, setItemToShowIndex] = useState(-1);
-  console.log(itemToShowIndex)
-  //const { data } = useQuery('items', getItems);
-  const data = itemExamples;
+  const [itemIndex, setItemIndex] = useState(-1);
+  const { data } = useQuery('items', getItems, {
+    refetchInterval: 2000,
+  });
 
   useEffect(() => {
     if (data !== undefined) {
@@ -57,12 +61,16 @@ export default function InventoryPage() {
       </div>
 
       <div className='widgets'>
-        <div className='glass column-left'>
+        <div className='glass item-table'>
           <div className='widget-title axiforma-extra-bold-eerie-black-20px'>{'Matériel'}</div>
           <ItemsTable
             items={items}
-            onItemClick={setItemToShowIndex}
+            onItemClick={setItemIndex}
           />
+        </div>
+        <div className={itemIndex >= 0 ? 'glass item-info' : 'hidden'}>
+          <div className='widget-title axiforma-extra-bold-eerie-black-20px'>{'Informations'}</div>
+          {items[itemIndex] !== undefined && <ItemEditor item={items[itemIndex]} />}
         </div>
       </div>
     </div>
