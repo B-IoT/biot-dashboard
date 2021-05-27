@@ -34,7 +34,7 @@ export function getPrettyItems(items: Item[]): Item[] {
   return items.map((item) => {
     return {
       ...item,
-      status: displayTextVersion[item.status],
+      status: item.status && displayTextVersion[item.status],
     };
   });
 }

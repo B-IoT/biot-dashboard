@@ -14,9 +14,8 @@ import { getItems } from '../../api/items';
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
   const [itemIndex, setItemIndex] = useState(-1);
-  const { data } = useQuery('items', getItems, {
-    refetchInterval: 2000,
-  });
+  const { data } = useQuery('items', getItems);
+  console.log(data);
 
   useEffect(() => {
     if (data !== undefined) {

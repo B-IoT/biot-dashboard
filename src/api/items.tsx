@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Item } from '../utils/items';
 
 const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
 
@@ -82,6 +83,34 @@ export async function createItem(item: object) {
  * @param {number} id the id of the item
  * @param {object} item the item to update
  */
-export async function updateItem(id: number, item: object) {
-  return await API.put(`api/items/` + id, item);
+export async function updateItem(id: number, item: Item) {
+  return await API.put(`api/items/` + id, cleanItem(item));
+}
+
+/**
+ * Cleans the given item, removing null fields and formatting purchaseDate and purchasePrice.
+ *
+ * @param item the item to clean
+ * @returns the item cleaned
+ */
+export function cleanItem(item: Item): Record<string, unknown> {
+  // Remove null fields
+  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v != null))
+
+  if (clean.purchaseDate) {
+    // Extract date-only ISO string
+    clean.purchaseDate = clean.purchaseDate.toISOString().split('T')[0]
+  }
+
+  if (clean.expiryDate) {
+    // Extract date-only ISO string
+    clean.expiryDate = clean.expiryDate.toISOString().split('T')[0]
+  }
+
+  if (clean.purchasePrice) {
+    // Extract purchasePrice as float (was already validated before)
+    clean.purchasePrice = parseFloat(clean.purchasePrice)
+  }
+
+  return clean
 }
