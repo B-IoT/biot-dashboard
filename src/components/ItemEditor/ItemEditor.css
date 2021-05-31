@@ -18,14 +18,6 @@
     text-align: center;
 }
 
-.edit-button {
-    border-width: 0;
-    margin-top: 40px;
-    background-color: var(--blue);
-    border-radius: 200px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.102);
-    padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
-    cursor: pointer;
+.feedback-text {
+    margin-top: 20px;
 }

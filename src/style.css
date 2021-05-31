@@ -57,33 +57,9 @@
     font-weight: 700;
 }
 
-.axiforma-bold-blue-16px {
-    color: var(--blue);
-    font-family: "Axiforma-Bold", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-}
-
 .axiforma-bold-white-16px {
     color: var(--white);
     font-family: "Axiforma-Bold", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.axiforma-bold-white-16px {
-    color: var(--white);
-    font-family: "Axiforma-Bold", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.axiforma-extra-bold-eerie-black-16px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-ExtraBold", Helvetica, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -105,22 +81,6 @@
     font-weight: 700;
 }
 
-.axiforma-extra-bold-eerie-black-20px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-ExtraBold", Helvetica, sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.axiforma-medium-eerie-black-16px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-Medium", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-}
-
 .axiforma-medium-eerie-black-16px {
     color: var(--eerie-black);
     font-family: "Axiforma-Medium", Helvetica, sans-serif;
@@ -131,22 +91,6 @@
 
 .axiforma-regular-normal-blue-16px {
     color: var(--blue);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-}
-
-.axiforma-regular-normal-blue-16px {
-    color: var(--blue);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-}
-
-.axiforma-regular-normal-eerie-black-16px {
-    color: var(--eerie-black);
     font-family: "Axiforma-Regular", Helvetica, sans-serif;
     font-size: 16px;
     font-style: normal;
@@ -169,32 +113,8 @@
     font-weight: 400;
 }
 
-.axiforma-regular-normal-trout-12px {
-    color: var(--trout);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-}
-
 .axiforma-regular-normal-trout-16px {
     color: var(--trout);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-}
-
-.axiforma-regular-normal-trout-16px {
-    color: var(--trout);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-}
-
-.axiforma-regular-normal-white-16px {
-    color: var(--white);
     font-family: "Axiforma-Regular", Helvetica, sans-serif;
     font-size: 16px;
     font-style: normal;
@@ -229,6 +149,14 @@
     color: var(--error-red);
     font-family: 'Axiforma-Light', Helvetica, Arial, serif;
     font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+}
+
+.error-text-small {
+    color: var(--error-red);
+    font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
+    font-size: 16px;
     font-style: normal;
     font-weight: 300;
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import MUIDataTable, { FilterType, SelectableRows } from 'mui-datatables';
 
-import { datatableLabels } from '../../utils/items';
+import { datatableLabels, itemFieldTranslation } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
@@ -74,15 +74,7 @@ export default function ItemsTable(props: ItemsTableProps) {
   const columns = [
     {
       name: 'category',
-      label: 'Catégorie',
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'service',
-      label: 'Service',
+      label: itemFieldTranslation['category'],
       options: {
         filter: true,
         sort: true,
@@ -90,7 +82,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'itemID',
-      label: 'Code',
+      label: itemFieldTranslation['itemID'],
       options: {
         filter: true,
         sort: true,
@@ -98,7 +90,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'brand',
-      label: 'Marque',
+      label: itemFieldTranslation['brand'],
       options: {
         filter: true,
         sort: true,
@@ -106,7 +98,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'model',
-      label: 'Modèle',
+      label: itemFieldTranslation['model'],
       options: {
         filter: true,
         sort: true,
@@ -114,15 +106,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'supplier',
-      label: 'Fournisseur',
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'supplier',
-      label: 'Fournisseur',
+      label: itemFieldTranslation['supplier'],
       options: {
         filter: true,
         sort: true,
@@ -130,7 +114,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'purchaseDate',
-      label: 'Date d\'achat',
+      label: itemFieldTranslation['purchaseDate'],
       options: {
         filter: true,
         sort: true,
@@ -138,7 +122,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'purchasePrice',
-      label: 'Prix d\'achat',
+      label: itemFieldTranslation['purchasePrice'],
       options: {
         filter: true,
         sort: true,
@@ -146,7 +130,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'originLocation',
-      label: 'Localisation d\'origine',
+      label: itemFieldTranslation['originLocation'],
       options: {
         filter: true,
         sort: true,
@@ -155,7 +139,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'currentLocation',
-      label: 'Localisation actuelle',
+      label: itemFieldTranslation['currentLocation'],
       options: {
         filter: true,
         sort: true,
@@ -164,7 +148,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'room',
-      label: 'Chambre',
+      label: itemFieldTranslation['room'],
       options: {
         filter: true,
         sort: true,
@@ -173,7 +157,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'contact',
-      label: 'Contact',
+      label: itemFieldTranslation['contact'],
       options: {
         filter: true,
         sort: true,
@@ -182,7 +166,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     },
     {
       name: 'owner',
-      label: 'Propriétaire',
+      label: itemFieldTranslation['owner'],
       options: {
         filter: true,
         sort: true,

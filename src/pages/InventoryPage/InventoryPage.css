@@ -3,7 +3,6 @@
   height: 100%;
   padding: 3%;
   overflow: scroll;
-  margin-right: 3%;
 }
 
 .item-info {
@@ -14,18 +13,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.column-right {
-  height: 100%;
-  width: 30%;
-  padding: 3%;
+  margin-left: 3%;
 }
 
 .widgets {
-  left: 25%;
+  left: 24%;
   top: 5%;
-  width: 70%;
+  width: 71%;
   height: 90%;
   justify-content: space-between;
   display: flex;

@@ -24,30 +24,54 @@ export interface Item {
   floor: number,
 }
 
+export const itemFieldTranslation: Record<string, string> = {
+  category: 'Catégorie',
+  itemID: 'Code',
+  brand: 'Marque',
+  model: 'Modèle',
+  supplier: 'Fournisseur',
+  purchaseDate: 'Date d\'achat',
+  purchasePrice: 'Prix d\'achat',
+  originLocation: 'Localisation d\'origine',
+  currentLocation: 'Localisation actuelle',
+  room: 'Chambre',
+  contact: 'Contact',
+  owner: 'Propriétaire',
+};
+
 export const displayTextVersion: Record<string, string> = {
   available: 'disponible',
   unavailable: 'indisponible',
   needMaintenance: 'à réparer',
 };
 
+export function getReadableDate(inputFormat: string) {
+  function pad(s: number) {
+    return (s < 10) ? '0' + s : s;
+  }
+
+  if (!inputFormat) {
+    return '';
+  }
+  let d = new Date(inputFormat);
+  return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+}
+
+export function convertDate(inputFormat: string) {
+  if (!inputFormat || inputFormat === '') return null;
+
+  const split = inputFormat.split('/');
+  return new Date(parseInt(split[2]), parseInt(split[1]) - 1, parseInt(split[0]));
+}
+
 export function getPrettyItems(items: Item[]): Item[] {
   return items.map((item) => {
     return {
       ...item,
       status: item.status && displayTextVersion[item.status],
+      purchaseDate: getReadableDate(item.purchaseDate),
     };
   });
-}
-
-export function simplifyText(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-}
-
-export function getIconPath(itemName: string) {
-  return '/itemIcons/' + itemName + '.svg';
 }
 
 export const datatableLabels = (noMatchString: String) => {

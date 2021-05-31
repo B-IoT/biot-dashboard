@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Item } from '../utils/items';
+import { convertDate, Item } from '../utils/items';
 
 const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
 
@@ -33,6 +33,7 @@ export async function authenticate(username: string, password: string) {
  * Get all items matching the category.
  */
 export async function getItemsByCategory(category: string) {
+  fetchToken();
   const params = {
     params: {
       category: category,
@@ -46,6 +47,7 @@ export async function getItemsByCategory(category: string) {
  * Get all items.
  */
 export async function getItems() {
+  fetchToken();
   const { data } = await API.get('api/items');
   return data;
 }
@@ -56,6 +58,7 @@ export async function getItems() {
  * @param {number} itemID the id of the item
  */
 export async function getItem(itemID: number) {
+  fetchToken();
   const { data } = await API.get(`api/items/${itemID}`);
   return data;
 }
@@ -64,6 +67,7 @@ export async function getItem(itemID: number) {
  * Get the list of categories having at least one item.
  */
 export async function getCategories() {
+  fetchToken();
   const { data } = await API.get(`api/items/categories`);
   return data;
 }
@@ -74,6 +78,7 @@ export async function getCategories() {
  * @param {object} item the item to create
  */
 export async function createItem(item: object) {
+  fetchToken();
   return await API.post(`api/items`, item);
 }
 
@@ -84,6 +89,7 @@ export async function createItem(item: object) {
  * @param {object} item the item to update
  */
 export async function updateItem(id: number, item: Item) {
+  fetchToken();
   return await API.put(`api/items/` + id, cleanItem(item));
 }
 
@@ -95,22 +101,18 @@ export async function updateItem(id: number, item: Item) {
  */
 export function cleanItem(item: Item): Record<string, unknown> {
   // Remove null fields
-  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v != null))
+  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v != null));
 
   if (clean.purchaseDate) {
     // Extract date-only ISO string
-    clean.purchaseDate = clean.purchaseDate.toISOString().split('T')[0]
-  }
-
-  if (clean.expiryDate) {
-    // Extract date-only ISO string
-    clean.expiryDate = clean.expiryDate.toISOString().split('T')[0]
+    const date = convertDate(clean.purchaseDate);
+    if (date) clean.purchaseDate = date.toISOString().split('T')[0];
   }
 
   if (clean.purchasePrice) {
     // Extract purchasePrice as float (was already validated before)
-    clean.purchasePrice = parseFloat(clean.purchasePrice)
+    clean.purchasePrice = parseFloat(clean.purchasePrice);
   }
 
-  return clean
+  return clean;
 }
