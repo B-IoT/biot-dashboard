@@ -177,7 +177,7 @@ export default function ItemsTable(props: ItemsTableProps) {
 
   const handleRowClick = (_rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => {
     if (rowMeta.rowIndex != itemIndex) {
-      onItemClick(rowMeta.rowIndex);
+      onItemClick(rowMeta.dataIndex);
       setItemIndex(rowMeta.rowIndex);
     } else {
       onItemClick(-1);
