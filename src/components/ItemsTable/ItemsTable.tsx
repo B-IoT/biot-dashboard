@@ -10,7 +10,7 @@ const glassStyle = {
   backdropFilter: 'blur(25px) brightness(110%)',
   borderRadius: '15px',
   boxShadow: '0 0 20px var(--box-shadow)',
-}
+};
 
 /**
  * Interactive and editable item table.
@@ -204,7 +204,11 @@ export default function ItemsTable(props: ItemsTableProps) {
             borderLeftColor: 'var(--blue)',
           },
         };
-      else return {}
+      else return {};
+    },
+    onColumnSortChange: () => {
+      onItemClick(-1);
+      setItemIndex(-1);
     },
     textLabels: datatableLabels(noMatchString),
     print: false,
