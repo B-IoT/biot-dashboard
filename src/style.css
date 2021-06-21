@@ -97,6 +97,14 @@
     font-weight: 400;
 }
 
+.axiforma-regular-normal-blue-14px {
+    color: var(--blue);
+    font-family: "Axiforma-Regular", Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .axiforma-regular-normal-eerie-black-16px {
     color: var(--eerie-black);
     font-family: "Axiforma-Regular", Helvetica, sans-serif;

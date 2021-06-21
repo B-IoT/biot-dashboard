@@ -65,8 +65,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-    ]
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": []
   },
   "devDependencies": {
     "@types/mui-datatables": "^3.7.3",
