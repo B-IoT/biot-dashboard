@@ -1,5 +1,6 @@
 import { ItemEditorProps } from './ItemEditor.props';
 import { useEffect, useMemo, useState } from 'react';
+import QRCode from 'qrcode.react';
 import './ItemEditor.css';
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
@@ -19,8 +20,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { MuiThemeProvider } from '@material-ui/core';
 import { dialogTheme } from '../../ui-styles';
+import { useLayoutEffect } from 'react';
 
 const FIVE_SECONDS = 5000;
+const QR_CODE_ELEMENT_ID = 'qr';
 
 /**
  * Editor to modify and update an item on the backend
@@ -37,12 +40,29 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
 
+  let qrCodeValue = item?.id;
+
   useEffect(() => {
     setEditedValues({ ...item });
     setIsError(false);
     setIsLoading(false);
     setIsSuccess(false);
   }, [item]);
+
+  useLayoutEffect(() => {
+    // Add item id to QR code shown
+    if (qrCodeValue) {
+      const canvas = document.getElementById(
+        QR_CODE_ELEMENT_ID
+      ) as HTMLCanvasElement;
+      const context = canvas.getContext('2d');
+      context.font = '3px Arial';
+      context.textAlign = 'center';
+      context.textBaseline = 'top';
+      context.fillStyle = 'black';
+      context.fillText(qrCodeValue, 15, 25);
+    }
+  }, [qrCodeValue]);
 
   useMemo(() => {
     let result = [] as JSX.Element[];
@@ -164,6 +184,7 @@ export default function ItemEditor(props: ItemEditorProps) {
           if (data && data !== '') {
             let newValues = { ...item };
             newValues['id'] = data;
+            item.id = data;
             setEditedValues(newValues);
           }
 
@@ -187,6 +208,22 @@ export default function ItemEditor(props: ItemEditorProps) {
     setPopup(false);
     setDeletePopup(false);
     setUndoUpdatePopup(false);
+  }
+
+  function downloadQRCode() {
+    const canvas = document.getElementById(
+      QR_CODE_ELEMENT_ID
+    ) as HTMLCanvasElement;
+
+    const pngUrl = canvas
+      .toDataURL('image/png')
+      .replace('image/png', 'image/octet-stream');
+    let downloadLink = document.createElement('a');
+    downloadLink.href = pngUrl;
+    downloadLink.download = `${qrCodeValue}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   }
 
   function deleteHandler() {
@@ -220,6 +257,17 @@ export default function ItemEditor(props: ItemEditorProps) {
     <div className="max-width">
       {' '}
       {inputs}
+      {qrCodeValue && (
+        <div className="margin-top" onClick={downloadQRCode}>
+          <QRCode
+            id={QR_CODE_ELEMENT_ID}
+            value={qrCodeValue}
+            size={150}
+            level={'H'}
+            includeMargin={true}
+          />
+        </div>
+      )}
       <div className="button-wrapper">
         <LoadingButton isLoading={isLoading} onClick={() => setPopup(true)}>
           <div className="axiforma-regular-normal-white-16px">Valider</div>
