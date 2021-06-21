@@ -10,22 +10,33 @@ export interface Item {
   model: string,
   supplier: string,
   purchaseDate: string,
-  purchasePrice: number,
+  purchasePrice: string | number,
   originLocation: string,
   currentLocation: string,
   room: string,
   contact: string,
-  owner: string,
+  currentOwner: string,
+  previousOwner: string,
+  orderNumber: string,
+  color: string,
+  serialNumber: string,
+  maintenanceDate: string,
+  comments: string,
+  lastModifiedDate: string,
+  lastModifiedBy: string,
   timestamp: string,
   battery: number,
   status: string,
+  beaconStatus: string,
   latitude: number,
   longitude: number,
   floor: number,
+  temperature: number,
 }
 
 export const itemFieldTranslation: Record<string, string> = {
   category: 'Catégorie',
+  service: 'Service',
   itemID: 'Code',
   brand: 'Marque',
   model: 'Modèle',
@@ -36,7 +47,15 @@ export const itemFieldTranslation: Record<string, string> = {
   currentLocation: 'Localisation actuelle',
   room: 'Chambre',
   contact: 'Contact',
-  owner: 'Propriétaire',
+  previousOwner: 'Propriétaire d\'origine',
+  currentOwner: 'Propriétaire actuel',
+  orderNumber: 'Numéro de commande',
+  color: 'Couleur',
+  serialNumber: 'Numéro de série',
+  maintenanceDate: 'Date de maintenance',
+  comments: 'Commentaire',
+  lastModifiedDate: 'Date de modification',
+  lastModifiedBy: 'Modifié par',
 };
 
 export const displayTextVersion: Record<string, string> = {
@@ -70,6 +89,8 @@ export function getPrettyItems(items: Item[]): Item[] {
       ...item,
       status: item.status && displayTextVersion[item.status],
       purchaseDate: getReadableDate(item.purchaseDate),
+      maintenanceDate: getReadableDate(item.maintenanceDate),
+      lastModifiedDate: getReadableDate(item.lastModifiedDate),
     };
   });
 }
@@ -109,36 +130,4 @@ export const datatableLabels = (noMatchString: String) => {
       deleteAria: 'Éliminer la ligne choisie',
     },
   };
-};
-
-export const itemExamples = () => {
-  let items = [];
-  let i;
-  for (i = 0; i < 50; i++) {
-    items.push({
-      id: i,
-      beacon: 'aa:aa:aa:aa:aa:aa',
-      category: 'Oxygène',
-      service: 'Bloc 1',
-      itemID: 'ItemID',
-      brand: 'Brand',
-      model: 'Model',
-      supplier: 'Supplier',
-      purchaseDate: 'Date',
-      purchasePrice: 10,
-      originLocation: 'OriginLocation',
-      currentLocation: 'CurrentLocation',
-      room: 'Room',
-      contact: 'Contact',
-      owner: 'Owner',
-      timestamp: 'Timestamp',
-      battery: 100,
-      status: 'Status',
-      latitude: 0,
-      longitude: 0,
-      floor: 2,
-    });
-  }
-
-  return getPrettyItems(items);
 };

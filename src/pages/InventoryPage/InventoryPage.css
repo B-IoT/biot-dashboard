@@ -29,3 +29,26 @@
 .widget-title {
   width: 100%
 }
+
+.widget-title-2 {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.add-button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  bottom: 50px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.102);
+  border-radius: 20px;
+  background: white;
+  padding: 10px;
+}
+
+.add-icon {
+  height: 15px;
+  margin-right: 5px;
+}

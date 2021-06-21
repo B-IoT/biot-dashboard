@@ -156,7 +156,7 @@
 .error-text-small {
     color: var(--error-red);
     font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
-    font-size: 16px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 300;
 }
@@ -186,6 +186,10 @@
 
 .hidden {
     display: none;
+}
+
+.hidden-keep-space {
+    visibility: hidden;
 }
 
 :root {

@@ -48,7 +48,7 @@
 .selected-page  {
   background-color: var(--blue);
   border-radius: 200px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.102);;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.102);
   margin-bottom: 3%;
   height: 5%;
   width: 75%;

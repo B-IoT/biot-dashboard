@@ -10,4 +10,9 @@ export interface ItemEditorProps {
    * Boolean set to true when a successful edit to refresh the table
    */
   setRefreshTable: Dispatch<SetStateAction<boolean>>;
+
+  /**
+   * Callback when an item is clicked
+   */
+  onItemClick: (index: number) => void;
 }

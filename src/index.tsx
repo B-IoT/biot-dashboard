@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom';
 import './style.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
+import { theme } from './ui-styles';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

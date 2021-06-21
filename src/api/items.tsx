@@ -21,6 +21,7 @@ export async function authenticate(username: string, password: string) {
     const { data } = await API.post('/oauth/token', credentials);
     localStorage.setItem('token', data);
     localStorage.setItem('tokenDate', Date.now().toString());
+    localStorage.setItem('username', username);
     API.defaults.headers.common = { Authorization: 'Bearer ' + data };
 
     return true;
@@ -100,19 +101,39 @@ export async function updateItem(id: number, item: Item) {
  * @returns the item cleaned
  */
 export function cleanItem(item: Item): Record<string, unknown> {
+  function cleanDate(date: string) {
+    const cleanDate = convertDate(date);
+    if (cleanDate) {
+      cleanDate.setDate(cleanDate.getDate() + 1);
+      return cleanDate
+    }
+    return null
+  }
+
+  function parseDate(date: Date) {
+    return date.toISOString().split('T')[0];
+  }
+
   // Remove null fields
   const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v != null));
 
   if (clean.purchaseDate) {
     // Extract date-only ISO string
-    const date = convertDate(clean.purchaseDate);
-    if (date) clean.purchaseDate = date.toISOString().split('T')[0];
+    const date = cleanDate(clean.purchaseDate);
+    if (date) clean.purchaseDate = parseDate(date);
   }
 
-  if (clean.purchasePrice) {
-    // Extract purchasePrice as float (was already validated before)
-    clean.purchasePrice = parseFloat(clean.purchasePrice);
+  if (clean.maintenanceDate) {
+    // Extract date-only ISO string
+    const date = cleanDate(clean.maintenanceDate);
+    if (date) clean.maintenanceDate = parseDate(date);
   }
+
+  clean.lastModifiedDate = parseDate(new Date());
+  clean.lastModifiedBy = localStorage.getItem('username');
+
+    // Extract purchasePrice as float (was already validated before)
+  clean.purchasePrice = (clean.purchasePrice && clean.purchasePrice !== '') ? parseFloat(clean.purchasePrice) : 0;
 
   return clean;
 }

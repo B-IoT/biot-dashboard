@@ -1,11 +1,18 @@
+import { Item } from '../../utils/items';
+
 export interface ItemsTableProps {
   /**
    * The items to display
    */
-  items: object[];
+  items: Item[];
 
   /**
-   * Callback when an item is clicked
+   * The index of the selected item
    */
-  onItemClick: (index: number) => void;
+  itemIndex: number;
+
+  /**
+   * Setter of the selected item's index
+   */
+  setItemIndex: (index: number) => void;
 }
