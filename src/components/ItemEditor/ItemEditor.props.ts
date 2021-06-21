@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Item } from '../../utils/items';
 
 export interface ItemEditorProps {
   /**
@@ -7,9 +7,14 @@ export interface ItemEditorProps {
   item: {[key: string]: any};
 
   /**
-   * Boolean set to true when a successful edit to refresh the table
+   * Function called to cancel the edition
    */
-  setRefreshTable: Dispatch<SetStateAction<boolean>>;
+  cancelHandler: () => void;
+
+  /**
+   * Function called to refresh the datatable with the latest values
+   */
+  refreshHandler: (item: Item | null) => void;
 
   /**
    * Callback when an item is clicked

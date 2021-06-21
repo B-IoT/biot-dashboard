@@ -1,10 +1,11 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const glassStyle = {
+  background: 'var(--overlay-white)',
   WebkitBackdropFilter: 'blur(25px) brightness(110%)',
   backdropFilter: 'blur(25px) brightness(110%)',
   borderRadius: '15px',
-  boxShadow: '0 0 20px var(--box-shadow)',
+  boxShadow: '0 2px 5px var(--box-shadow)',
 };
 
 export const dialogTheme = createMuiTheme({
@@ -18,14 +19,6 @@ export const dialogTheme = createMuiTheme({
       rounded: {
         borderRadius: '10px',
       },
-      elevation1: {
-        boxShadow: 'none',
-      },
-      elevation2: glassStyle,
-      elevation4: {
-        boxShadow: 'none',
-      },
-      elevation8: glassStyle,
     },
   },
 });

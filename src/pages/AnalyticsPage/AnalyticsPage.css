@@ -50,7 +50,7 @@
   border-radius: 200px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.102);
   margin-bottom: 3%;
-  height: 5%;
+  padding: 5px;
   width: 75%;
 
   display: flex;
@@ -60,7 +60,7 @@
 
 .unselected-page  {
   margin-bottom: 3%;
-  height: 5%;
+  padding: 5px;
   width: 75%;
 
   display: flex;

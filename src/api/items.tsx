@@ -78,9 +78,10 @@ export async function getCategories() {
  *
  * @param {object} item the item to create
  */
-export async function createItem(item: object) {
+export async function createItem(item: Item) {
   fetchToken();
-  return await API.post(`api/items`, item);
+  delete item.id;
+  return await API.post(`api/items`, cleanItem(item));
 }
 
 /**
@@ -92,6 +93,16 @@ export async function createItem(item: object) {
 export async function updateItem(id: number, item: Item) {
   fetchToken();
   return await API.put(`api/items/` + id, cleanItem(item));
+}
+
+/**
+ * Deletes the item in the backend.
+ *
+ * @param {number} id the id of the item
+ */
+export async function deleteItem(id: number) {
+  fetchToken();
+  return await API.delete(`api/items/` + id);
 }
 
 /**
@@ -115,7 +126,7 @@ export function cleanItem(item: Item): Record<string, unknown> {
   }
 
   // Remove null fields
-  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v != null));
+  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v !== null && v !== ''));
 
   if (clean.purchaseDate) {
     // Extract date-only ISO string

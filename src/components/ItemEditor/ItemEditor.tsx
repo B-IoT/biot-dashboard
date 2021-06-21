@@ -4,7 +4,7 @@ import './ItemEditor.css';
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { updateItem } from '../../api/items';
+import { createItem, deleteItem, updateItem } from '../../api/items';
 import { convertDate, getReadableDate, Item, itemFieldTranslation } from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
 
@@ -19,13 +19,14 @@ import { dialogTheme } from '../../ui-styles';
  * Editor to modify and update an item on the backend
  */
 export default function ItemEditor(props: ItemEditorProps) {
-  const { item, setRefreshTable, onItemClick } = props;
+  const { item, cancelHandler, refreshHandler } = props;
   const [editedValues, setEditedValues] = useState({ ...item });
   const [inputs, setInputs] = useState([] as JSX.Element[]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [popup, setPopup] = useState(false);
+  const [deletePopup, setDeletePopup] = useState(false);
 
   useEffect(() => {
     setEditedValues({ ...item });
@@ -102,22 +103,30 @@ export default function ItemEditor(props: ItemEditorProps) {
     setInputs(result);
   }, [editedValues]);
 
-  const mutation = useMutation((item: { [key: string]: any }) =>
-    updateItem(item['id'], item as Item));
+  const updateItemMutation = useMutation((item: { [key: string]: any }) =>
+    !item['id'] ? createItem(item as Item) : updateItem(item['id'], item as Item));
+
+  const deleteItemMutation = useMutation((id: number) => deleteItem(id));
 
   function confirmHandler() {
     if (!isLoading) {
       setIsLoading(true);
       setIsError(false);
-      mutation.mutate(editedValues,
+      updateItemMutation.mutate(editedValues,
         {
-          onSuccess: () => {
+          onSuccess: ({data}) => {
             for (let key in item)
               if (item.hasOwnProperty(key))
                 item[key] = editedValues[key];
 
+            if (data && data !== '') {
+              let newValues = { ...item };
+              newValues['id'] = data;
+              setEditedValues(newValues);
+            }
+
             setIsLoading(false);
-            setRefreshTable(true);
+            refreshHandler(item as Item);
           },
 
           onError: () => {
@@ -130,12 +139,23 @@ export default function ItemEditor(props: ItemEditorProps) {
     closeHandler();
   }
 
-  function cancelHandler() {
-    onItemClick(-1);
-  }
-
   function closeHandler() {
     setPopup(false);
+    setDeletePopup(false);
+  }
+
+  function deleteHandler() {
+    deleteItemMutation.mutate(item['id'],
+      {
+        onSuccess: () => {
+          refreshHandler(null);
+          cancelHandler();
+        },
+
+        onError: () => {
+          setIsError(true);
+        },
+      });
   }
 
   return <div className='max-width'> {inputs}
@@ -143,6 +163,9 @@ export default function ItemEditor(props: ItemEditorProps) {
       <LoadingButton isLoading={isLoading} onClick={() => setPopup(true)}>
         <div className='axiforma-regular-normal-white-16px'>Valider</div>
       </LoadingButton>
+      {editedValues['id'] && <div className='margin-top cancel-button axiforma-regular-red-semi-bold-14px'
+                       onClick={() => setDeletePopup(true)}>Supprimer
+      </div>}
       <div className='margin-top cancel-button axiforma-regular-blue-semi-bold-14px'
            onClick={cancelHandler}>Annuler
       </div>
@@ -154,16 +177,16 @@ export default function ItemEditor(props: ItemEditorProps) {
     </div>
     <MuiThemeProvider theme={dialogTheme}>
       <Dialog
-        open={popup}
+        open={popup || deletePopup}
         onClose={closeHandler}
         aria-labelledby='alert-dialog-title'
       >
         <DialogTitle id='alert-dialog-title'>
-          <div className='axiforma-medium-eerie-black-16px'>Êtes vous sûr de modifier cet objet ?</div>
+          <div className='axiforma-medium-eerie-black-16px'>{popup ? "Êtes vous sûr de modifier cet objet ?": "Êtes vous sûr de supprimer cet objet ?"}</div>
         </DialogTitle>
         <DialogActions>
           <div className='popup-buttons'>
-            <Button onClick={confirmHandler} autoFocus>
+            <Button onClick={popup ? confirmHandler : deleteHandler} autoFocus>
               <div className='axiforma-regular-blue-semi-bold-14px'>Confirmer</div>
             </Button>
             <Button onClick={closeHandler}>
@@ -173,6 +196,5 @@ export default function ItemEditor(props: ItemEditorProps) {
         </DialogActions>
       </Dialog>
     </MuiThemeProvider>
-  </div>
-    ;
+  </div>;
 }

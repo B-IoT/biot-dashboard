@@ -2,7 +2,7 @@ import './InventoryPage.css';
 import LogOut from '../../components/LogOut/LogOut';
 
 import { useEffect, useState } from 'react';
-import { getPrettyItems, Item } from '../../utils/items';
+import { emptyItem, getPrettyItems, Item } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
 import { useQuery } from 'react-query';
@@ -10,8 +10,8 @@ import { getItems } from '../../api/items';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
+  const [newItem, setNewItem] = useState(null as Item | null);
   const [itemIndex, setItemIndex] = useState(-1);
-  const [refreshTable, setRefreshTable] = useState(false);
   const { data } = useQuery('items', getItems);
 
   useEffect(() => {
@@ -19,16 +19,32 @@ export default function InventoryPage() {
       setItems(getPrettyItems(data));
   }, [data]);
 
-  useEffect(() => {
-    if (refreshTable) {
-      setRefreshTable(false);
-      setItems(items);
+  const refreshHandler = (item: Item | null) => {
+    const newItems = Object.assign([], items);
+
+    if (!item) {
+      newItems.splice(itemIndex, 1);
+    } else {
+      if (!newItems.includes(item)) {
+        newItems.push(item);
+      }
     }
-  }, [refreshTable]);
+
+    setItems(newItems);
+  }
+
+  useEffect(() => {
+    if (itemIndex >= 0) setNewItem(null);
+  }, [itemIndex]);
 
   function addHandler() {
-    // const item: Item = {}
-    // setItems(items.push(item))
+    setItemIndex(-1);
+    setNewItem(emptyItem());
+  }
+
+  function cancelHandler() {
+    setItemIndex(-1);
+    setNewItem(null);
   }
 
   return (
@@ -79,9 +95,10 @@ export default function InventoryPage() {
             <div className='axiforma-regular-blue-semi-bold-14px' onClick={addHandler}>Ajouter un objet</div>
           </div>
         </div>
-        {(itemIndex >= 0 && items[itemIndex] !== undefined) && <div className={'glass item-info'}>
+        {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && <div className={'glass item-info'}>
           <div className='widget-title-2 axiforma-extra-bold-eerie-black-20px'>Informations</div>
-          <ItemEditor item={items[itemIndex]} setRefreshTable={setRefreshTable} onItemClick={setItemIndex} />
+          <ItemEditor item={newItem ? newItem : items[itemIndex]} refreshHandler={refreshHandler}
+                      cancelHandler={cancelHandler} onItemClick={setItemIndex} />
         </div>}
       </div>
     </div>

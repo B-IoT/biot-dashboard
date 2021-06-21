@@ -169,6 +169,14 @@
     font-weight: 400;
 }
 
+.axiforma-regular-red-semi-bold-14px {
+    color: var(--error-red);
+    font-family: "Axiforma-SemiBold", Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .axiforma-regular-black-regular-14px {
     color: black;
     font-family: "Axiforma-Regular", Helvetica, sans-serif;
@@ -178,10 +186,18 @@
 }
 
 .glass {
-    -webkit-backdrop-filter: blur(25px) brightness(105%);
-    backdrop-filter: blur(25px) brightness(105%);
+    background: var(--firefox-white);
     border-radius: 45px;
     box-shadow: 0 0 20px var(--box-shadow);
+}
+
+@supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+    .glass {
+        -webkit-backdrop-filter: blur(25px) brightness(105%);
+        backdrop-filter: blur(25px) brightness(105%);
+        border-radius: 45px;
+        box-shadow: 0 0 20px var(--box-shadow);
+    }
 }
 
 .hidden {
@@ -197,7 +213,9 @@
     --caribbean-green: rgba(5, 227, 145, 1);
     --error-red: rgb(255, 75, 76);
     --box-shadow: rgba(0, 0, 0, 0.06);
-    --transparent-white: rgba(255, 255, 255, 0.65);
+    --transparent-white: rgba(255, 255, 255, 0.85);
+    --overlay-white: rgb(255, 255, 255);
+    --firefox-white: rgba(255, 255, 255, 0.3);
     --half-blue: rgb(143, 168, 207);
 
     --blue-jeans: rgba(105, 165, 243, 1);
