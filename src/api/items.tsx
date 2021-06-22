@@ -141,7 +141,6 @@ export function cleanItem(item: Item): Record<string, unknown> {
   }
 
   clean.lastModifiedDate = parseDate(new Date());
-  clean.lastModifiedBy = localStorage.getItem('username');
 
     // Extract purchasePrice as float (was already validated before)
   clean.purchasePrice = (clean.purchasePrice && clean.purchasePrice !== '') ? parseFloat(clean.purchasePrice) : 0;
