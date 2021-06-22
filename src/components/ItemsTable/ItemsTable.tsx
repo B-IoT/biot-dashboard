@@ -20,7 +20,7 @@ export default function ItemsTable(props: ItemsTableProps) {
   const displayedFields = ['category', 'brand', 'model', 'supplier', 'service', 'purchaseDate', 'purchasePrice'];
   const hiddenFields = ['itemID', 'originLocation', 'currentLocation',
     'room', 'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color',
-    'serialNumber', 'maintenanceDate', 'lastModifiedDate', 'lastModifiedBy'];
+    'serialNumber', 'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
 
   for (const field of displayedFields) {
     columns.push({
