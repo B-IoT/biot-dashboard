@@ -53,14 +53,17 @@ export default function ItemEditor(props: ItemEditorProps) {
     // Add item id to QR code shown
     if (qrCodeValue) {
       const canvas = document.getElementById(
-        QR_CODE_ELEMENT_ID
+        QR_CODE_ELEMENT_ID,
       ) as HTMLCanvasElement;
       const context = canvas.getContext('2d');
-      context.font = '3px Arial';
-      context.textAlign = 'center';
-      context.textBaseline = 'top';
-      context.fillStyle = 'black';
-      context.fillText(qrCodeValue, 15, 25);
+
+      if (context) {
+        context.font = '3px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'top';
+        context.fillStyle = 'black';
+        context.fillText(qrCodeValue, 15, 25);
+      }
     }
   }, [qrCodeValue]);
 
@@ -79,7 +82,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'purchasePrice':
               input = (
                 <input
-                  className="axiforma-regular-black-regular-14px field-input"
+                  className='axiforma-regular-black-regular-14px field-input'
                   key={key + '-input'}
                   placeholder={translation}
                   value={editedValues[key] ? editedValues[key] : ''}
@@ -101,11 +104,11 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'purchaseDate':
               input = (
                 <DatePicker
-                  className="axiforma-regular-black-regular-14px field-input"
+                  className='axiforma-regular-black-regular-14px field-input'
                   key={key + '-input'}
-                  placeholderText="JJ/MM/AAAA"
+                  placeholderText='JJ/MM/AAAA'
                   selected={convertDate(editedValues[key])}
-                  dateFormat="dd/MM/yyyy"
+                  dateFormat='dd/MM/yyyy'
                   onChange={(date) => {
                     let newValues = { ...editedValues };
                     newValues[key] = date
@@ -119,17 +122,33 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'lastModifiedDate':
               input = (
                 <div
-                  className="axiforma-regular-black-regular-14px field-text"
+                  className='axiforma-regular-black-regular-14px field-text'
                   key={key + '-input'}
                 >
                   {editedValues[key]}
                 </div>
               );
               break;
+            case 'comments':
+              input = (
+                <textarea
+                  className='axiforma-regular-black-regular-14px field-input comments'
+                  key={key + '-input'}
+                  placeholder={translation}
+                  rows={5}
+                  value={editedValues[key] ? editedValues[key] : ''}
+                  onChange={(e) => {
+                    let newValues = { ...editedValues };
+                    newValues[key] = e.target.value;
+                    setEditedValues(newValues);
+                  }}
+                />
+              );
+              break;
             default:
               input = (
                 <input
-                  className="axiforma-regular-black-regular-14px field-input"
+                  className='axiforma-regular-black-regular-14px field-input'
                   key={key + '-input'}
                   placeholder={translation}
                   value={editedValues[key] ? editedValues[key] : ''}
@@ -143,16 +162,16 @@ export default function ItemEditor(props: ItemEditorProps) {
           }
 
           result.push(
-            <div className="edit-row" key={key + '-div'}>
+            <div className='edit-row' key={key + '-div'}>
               <div
-                className="axiforma-regular-blue-semi-bold-14px field-title"
+                className='axiforma-regular-blue-semi-bold-14px field-title'
                 key={key + '-text'}
               >
                 {' '}
                 {translation}{' '}
               </div>
               {input}
-            </div>
+            </div>,
           );
         }
       }
@@ -164,7 +183,7 @@ export default function ItemEditor(props: ItemEditorProps) {
   const updateItemMutation = useMutation((item: { [key: string]: any }) =>
     !item['id']
       ? createItem(item as Item)
-      : updateItem(item['id'], item as Item)
+      : updateItem(item['id'], item as Item),
   );
 
   const deleteItemMutation = useMutation((id: number) => deleteItem(id));
@@ -212,7 +231,7 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   function downloadQRCode() {
     const canvas = document.getElementById(
-      QR_CODE_ELEMENT_ID
+      QR_CODE_ELEMENT_ID,
     ) as HTMLCanvasElement;
 
     const pngUrl = canvas
@@ -239,7 +258,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     });
   }
 
-  let popupText = 'Êtes vous sûr de ne plus modifier cet objet ?';
+  let popupText = 'Êtes vous sûr d\'annuler les modifications ?';
   if (popup) {
     popupText = 'Êtes vous sûr de modifier cet objet ?';
   } else if (deletePopup) {
@@ -254,11 +273,9 @@ export default function ItemEditor(props: ItemEditorProps) {
   }
 
   return (
-    <div className="max-width">
-      {' '}
-      {inputs}
+    <div className='max-width'>
       {qrCodeValue && (
-        <div className="margin-top" onClick={downloadQRCode}>
+        <div className='qr-code' onClick={downloadQRCode}>
           <QRCode
             id={QR_CODE_ELEMENT_ID}
             value={qrCodeValue}
@@ -268,20 +285,21 @@ export default function ItemEditor(props: ItemEditorProps) {
           />
         </div>
       )}
-      <div className="button-wrapper">
+      {inputs}
+      <div className='button-wrapper'>
         <LoadingButton isLoading={isLoading} onClick={() => setPopup(true)}>
-          <div className="axiforma-regular-normal-white-16px">Valider</div>
+          <div className='axiforma-regular-normal-white-16px'>Valider</div>
         </LoadingButton>
         {editedValues['id'] && (
           <div
-            className="margin-top cancel-button axiforma-regular-red-semi-bold-14px"
+            className='margin-top cancel-button axiforma-regular-red-semi-bold-14px'
             onClick={() => setDeletePopup(true)}
           >
             Supprimer
           </div>
         )}
         <div
-          className="margin-top cancel-button axiforma-regular-blue-semi-bold-14px"
+          className='margin-top cancel-button axiforma-regular-blue-semi-bold-14px'
           onClick={() => {
             for (const key in item) {
               if (item.hasOwnProperty(key) && item[key] !== editedValues[key]) {
@@ -313,20 +331,20 @@ export default function ItemEditor(props: ItemEditorProps) {
         <Dialog
           open={popup || deletePopup || undoUpdatePopup}
           onClose={closeHandler}
-          aria-labelledby="alert-dialog-title"
+          aria-labelledby='alert-dialog-title'
         >
-          <DialogTitle id="alert-dialog-title">
-            <div className="axiforma-medium-eerie-black-16px">{popupText}</div>
+          <DialogTitle id='alert-dialog-title'>
+            <div className='axiforma-medium-eerie-black-16px'>{popupText}</div>
           </DialogTitle>
           <DialogActions>
-            <div className="popup-buttons">
+            <div className='popup-buttons'>
               <Button onClick={popupConfirmHandler} autoFocus>
-                <div className="axiforma-regular-blue-semi-bold-14px">
+                <div className='axiforma-regular-blue-semi-bold-14px'>
                   Confirmer
                 </div>
               </Button>
               <Button onClick={closeHandler}>
-                <div className="axiforma-regular-blue-semi-bold-14px">
+                <div className='axiforma-regular-blue-semi-bold-14px'>
                   Annuler
                 </div>
               </Button>

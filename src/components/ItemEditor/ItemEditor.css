@@ -2,6 +2,13 @@
     width: 100%;
 }
 
+.qr-code {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
 .react-datepicker__input-container {
     width: inherit;
 }
@@ -19,8 +26,12 @@
     width: 100%;
 }
 
+.comments {
+    padding: 10px;
+}
+
 .field-input {
-    border-radius: 100px;
+    border-radius: 15px;
     border-width: 0;
     padding-left: 10px;
     background: var(--transparent-white);
@@ -48,4 +59,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+textarea {
+    resize: none;
 }
