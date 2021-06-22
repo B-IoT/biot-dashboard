@@ -258,7 +258,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     });
   }
 
-  let popupText = 'Êtes vous sûr d\'annuler les modifications ?';
+  let popupText = 'Êtes vous sûr d\'ignorer les modifications ?';
   if (popup) {
     popupText = 'Êtes vous sûr de modifier cet objet ?';
   } else if (deletePopup) {
@@ -278,7 +278,7 @@ export default function ItemEditor(props: ItemEditorProps) {
         <div className='qr-code' onClick={downloadQRCode}>
           <QRCode
             id={QR_CODE_ELEMENT_ID}
-            value={qrCodeValue}
+            value={qrCodeValue + ''}
             size={150}
             level={'H'}
             includeMargin={true}
