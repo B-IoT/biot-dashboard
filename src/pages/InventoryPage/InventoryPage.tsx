@@ -6,13 +6,15 @@ import { emptyItem, getPrettyItems, Item } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
 import { useQuery } from 'react-query';
-import { getItems } from '../../api/items';
+import { getItems, REFETCH_INTERVAL } from '../../api/api';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
   const [newItem, setNewItem] = useState(null as Item | null);
   const [itemIndex, setItemIndex] = useState(-1);
-  const { data } = useQuery('items', getItems);
+  const { data } = useQuery('items', getItems, {
+    refetchInterval: REFETCH_INTERVAL,
+  });
 
   useEffect(() => {
     if (data !== undefined && data.length > 0)
@@ -31,7 +33,7 @@ export default function InventoryPage() {
     }
 
     setItems(newItems);
-  }
+  };
 
   useEffect(() => {
     if (itemIndex >= 0) setNewItem(null);

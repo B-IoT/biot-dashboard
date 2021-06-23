@@ -5,7 +5,7 @@ import './ItemEditor.css';
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { createItem, deleteItem, updateItem } from '../../api/items';
+import { createItem, deleteItem, updateItem } from '../../api/api';
 import {
   convertDate,
   getReadableDate,
@@ -36,25 +36,25 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [popup, setPopup] = useState(false);
+  const [updatePopup, setUpdatePopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
 
   let qrCodeValue = item?.id;
 
   useEffect(() => {
-    setEditedValues({ ...item });
-    setIsError(false);
-    setIsLoading(false);
-    setIsSuccess(false);
+    if (item.id !== editedValues.id) {
+      setEditedValues({ ...item });
+      setIsError(false);
+      setIsLoading(false);
+      setIsSuccess(false);
+    }
   }, [item]);
 
   useLayoutEffect(() => {
     // Add item id to QR code shown
     if (qrCodeValue) {
-      const canvas = document.getElementById(
-        QR_CODE_ELEMENT_ID,
-      ) as HTMLCanvasElement;
+      const canvas = document.getElementById(QR_CODE_ELEMENT_ID) as HTMLCanvasElement;
       const context = canvas.getContext('2d');
 
       if (context) {
@@ -224,7 +224,7 @@ export default function ItemEditor(props: ItemEditorProps) {
   }
 
   function closeHandler() {
-    setPopup(false);
+    setUpdatePopup(false);
     setDeletePopup(false);
     setUndoUpdatePopup(false);
   }
@@ -258,15 +258,25 @@ export default function ItemEditor(props: ItemEditorProps) {
     });
   }
 
+  function undoUpdateHandler() {
+    for (const key in item) {
+      if (item.hasOwnProperty(key) && item[key] !== editedValues[key]) {
+        // A field has been updated
+        setUndoUpdatePopup(true);
+        return;
+      }
+    }
+  }
+
   let popupText = 'Êtes vous sûr d\'ignorer les modifications ?';
-  if (popup) {
+  if (updatePopup) {
     popupText = 'Êtes vous sûr de modifier cet objet ?';
   } else if (deletePopup) {
     popupText = 'Êtes vous sûr de supprimer cet objet ?';
   }
 
   let popupConfirmHandler = cancelHandler;
-  if (popup) {
+  if (updatePopup) {
     popupConfirmHandler = confirmHandler;
   } else if (deletePopup) {
     popupConfirmHandler = deleteHandler;
@@ -287,7 +297,7 @@ export default function ItemEditor(props: ItemEditorProps) {
       )}
       {inputs}
       <div className='button-wrapper'>
-        <LoadingButton isLoading={isLoading} onClick={() => setPopup(true)}>
+        <LoadingButton isLoading={isLoading} onClick={() => setUpdatePopup(true)}>
           <div className='axiforma-regular-normal-white-16px'>Valider</div>
         </LoadingButton>
         {editedValues['id'] && (
@@ -301,14 +311,7 @@ export default function ItemEditor(props: ItemEditorProps) {
         <div
           className='margin-top cancel-button axiforma-regular-blue-semi-bold-14px'
           onClick={() => {
-            for (const key in item) {
-              if (item.hasOwnProperty(key) && item[key] !== editedValues[key]) {
-                // A field has been updated
-                setUndoUpdatePopup(true);
-                return;
-              }
-            }
-
+            undoUpdateHandler();
             // No field has been updated
             cancelHandler();
           }}
@@ -329,7 +332,7 @@ export default function ItemEditor(props: ItemEditorProps) {
       </div>
       <MuiThemeProvider theme={dialogTheme}>
         <Dialog
-          open={popup || deletePopup || undoUpdatePopup}
+          open={updatePopup || deletePopup || undoUpdatePopup}
           onClose={closeHandler}
           aria-labelledby='alert-dialog-title'
         >

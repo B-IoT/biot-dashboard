@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './LoginPage.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
-import { authenticate } from '../../api/items';
+import { authenticate } from '../../api/api';
 import { useHistory } from 'react-router-dom';
 
 function LoginPage() {

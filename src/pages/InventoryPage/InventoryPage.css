@@ -39,27 +39,30 @@
   cursor: pointer;
   bottom: 8%;
   position: fixed;
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   box-shadow: 0 3px 6px rgba(0,0,0,0.102);
   border-radius: 20px;
   background: white;
   padding: 10px;
+  z-index: 999;
 }
 
 /* Chrome 29+ */
 @media screen and (-webkit-min-device-pixel-ratio:0)
 and (min-resolution:.001dpcm) {
   .add-button {
-    bottom: 40px;
+    position: sticky;
+    bottom: 0;
   }
 }
 
 /* Firefox */
 @-moz-document url-prefix() {
   .add-button {
-    bottom: 8%;
+    position: sticky;
+    bottom: 0;
   }
 }
 

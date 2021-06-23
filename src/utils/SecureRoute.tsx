@@ -1,6 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchToken } from '../api/items';
+import { fetchToken } from '../api/api';
 
 function SecureRoute({ component: Component, ...rest }: any) {
   const token = localStorage.getItem('token');
