@@ -105,9 +105,10 @@ export default function InventoryPage() {
         </div>}
       </div>
       <ToastContainer
-        position='bottom-center'
+        bodyClassName='toast-text'
+        position='top-center'
         autoClose={3000}
-        hideProgressBar={false}
+        hideProgressBar={true}
         newestOnTop
         closeOnClick
         rtl={false}

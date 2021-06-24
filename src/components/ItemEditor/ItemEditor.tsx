@@ -2,13 +2,13 @@ import React from 'react';
 import { useEffect, useMemo, useState, useLayoutEffect } from 'react';
 
 import { ItemEditorProps } from './ItemEditor.props';
+import 'react-toastify/dist/ReactToastify.css';
 import './ItemEditor.css';
 
 import QRCode from 'qrcode.react';
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { createItem, deleteItem, updateItem } from '../../api/api';

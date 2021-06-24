@@ -1,72 +1,72 @@
 .item-table {
-  flex: 4;
-  height: 100%;
-  padding: 3%;
-  overflow: scroll;
+    flex: 4;
+    height: 100%;
+    padding: 3%;
+    overflow: scroll;
 }
 
 .item-info {
-  flex: 1;
-  height: 100%;
-  padding: 3%;
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 3%;
+    flex: 1;
+    height: 100%;
+    padding: 3%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 3%;
 }
 
 .widgets {
-  left: 24%;
-  top: 5%;
-  width: 71%;
-  height: 90%;
-  justify-content: space-between;
-  display: flex;
-  position: fixed;
+    left: 24%;
+    top: 5%;
+    width: 71%;
+    height: 90%;
+    justify-content: space-between;
+    display: flex;
+    position: fixed;
 }
 
 .widget-title {
-  width: 100%
+    width: 100%
 }
 
 .widget-title-2 {
-  width: 100%;
-  margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 .add-button {
-  cursor: pointer;
-  bottom: 8%;
-  position: fixed;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.102);
-  border-radius: 20px;
-  background: white;
-  padding: 10px;
-  z-index: 999;
+    cursor: pointer;
+    bottom: 8%;
+    position: fixed;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.102);
+    border-radius: 20px;
+    background: white;
+    padding: 10px;
+    z-index: 999;
 }
 
 /* Chrome 29+ */
-@media screen and (-webkit-min-device-pixel-ratio:0)
-and (min-resolution:.001dpcm) {
-  .add-button {
-    position: sticky;
-    bottom: 0;
-  }
+@media screen and (-webkit-min-device-pixel-ratio: 0)
+and (min-resolution: .001dpcm) {
+    .add-button {
+        position: sticky;
+        bottom: 0;
+    }
 }
 
 /* Firefox */
 @-moz-document url-prefix() {
-  .add-button {
-    position: sticky;
-    bottom: 0;
-  }
+    .add-button {
+        position: sticky;
+        bottom: 0;
+    }
 }
 
 .add-icon {
-  height: 15px;
-  margin-right: 5px;
+    height: 15px;
+    margin-right: 5px;
 }

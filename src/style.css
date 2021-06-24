@@ -137,6 +137,14 @@
     font-weight: 400;
 }
 
+.toast-text {
+    color: var(--white);
+    font-family: "Axiforma-SemiBold", Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+}
+
 .axiforma-medium-blue-22px {
     color: var(--blue);
     font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
