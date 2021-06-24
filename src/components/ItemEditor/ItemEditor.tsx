@@ -1,29 +1,30 @@
+import React from 'react';
+import { useEffect, useMemo, useState, useLayoutEffect } from 'react';
+
 import { ItemEditorProps } from './ItemEditor.props';
-import { useEffect, useMemo, useState } from 'react';
-import QRCode from 'qrcode.react';
 import './ItemEditor.css';
+
+import QRCode from 'qrcode.react';
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
+
 import { createItem, deleteItem, updateItem } from '../../api/api';
-import {
-  convertDate,
-  getReadableDate,
-  Item,
-  itemFieldTranslation,
-} from '../../utils/items';
+import { convertDate, getReadableDate, Item, itemFieldTranslation } from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
+import { dialogTheme } from '../../ui-styles';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { MuiThemeProvider } from '@material-ui/core';
-import { dialogTheme } from '../../ui-styles';
-import { useLayoutEffect } from 'react';
 
-const FIVE_SECONDS = 5000;
+
 const QR_CODE_ELEMENT_ID = 'qr';
+toast.configure();
 
 /**
  * Editor to modify and update an item on the backend
@@ -34,20 +35,18 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [inputs, setInputs] = useState([] as JSX.Element[]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [updatePopup, setUpdatePopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
+
+  const errorToast = () => toast.error('Une erreur s\'est produite, veuillez réessayer');
 
   let qrCodeValue = item?.id;
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
       setEditedValues({ ...item });
-      setIsError(false);
       setIsLoading(false);
-      setIsSuccess(false);
     }
   }, [item]);
 
@@ -191,7 +190,6 @@ export default function ItemEditor(props: ItemEditorProps) {
   function confirmHandler() {
     if (!isLoading) {
       setIsLoading(true);
-      setIsError(false);
       updateItemMutation.mutate(editedValues, {
         onSuccess: ({ data }) => {
           for (let key in item) {
@@ -205,17 +203,18 @@ export default function ItemEditor(props: ItemEditorProps) {
             newValues['id'] = data;
             item.id = data;
             setEditedValues(newValues);
+            toast.success('L\'objet a bien été créé');
+          } else {
+            toast.success('Les modifications ont été enregistrées');
           }
 
-          setIsSuccess(true);
-          setTimeout(() => setIsSuccess(false), FIVE_SECONDS);
           setIsLoading(false);
           refreshHandler(item as Item);
         },
 
         onError: () => {
           setIsLoading(false);
-          setIsError(true);
+          errorToast();
         },
       });
     }
@@ -250,10 +249,12 @@ export default function ItemEditor(props: ItemEditorProps) {
       onSuccess: () => {
         refreshHandler(null);
         cancelHandler();
+        toast.success('L\'objet a bien été supprimé');
       },
 
       onError: () => {
-        setIsError(true);
+        closeHandler();
+        errorToast();
       },
     });
   }
@@ -266,20 +267,30 @@ export default function ItemEditor(props: ItemEditorProps) {
         return;
       }
     }
+
+    cancelHandler();
   }
 
-  let popupText = 'Êtes vous sûr d\'ignorer les modifications ?';
-  if (updatePopup) {
-    popupText = 'Êtes vous sûr de modifier cet objet ?';
-  } else if (deletePopup) {
-    popupText = 'Êtes vous sûr de supprimer cet objet ?';
-  }
+  const [popupText, setPopupText] = useState('');
+  useEffect(() => {
+    if (updatePopup) {
+      if (editedValues['id']) {
+        setPopupText('Êtes vous sûr de modifier cet objet ?');
+      } else {
+        setPopupText('Êtes vous sûr de créer cet objet ?');
+      }
+    } else if (deletePopup) {
+      setPopupText('Êtes vous sûr de supprimer cet objet ?');
+    } else if (undoUpdatePopup) {
+      setPopupText('Êtes vous sûr d\'ignorer les modifications ?');
+    }
+  }, [updatePopup, deletePopup, undoUpdatePopup]);
 
-  let popupConfirmHandler = cancelHandler;
+  let popupHandler = cancelHandler;
   if (updatePopup) {
-    popupConfirmHandler = confirmHandler;
+    popupHandler = confirmHandler;
   } else if (deletePopup) {
-    popupConfirmHandler = deleteHandler;
+    popupHandler = deleteHandler;
   }
 
   return (
@@ -310,24 +321,9 @@ export default function ItemEditor(props: ItemEditorProps) {
         )}
         <div
           className='margin-top cancel-button axiforma-regular-blue-semi-bold-14px'
-          onClick={() => {
-            undoUpdateHandler();
-            // No field has been updated
-            cancelHandler();
-          }}
+          onClick={() => undoUpdateHandler()}
         >
           Annuler
-        </div>
-        {isSuccess && (
-          <div className={'axiforma-regular-normal-blue-14px margin-top'}>
-            Les modifications ont été sauvegardées
-          </div>
-        )}
-        {/*{isError && <div className='error-text-small margin-top'>Une erreur s'est produite</div>}*/}
-        <div className={isError ? '' : 'hidden-keep-space'}>
-          <div className={'error-text-small margin-top'}>
-            Une erreur s'est produite
-          </div>
         </div>
       </div>
       <MuiThemeProvider theme={dialogTheme}>
@@ -341,7 +337,7 @@ export default function ItemEditor(props: ItemEditorProps) {
           </DialogTitle>
           <DialogActions>
             <div className='popup-buttons'>
-              <Button onClick={popupConfirmHandler} autoFocus>
+              <Button onClick={popupHandler} autoFocus>
                 <div className='axiforma-regular-blue-semi-bold-14px'>
                   Confirmer
                 </div>

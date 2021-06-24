@@ -54,7 +54,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     }
   };
 
-  const noMatchString = 'Aucun objet correspondant trouvé';
+  const noMatchString = 'Aucun objet trouvé';
 
   const options = {
     elevation: 1,

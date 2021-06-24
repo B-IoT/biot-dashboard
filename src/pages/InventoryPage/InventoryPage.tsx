@@ -1,12 +1,13 @@
 import './InventoryPage.css';
 import LogOut from '../../components/LogOut/LogOut';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { emptyItem, getPrettyItems, Item } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
 import { useQuery } from 'react-query';
 import { getItems, REFETCH_INTERVAL } from '../../api/api';
+import { ToastContainer } from 'react-toastify';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
@@ -103,6 +104,17 @@ export default function InventoryPage() {
                       cancelHandler={cancelHandler} onItemClick={setItemIndex} />
         </div>}
       </div>
+      <ToastContainer
+        position='bottom-center'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
