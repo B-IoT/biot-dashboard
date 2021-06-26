@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import MUIDataTable, { FilterType, SelectableRows } from 'mui-datatables';
+import MUIDataTable, {
+  FilterType,
+  MUIDataTableColumnDef,
+  SelectableRows,
+} from 'mui-datatables';
 
 import { datatableLabels, itemFieldTranslation } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
@@ -10,42 +14,70 @@ import { ItemsTableProps } from './ItemsTable.props';
 export default function ItemsTable(props: ItemsTableProps) {
   const { items, itemIndex, setItemIndex } = props;
 
-  const cleanItems = items.map(item => {
+  const cleanItems = items.map((item) => {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
-    return item
-  })
+    return item;
+  });
   const [rowIndex, setRowIndex] = useState(-1);
+  const [columns, setColumns] = useState<MUIDataTableColumnDef[]>([]);
 
-  let columns = []
-  const displayedFields = ['category', 'brand', 'model', 'supplier', 'service', 'purchaseDate', 'purchasePrice'];
-  const hiddenFields = ['itemID', 'originLocation', 'currentLocation',
-    'room', 'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color',
-    'serialNumber', 'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
+  useEffect(() => {
+    let columns = [];
+    const displayedFields = [
+      'category',
+      'brand',
+      'model',
+      'supplier',
+      'service',
+      'purchaseDate',
+      'purchasePrice',
+    ];
+    const hiddenFields = [
+      'itemID',
+      'originLocation',
+      'currentLocation',
+      'room',
+      'contact',
+      'previousOwner',
+      'currentOwner',
+      'orderNumber',
+      'color',
+      'serialNumber',
+      'maintenanceDate',
+      'comments',
+      'lastModifiedDate',
+      'lastModifiedBy',
+    ];
 
-  for (const field of displayedFields) {
-    columns.push({
-      name: field,
-      label: itemFieldTranslation[field],
-      options: {
-        filter: true,
-        sort: true,
-      },
-    })
-  }
+    for (const field of displayedFields) {
+      columns.push({
+        name: field,
+        label: itemFieldTranslation[field],
+        options: {
+          filter: true,
+          sort: true,
+        },
+      });
+    }
 
-  for (const field of hiddenFields) {
-    columns.push({
-      name: field,
-      label: itemFieldTranslation[field],
-      options: {
-        filter: true,
-        sort: true,
-        display: false,
-      },
-    })
-  }
+    for (const field of hiddenFields) {
+      columns.push({
+        name: field,
+        label: itemFieldTranslation[field],
+        options: {
+          filter: true,
+          sort: true,
+          display: false,
+        },
+      });
+    }
+    setColumns(columns);
+  }, []);
 
-  const handleRowClick = (_rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => {
+  const handleRowClick = (
+    _rowData: string[],
+    rowMeta: { dataIndex: number; rowIndex: number }
+  ) => {
     if (rowMeta.rowIndex !== rowIndex) {
       setItemIndex(rowMeta.dataIndex);
       setRowIndex(rowMeta.rowIndex);
@@ -81,11 +113,16 @@ export default function ItemsTable(props: ItemsTableProps) {
     textLabels: datatableLabels(noMatchString),
     print: false,
     filterType: 'checkbox' as FilterType,
+    onTableChange: (action: string, state: any) => {
+      if (action === 'viewColumnsChange') {
+        setColumns(state.columns);
+      }
+    },
   };
 
   useEffect(() => {
     if (itemIndex === -1) setRowIndex(-1);
-  }, [itemIndex])
+  }, [itemIndex]);
 
   return (
     <MUIDataTable
