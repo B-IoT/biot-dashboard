@@ -3,6 +3,7 @@ import MUIDataTable, {
   FilterType,
   MUIDataTableColumnDef,
   SelectableRows,
+  MUIDataTableState,
 } from 'mui-datatables';
 
 import { datatableLabels, itemFieldTranslation } from '../../utils/items';
@@ -114,7 +115,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     textLabels: datatableLabels(noMatchString),
     print: false,
     filterType: 'checkbox' as FilterType,
-    onTableChange: (action: string, state: any) => {
+    onTableChange: (action: string, state: MUIDataTableState) => {
       if (action === 'viewColumnsChange') {
         setColumns(state.columns);
       } else if (action === 'changeRowsPerPage') {
