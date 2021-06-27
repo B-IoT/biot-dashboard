@@ -20,6 +20,7 @@ export default function ItemsTable(props: ItemsTableProps) {
   });
   const [rowIndex, setRowIndex] = useState(-1);
   const [columns, setColumns] = useState<MUIDataTableColumnDef[]>([]);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   useEffect(() => {
     let columns = [];
@@ -90,7 +91,7 @@ export default function ItemsTable(props: ItemsTableProps) {
 
   const options = {
     elevation: 1,
-    rowsPerPage: 20,
+    rowsPerPage,
     rowsPerPageOptions: [5, 10, 20, 50],
     selectableRows: 'none' as SelectableRows,
     selectableRowsHeader: false,
@@ -116,6 +117,8 @@ export default function ItemsTable(props: ItemsTableProps) {
     onTableChange: (action: string, state: any) => {
       if (action === 'viewColumnsChange') {
         setColumns(state.columns);
+      } else if (action === 'changeRowsPerPage') {
+        setRowsPerPage(state.rowsPerPage);
       }
     },
   };
