@@ -92,10 +92,9 @@ export default function InventoryPage() {
             itemIndex={itemIndex}
             setItemIndex={setItemIndex}
           />
-          <div className='add-button' onClick={() => {
-          }}>
-            <img className='add-icon' src={'/img/plus.svg'} alt='Add item' />
-            <div className='axiforma-regular-blue-semi-bold-14px' onClick={addHandler}>Ajouter un objet</div>
+          <div className='white-button add-button' onClick={addHandler}>
+            <img className='white-button-icon' src={'/img/plus.svg'} alt='Add item' />
+            <div className='axiforma-regular-blue-semi-bold-14px'>Ajouter un objet</div>
           </div>
         </div>
         {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && <div className={'glass item-info'}>

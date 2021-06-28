@@ -36,9 +36,13 @@
 }
 
 .add-button {
-    cursor: pointer;
     bottom: 8%;
     position: fixed;
+    z-index: 999;
+}
+
+.white-button {
+    cursor: pointer;
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -46,7 +50,12 @@
     border-radius: 20px;
     background: white;
     padding: 10px;
-    z-index: 999;
+}
+
+.white-button-icon {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
 }
 
 /* Chrome 29+ */
@@ -64,9 +73,4 @@ and (min-resolution: .001dpcm) {
         position: sticky;
         bottom: 0;
     }
-}
-
-.add-icon {
-    height: 15px;
-    margin-right: 5px;
 }

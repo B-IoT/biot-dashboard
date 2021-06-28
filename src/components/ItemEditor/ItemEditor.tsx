@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useEffect, useMemo, useState, useLayoutEffect } from 'react';
 
 import { ItemEditorProps } from './ItemEditor.props';
 import 'react-toastify/dist/ReactToastify.css';
 import './ItemEditor.css';
 
-import QRCode from 'qrcode.react';
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
@@ -21,6 +20,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { MuiThemeProvider } from '@material-ui/core';
+import ReactToPrint from 'react-to-print';
+import QRCode from 'qrcode.react';
 
 
 const QR_CODE_ELEMENT_ID = 'qr';
@@ -33,6 +34,7 @@ export default function ItemEditor(props: ItemEditorProps) {
   const { item, cancelHandler, refreshHandler } = props;
   const [editedValues, setEditedValues] = useState({ ...item });
   const [inputs, setInputs] = useState([] as JSX.Element[]);
+  const componentRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [updatePopup, setUpdatePopup] = useState(false);
@@ -40,8 +42,7 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
 
   const errorToast = () => toast.error('Une erreur s\'est produite, veuillez réessayer');
-
-  let qrCodeValue = item?.id;
+  const qrCodeValue = editedValues?.id;
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
@@ -70,12 +71,12 @@ export default function ItemEditor(props: ItemEditorProps) {
     let result = [] as JSX.Element[];
 
     if (item && editedValues) {
-      for (let key in item) {
-        if (item.hasOwnProperty(key) && key in itemFieldTranslation) {
+      for (let key in itemFieldTranslation) {
+        if (itemFieldTranslation.hasOwnProperty(key)) {
           const translation = itemFieldTranslation[key];
           let input = null;
 
-          if (key === 'lastModifiedDate' && !editedValues[key]) continue;
+          if ((key === 'id' || key === 'lastModifiedDate') && !item[key]) continue;
 
           switch (key) {
             case 'purchasePrice':
@@ -118,6 +119,7 @@ export default function ItemEditor(props: ItemEditorProps) {
                 />
               );
               break;
+            case 'id':
             case 'lastModifiedDate':
               input = (
                 <div
@@ -180,10 +182,7 @@ export default function ItemEditor(props: ItemEditorProps) {
   }, [editedValues, item]);
 
   const updateItemMutation = useMutation((item: { [key: string]: any }) =>
-    !item['id']
-      ? createItem(item as Item)
-      : updateItem(item['id'], item as Item),
-  );
+    !item['id'] ? createItem(item as Item) : updateItem(item['id'], item as Item));
 
   const deleteItemMutation = useMutation((id: number) => deleteItem(id));
 
@@ -192,20 +191,17 @@ export default function ItemEditor(props: ItemEditorProps) {
       setIsLoading(true);
       updateItemMutation.mutate(editedValues, {
         onSuccess: ({ data }) => {
+          if (data && data !== '') {
+            item.id = data;
+            setEditedValues({ ...item });
+            toast.success('L\'objet a bien été créé');
+          } else {
+            toast.success('Les modifications ont été enregistrées');
+          }
           for (let key in item) {
             if (item.hasOwnProperty(key)) {
               item[key] = editedValues[key];
             }
-          }
-
-          if (data && data !== '') {
-            let newValues = { ...item };
-            newValues['id'] = data;
-            item.id = data;
-            setEditedValues(newValues);
-            toast.success('L\'objet a bien été créé');
-          } else {
-            toast.success('Les modifications ont été enregistrées');
           }
 
           setIsLoading(false);
@@ -228,24 +224,8 @@ export default function ItemEditor(props: ItemEditorProps) {
     setUndoUpdatePopup(false);
   }
 
-  function downloadQRCode() {
-    const canvas = document.getElementById(
-      QR_CODE_ELEMENT_ID,
-    ) as HTMLCanvasElement;
-
-    const pngUrl = canvas
-      .toDataURL('image/png')
-      .replace('image/png', 'image/octet-stream');
-    let downloadLink = document.createElement('a');
-    downloadLink.href = pngUrl;
-    downloadLink.download = `${qrCodeValue}.png`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  }
-
   function deleteHandler() {
-    deleteItemMutation.mutate(item['id'], {
+    deleteItemMutation.mutate(editedValues['id'], {
       onSuccess: () => {
         refreshHandler(null);
         cancelHandler();
@@ -296,14 +276,23 @@ export default function ItemEditor(props: ItemEditorProps) {
   return (
     <div className='max-width'>
       {qrCodeValue && (
-        <div className='qr-code' onClick={downloadQRCode}>
-          <QRCode
-            id={QR_CODE_ELEMENT_ID}
-            value={qrCodeValue + ''}
-            size={150}
-            level={'H'}
-            includeMargin={true}
+        <div>
+          <ReactToPrint
+            trigger={() =>
+              <div className='print-button'>
+                <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer le QR code</div>
+              </div>}
+            content={() => componentRef.current}
           />
+          <div className='qr-code' ref={componentRef}>
+            <QRCode
+              id={QR_CODE_ELEMENT_ID}
+              value={qrCodeValue + ''}
+              size={150}
+              level={'H'}
+              includeMargin={true}
+            />
+          </div>
         </div>
       )}
       {inputs}

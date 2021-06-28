@@ -4,9 +4,14 @@
 
 .qr-code {
     width: 100%;
-    display: flex;
     justify-content: center;
-    cursor: pointer;
+    display: none;
+}
+
+@media print {
+    .qr-code {
+        display: flex;
+    }
 }
 
 .react-datepicker__input-container {
@@ -63,6 +68,15 @@
 
 textarea {
     resize: none;
+}
+
+.print-button {
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 20px;
+    border: 2px solid var(--blue);
+    padding: 10px;
 }
 
 .Toastify__toast {

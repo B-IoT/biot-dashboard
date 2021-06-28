@@ -68,9 +68,9 @@ export const emptyItem = (): Item => ({
 });
 
 export const itemFieldTranslation: Record<string, string> = {
+  id: 'Code',
   category: 'Catégorie',
   service: 'Service',
-  itemID: 'Code',
   brand: 'Marque',
   model: 'Modèle',
   supplier: 'Fournisseur',
