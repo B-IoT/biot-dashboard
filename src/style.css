@@ -230,6 +230,7 @@
     --error-red: rgb(255, 75, 76);
     --box-shadow: rgba(0, 0, 0, 0.06);
     --transparent-white: rgba(255, 255, 255, 0.85);
+    --transparent-blue: rgba(37, 114, 232, 0.15);
     --overlay-white: rgb(255, 255, 255);
     --firefox-white: rgba(255, 255, 255, 0.3);
     --half-blue: rgb(143, 168, 207);

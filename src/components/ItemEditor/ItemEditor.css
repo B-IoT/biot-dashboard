@@ -77,6 +77,8 @@ textarea {
     border-radius: 20px;
     border: 2px solid var(--blue);
     padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .Toastify__toast {

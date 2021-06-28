@@ -6,7 +6,7 @@ import MUIDataTable, {
   MUIDataTableState,
 } from 'mui-datatables';
 
-import { datatableLabels, itemFieldTranslation } from '../../utils/items';
+import { datatableLabels, itemFieldTranslation, underCreation } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
 
 /**
@@ -26,16 +26,17 @@ export default function ItemsTable(props: ItemsTableProps) {
   useEffect(() => {
     let columns = [];
     const displayedFields = [
+      'id',
       'category',
       'brand',
       'model',
-      'supplier',
-      'service',
       'purchaseDate',
       'purchasePrice',
     ];
     const hiddenFields = [
-      'itemID',
+      'status',
+      'service',
+      'supplier',
       'originLocation',
       'currentLocation',
       'room',
@@ -97,8 +98,8 @@ export default function ItemsTable(props: ItemsTableProps) {
     selectableRows: 'none' as SelectableRows,
     selectableRowsHeader: false,
     onRowClick: handleRowClick,
-    setRowProps: (_row: any[], _dataIndex: number, row: number) => {
-      if (rowIndex === row)
+    setRowProps: (_row: any[], dataIndex: number, rowIdx: number) => {
+      if (rowIndex === rowIdx)
         return {
           style: {
             background: 'var(--transparent-white)',
@@ -107,7 +108,14 @@ export default function ItemsTable(props: ItemsTableProps) {
             borderLeftColor: 'var(--blue)',
           },
         };
-      else return {};
+      else if (items[dataIndex].status === underCreation) {
+        return {
+          style: {
+            background: 'var(--transparent-blue)',
+          },
+        };
+      }
+      return {};
     },
     onColumnSortChange: () => {
       setItemIndex(-1);

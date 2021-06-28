@@ -69,6 +69,7 @@ export const emptyItem = (): Item => ({
 
 export const itemFieldTranslation: Record<string, string> = {
   id: 'Code',
+  status: 'Statut',
   category: 'Catégorie',
   service: 'Service',
   brand: 'Marque',
@@ -90,6 +91,8 @@ export const itemFieldTranslation: Record<string, string> = {
   lastModifiedDate: 'Date de modification',
   lastModifiedBy: 'Modifié par',
 };
+
+export const underCreation = 'Under creation';
 
 export const displayTextVersion: Record<string, string> = {
   available: 'disponible',
@@ -120,7 +123,6 @@ export function getPrettyItems(items: Item[]): Item[] {
   return items.map((item) => {
     return {
       ...item,
-      status: item.status && displayTextVersion[item.status],
       purchaseDate: item.purchaseDate ? getReadableDate(item.purchaseDate) : null,
       maintenanceDate:  item.maintenanceDate ? getReadableDate(item.maintenanceDate) : null,
       lastModifiedDate: item.lastModifiedDate ? getReadableDate(item.lastModifiedDate) : null,

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { createItem, deleteItem, updateItem } from '../../api/api';
-import { convertDate, getReadableDate, Item, itemFieldTranslation } from '../../utils/items';
+import { convertDate, getReadableDate, Item, itemFieldTranslation, underCreation } from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import { dialogTheme } from '../../ui-styles';
 
@@ -77,6 +77,7 @@ export default function ItemEditor(props: ItemEditorProps) {
           let input = null;
 
           if ((key === 'id' || key === 'lastModifiedDate') && !item[key]) continue;
+          if (key === 'status' && item[key] !== underCreation) continue;
 
           switch (key) {
             case 'purchasePrice':
@@ -117,6 +118,16 @@ export default function ItemEditor(props: ItemEditorProps) {
                     setEditedValues(newValues);
                   }}
                 />
+              );
+              break;
+            case 'status':
+              input = (
+                <div
+                  className='axiforma-regular-black-regular-14px field-text'
+                  key={key + '-input'}
+                >
+                  {'En création'}
+                </div>
               );
               break;
             case 'id':
