@@ -203,8 +203,14 @@ export default function ItemEditor(props: ItemEditorProps) {
       updateItemMutation.mutate(editedValues, {
         onSuccess: ({ data }) => {
           if (data && data !== '') {
+            const valuesCopy = { ...editedValues };
+            valuesCopy.id = data;
+            valuesCopy.status = underCreation;
+
             item.id = data;
-            setEditedValues({ ...item });
+            item.status = underCreation;
+
+            setEditedValues(valuesCopy);
             toast.success('L\'objet a bien été créé');
           } else {
             toast.success('Les modifications ont été enregistrées');

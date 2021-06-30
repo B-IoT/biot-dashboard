@@ -19,7 +19,6 @@ export default function ItemsTable(props: ItemsTableProps) {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
     return item;
   });
-  const [rowIndex, setRowIndex] = useState(-1);
   const [columns, setColumns] = useState<MUIDataTableColumnDef[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
@@ -81,9 +80,8 @@ export default function ItemsTable(props: ItemsTableProps) {
     _rowData: string[],
     rowMeta: { dataIndex: number; rowIndex: number }
   ) => {
-    if (rowMeta.rowIndex !== rowIndex) {
+    if (rowMeta.dataIndex !== itemIndex) {
       setItemIndex(rowMeta.dataIndex);
-      setRowIndex(rowMeta.rowIndex);
     } else {
       setItemIndex(-1);
     }
@@ -98,8 +96,8 @@ export default function ItemsTable(props: ItemsTableProps) {
     selectableRows: 'none' as SelectableRows,
     selectableRowsHeader: false,
     onRowClick: handleRowClick,
-    setRowProps: (_row: any[], dataIndex: number, rowIdx: number) => {
-      if (rowIndex === rowIdx)
+    setRowProps: (_row: any[], dataIndex: number, _rowIdx: number) => {
+      if (itemIndex === dataIndex)
         return {
           style: {
             background: 'var(--transparent-white)',
@@ -117,9 +115,6 @@ export default function ItemsTable(props: ItemsTableProps) {
       }
       return {};
     },
-    onColumnSortChange: () => {
-      setItemIndex(-1);
-    },
     textLabels: datatableLabels(noMatchString),
     print: false,
     filterType: 'checkbox' as FilterType,
@@ -131,10 +126,6 @@ export default function ItemsTable(props: ItemsTableProps) {
       }
     },
   };
-
-  useEffect(() => {
-    if (itemIndex === -1) setRowIndex(-1);
-  }, [itemIndex]);
 
   return (
     <MUIDataTable

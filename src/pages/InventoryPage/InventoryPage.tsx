@@ -30,6 +30,7 @@ export default function InventoryPage() {
     } else {
       if (!newItems.includes(item)) {
         newItems.push(item);
+        setItemIndex(newItems.length - 1);
       }
     }
 
@@ -100,7 +101,7 @@ export default function InventoryPage() {
         {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && <div className={'glass item-info'}>
           <div className='widget-title-2 axiforma-extra-bold-eerie-black-20px'>Informations</div>
           <ItemEditor item={newItem ? newItem : items[itemIndex]} refreshHandler={refreshHandler}
-                      cancelHandler={cancelHandler} onItemClick={setItemIndex} />
+                      cancelHandler={cancelHandler} />
         </div>}
       </div>
       <ToastContainer

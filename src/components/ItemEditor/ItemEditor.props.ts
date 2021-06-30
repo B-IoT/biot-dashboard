@@ -15,9 +15,4 @@ export interface ItemEditorProps {
    * Function called to refresh the datatable with the latest values
    */
   refreshHandler: (item: Item | null) => void;
-
-  /**
-   * Callback when an item is clicked
-   */
-  onItemClick: (index: number) => void;
 }
