@@ -151,7 +151,7 @@ export default function ItemEditor(props: ItemEditorProps) {
                   value={editedValues[key] ? editedValues[key] : ''}
                   onChange={(e) => {
                     let newValues = { ...editedValues };
-                    newValues[key] = e.target.value;
+                    newValues[key] = e.target.value.substring(0, 200);
                     setEditedValues(newValues);
                   }}
                 />
