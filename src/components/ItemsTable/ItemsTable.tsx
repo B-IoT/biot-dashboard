@@ -6,7 +6,7 @@ import MUIDataTable, {
   MUIDataTableState,
 } from 'mui-datatables';
 
-import { datatableLabels, itemFieldTranslation, underCreation } from '../../utils/items';
+import { datatableLabels, itemFieldTranslation, mandatoryFields, underCreation } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
 
 /**
@@ -24,32 +24,10 @@ export default function ItemsTable(props: ItemsTableProps) {
 
   useEffect(() => {
     let columns = [];
-    const displayedFields = [
-      'id',
-      'category',
-      'brand',
-      'model',
-      'purchaseDate',
-      'purchasePrice',
-    ];
-    const hiddenFields = [
-      'status',
-      'service',
-      'supplier',
-      'originLocation',
-      'currentLocation',
-      'room',
-      'contact',
-      'previousOwner',
-      'currentOwner',
-      'orderNumber',
-      'color',
-      'serialNumber',
-      'maintenanceDate',
-      'comments',
-      'lastModifiedDate',
-      'lastModifiedBy',
-    ];
+    const displayedFields = mandatoryFields;
+    const hiddenFields = ['id', 'status', 'service', 'originLocation', 'currentLocation', 'room',
+      'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color', 'serialNumber',
+      'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
 
     for (const field of displayedFields) {
       columns.push({

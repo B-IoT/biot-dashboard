@@ -22,8 +22,13 @@
     width: 100%;
 }
 
+.field-title-container {
+    display: flex;
+}
+
 .field-title {
     margin-bottom: 5px;
+    margin-left: 2px;
 }
 
 .field-text {
@@ -53,6 +58,11 @@
 
 .margin-top {
     margin-top: 20px;
+}
+
+.missing-fields-error {
+    margin-top: 20px;
+    margin-bottom: -20px;
 }
 
 .cancel-button {

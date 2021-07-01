@@ -169,10 +169,10 @@
     font-weight: 300;
 }
 
-.error-text-small {
+.error-text-thin {
     color: var(--error-red);
-    font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
-    font-size: 12px;
+    font-family: 'Axiforma-Regular', Helvetica, Arial, serif;
+    font-size: 14px;
     font-style: normal;
     font-weight: 300;
 }

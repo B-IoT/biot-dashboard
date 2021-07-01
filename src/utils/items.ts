@@ -92,6 +92,8 @@ export const itemFieldTranslation: Record<string, string> = {
   lastModifiedBy: 'Modifié par',
 };
 
+export const mandatoryFields = ['category', 'brand', 'model', 'supplier', 'purchaseDate', 'purchasePrice'];
+
 export const underCreation = 'Under creation';
 
 export const displayTextVersion: Record<string, string> = {

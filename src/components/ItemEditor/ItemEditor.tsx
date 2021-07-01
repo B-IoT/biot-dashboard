@@ -11,7 +11,14 @@ import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { createItem, deleteItem, updateItem } from '../../api/api';
-import { convertDate, getReadableDate, Item, itemFieldTranslation, underCreation } from '../../utils/items';
+import {
+  convertDate,
+  getReadableDate,
+  Item,
+  itemFieldTranslation,
+  mandatoryFields,
+  underCreation,
+} from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import { dialogTheme } from '../../ui-styles';
 
@@ -37,6 +44,7 @@ export default function ItemEditor(props: ItemEditorProps) {
   const componentRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [fieldError, setFieldError] = useState(false);
   const [updatePopup, setUpdatePopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
@@ -48,6 +56,8 @@ export default function ItemEditor(props: ItemEditorProps) {
     if (item.id !== editedValues.id) {
       setEditedValues({ ...item });
       setIsLoading(false);
+      setFieldError(false);
+      closeHandler();
     }
   }, [item]);
 
@@ -175,12 +185,16 @@ export default function ItemEditor(props: ItemEditorProps) {
 
           result.push(
             <div className='edit-row' key={key + '-div'}>
-              <div
-                className='axiforma-regular-blue-semi-bold-14px field-title'
-                key={key + '-text'}
-              >
-                {' '}
-                {translation}{' '}
+              <div className='field-title-container'>
+                <div
+                  className='axiforma-regular-blue-semi-bold-14px field-title'
+                  key={key + '-text'}
+                >
+                  {translation}
+                </div>
+                {mandatoryFields.includes(key) && <div
+                  className='axiforma-regular-red-semi-bold-14px  field-title'
+                  key={key + '-mandatory'}>*</div>}
               </div>
               {input}
             </div>,
@@ -196,6 +210,25 @@ export default function ItemEditor(props: ItemEditorProps) {
     !item['id'] ? createItem(item as Item) : updateItem(item['id'], item as Item));
 
   const deleteItemMutation = useMutation((id: number) => deleteItem(id));
+
+  function editHandler() {
+    let missingField = false;
+    for (let i = 0; i < mandatoryFields.length; i++) {
+      const field = mandatoryFields[i];
+      const value = editedValues[field];
+      if (value === '' || !value) {
+        console.log(field, value);
+        missingField = true;
+        // break;
+      }
+    }
+
+    if (missingField) setFieldError(true);
+    else {
+      setFieldError(false);
+      setUpdatePopup(true);
+    }
+  }
 
   function confirmHandler() {
     if (!isLoading) {
@@ -233,6 +266,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     }
 
     closeHandler();
+    setFieldError(false);
   }
 
   function closeHandler() {
@@ -314,7 +348,14 @@ export default function ItemEditor(props: ItemEditorProps) {
       )}
       {inputs}
       <div className='button-wrapper'>
-        <LoadingButton isLoading={isLoading} onClick={() => setUpdatePopup(true)}>
+        {fieldError && (
+          <div
+            className='missing-fields-error error-text-thin'
+          >
+            Veuillez renseigner tous les champs obligatoires.
+          </div>
+        )}
+        <LoadingButton isLoading={isLoading} onClick={() => editHandler()}>
           <div className='axiforma-regular-normal-white-16px'>Valider</div>
         </LoadingButton>
         {editedValues['id'] && (
