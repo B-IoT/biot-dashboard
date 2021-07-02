@@ -209,8 +209,8 @@
 
 @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
     .glass {
-        -webkit-backdrop-filter: blur(25px) brightness(105%);
-        backdrop-filter: blur(25px) brightness(105%);
+        -webkit-backdrop-filter: blur(15px) brightness(104%);
+        backdrop-filter: blur(15px) brightness(104%);
         border-radius: 45px;
         box-shadow: 0 0 20px var(--box-shadow);
     }

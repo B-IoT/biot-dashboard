@@ -217,9 +217,8 @@ export default function ItemEditor(props: ItemEditorProps) {
       const field = mandatoryFields[i];
       const value = editedValues[field];
       if (value === '' || !value) {
-        console.log(field, value);
         missingField = true;
-        // break;
+        break;
       }
     }
 

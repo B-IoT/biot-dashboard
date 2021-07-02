@@ -93,6 +93,8 @@ export async function createItem(item: Item) {
  */
 export async function updateItem(id: number, item: Item) {
   fetchToken();
+  console.log(item)
+  console.log(cleanItem(item));
   return await API.put(`api/items/` + id, cleanItem(item));
 }
 
@@ -127,7 +129,7 @@ export function cleanItem(item: Item): Record<string, unknown> {
   }
 
   // Remove null fields
-  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v !== null && v !== ''));
+  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v !== null));
 
   if (clean.purchaseDate) {
     // Extract date-only ISO string
