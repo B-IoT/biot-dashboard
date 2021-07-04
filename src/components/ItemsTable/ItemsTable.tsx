@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import MUIDataTable, {
   FilterType,
   MUIDataTableColumnDef,
@@ -19,44 +19,64 @@ export default function ItemsTable(props: ItemsTableProps) {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
     return item;
   });
+
   const [columns, setColumns] = useState<MUIDataTableColumnDef[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
   useEffect(() => {
     let columns = [];
-    const displayedFields = mandatoryFields;
-    const hiddenFields = ['id', 'status', 'service', 'originLocation', 'currentLocation', 'room',
-      'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color', 'serialNumber',
-      'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
+    const cachedColumns = localStorage.getItem('columns');
 
-    for (const field of displayedFields) {
-      columns.push({
-        name: field,
-        label: itemFieldTranslation[field],
-        options: {
-          filter: true,
-          sort: true,
-        },
-      });
-    }
+    if (cachedColumns) {
+      const parsedColumns = JSON.parse(cachedColumns);
 
-    for (const field of hiddenFields) {
-      columns.push({
-        name: field,
-        label: itemFieldTranslation[field],
-        options: {
-          filter: true,
-          sort: true,
-          display: false,
-        },
-      });
+      for (const field of parsedColumns) {
+        columns.push({
+          name: field.name,
+          label: itemFieldTranslation[field.name],
+          options: {
+            filter: true,
+            sort: true,
+            display: field.display,
+          },
+        });
+      }
+      setColumns(columns);
+    } else {
+      const displayedFields = mandatoryFields;
+      const hiddenFields = ['id', 'status', 'service', 'originLocation', 'currentLocation', 'room',
+        'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color', 'serialNumber',
+        'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
+
+      for (const field of displayedFields) {
+        columns.push({
+          name: field,
+          label: itemFieldTranslation[field],
+          options: {
+            filter: true,
+            sort: true,
+          },
+        });
+      }
+
+      for (const field of hiddenFields) {
+        columns.push({
+          name: field,
+          label: itemFieldTranslation[field],
+          options: {
+            filter: true,
+            sort: true,
+            display: false,
+          },
+        });
+      }
+      setColumns(columns);
     }
-    setColumns(columns);
   }, []);
 
   const handleRowClick = (
     _rowData: string[],
-    rowMeta: { dataIndex: number; rowIndex: number }
+    rowMeta: { dataIndex: number; rowIndex: number },
   ) => {
     if (rowMeta.dataIndex !== itemIndex) {
       setItemIndex(rowMeta.dataIndex);
@@ -98,10 +118,23 @@ export default function ItemsTable(props: ItemsTableProps) {
     filterType: 'checkbox' as FilterType,
     onTableChange: (action: string, state: MUIDataTableState) => {
       if (action === 'viewColumnsChange') {
+        if (state.columns.length > 0) {
+          console.log('WRITE', state.columns);
+          localStorage.setItem('columns', JSON.stringify(state.columns));
+        }
+
         setColumns(state.columns);
       } else if (action === 'changeRowsPerPage') {
         setRowsPerPage(state.rowsPerPage);
       }
+    },
+    downloadOptions: {
+      filename: 'inventaire.csv',
+    },
+    onDownload: (buildHead: (columns: any) => string,
+                 buildBody: (data: any) => string,
+                 columns: any, data: any) => {
+      return '\uFEFF' + buildHead(columns) + buildBody(data);
     },
   };
 
