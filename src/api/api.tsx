@@ -9,6 +9,12 @@ export function fetchToken() {
   API.defaults.headers.common = { Authorization: 'Bearer ' + token };
 }
 
+export async function getUserInfo() {
+  fetchToken();
+  const { data } = await API.get('api/users/me');
+  return data;
+}
+
 /**
  * Request the authentication token
  */
