@@ -338,7 +338,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             <QRCode
               id={QR_CODE_ELEMENT_ID}
               value={qrCodeValue + ''}
-              size={150}
+              size={75}
               level={'H'}
               includeMargin={true}
             />
