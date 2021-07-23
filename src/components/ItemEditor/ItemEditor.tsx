@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useEffect, useMemo, useState, useLayoutEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { ItemEditorProps } from './ItemEditor.props';
 import 'react-toastify/dist/ReactToastify.css';
@@ -60,22 +60,6 @@ export default function ItemEditor(props: ItemEditorProps) {
       closeHandler();
     }
   }, [item]);
-
-  useLayoutEffect(() => {
-    // Add item id to QR code shown
-    if (qrCodeValue) {
-      const canvas = document.getElementById(QR_CODE_ELEMENT_ID) as HTMLCanvasElement;
-      const context = canvas.getContext('2d');
-
-      if (context) {
-        context.font = '3px Arial';
-        context.textAlign = 'center';
-        context.textBaseline = 'top';
-        context.fillStyle = 'black';
-        context.fillText(qrCodeValue, 15, 25);
-      }
-    }
-  }, [qrCodeValue]);
 
   useMemo(() => {
     let result = [] as JSX.Element[];
@@ -338,10 +322,11 @@ export default function ItemEditor(props: ItemEditorProps) {
             <QRCode
               id={QR_CODE_ELEMENT_ID}
               value={qrCodeValue + ''}
-              size={75}
-              level={'H'}
-              includeMargin={true}
+              size={48}
+              level={'L'}
+              includeMargin={false}
             />
+            <div className='axiforma-regular-normal-eerie-black-12px'>{qrCodeValue}</div>
           </div>
         </div>
       )}
