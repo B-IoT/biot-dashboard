@@ -13,7 +13,7 @@ import { ItemsTableProps } from './ItemsTable.props';
  * Interactive and editable item table.
  */
 export default function ItemsTable(props: ItemsTableProps) {
-  const { items, itemIndex, setItemIndex } = props;
+  const { items, itemIndex, setItemIndex, checkedItems, setCheckedItems } = props;
 
   const cleanItems = items.map((item) => {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
@@ -91,8 +91,9 @@ export default function ItemsTable(props: ItemsTableProps) {
     elevation: 1,
     rowsPerPage,
     rowsPerPageOptions: [5, 10, 20, 50],
-    selectableRows: 'none' as SelectableRows,
-    selectableRowsHeader: false,
+    selectableRows: 'multiple' as SelectableRows,
+    selectableRowsHeader: true,
+    fixedHeader: true,
     onRowClick: handleRowClick,
     setRowProps: (_row: any[], dataIndex: number, _rowIdx: number) => {
       if (itemIndex === dataIndex)
@@ -111,11 +112,19 @@ export default function ItemsTable(props: ItemsTableProps) {
           },
         };
       }
-      return {};
+      return {
+        style: {
+          background: 'transparent',
+        },
+      };
     },
     textLabels: datatableLabels(noMatchString),
     print: false,
     filterType: 'checkbox' as FilterType,
+    rowsSelected: checkedItems,
+    onRowSelectionChange: (_currentRowsSelected: any[], _allRowsSelected: any[], rowsSelected?: any[]) => {
+      setCheckedItems(rowsSelected ? rowsSelected : []);
+    },
     onTableChange: (action: string, state: MUIDataTableState) => {
       if (action === 'viewColumnsChange') {
         if (state.columns.length > 0) {

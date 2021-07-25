@@ -58,6 +58,9 @@ export const theme = createMuiTheme({
       headerCell: {
         backgroundColor: 'none',
       },
+      checked: {
+        color: 'var(--blue) !important',
+      },
     },
     MuiButton: {
       root: {
@@ -71,7 +74,27 @@ export const theme = createMuiTheme({
       },
     },
     MUIDataTableToolbarSelect: {
-      root: glassStyle,
+      root: {
+        marginTop: '26px',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        borderRadius: '100px',
+        backgroundColor: 'var(--blue)',
+      },
+      title: {
+        fontFamily: '\'Axiforma-Bold\', Helvetica, Arial, serif',
+        color: 'white',
+      },
+      iconButton: {
+        display: 'none !important',
+      },
     },
+    // MuiTableRow: {
+    //   root: {
+    //     '&$selected': {
+    //       backgroundColor: 'transparent !important'
+    //     }
+    //   }
+    // },
   },
 });

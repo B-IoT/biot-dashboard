@@ -35,10 +35,11 @@
     margin-bottom: 15px;
 }
 
-.add-button {
+.hover-buttons {
     bottom: 8%;
     position: fixed;
     z-index: 999;
+    display: flex;
 }
 
 .white-button {
@@ -50,6 +51,7 @@
     border-radius: 20px;
     background: white;
     padding: 10px;
+    margin-right: 15px;
 }
 
 .white-button-icon {

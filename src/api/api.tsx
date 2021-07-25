@@ -93,8 +93,6 @@ export async function createItem(item: Item) {
  */
 export async function updateItem(id: number, item: Item) {
   fetchToken();
-  console.log(item)
-  console.log(cleanItem(item));
   return await API.put(`api/items/` + id, cleanItem(item));
 }
 

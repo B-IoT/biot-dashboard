@@ -15,4 +15,14 @@ export interface ItemsTableProps {
    * Setter of the selected item's index
    */
   setItemIndex: (index: number) => void;
+
+  /**
+   * The checked items' indices
+   */
+  checkedItems: any[];
+
+  /**
+   * Setter of the checked items' indices
+   */
+  setCheckedItems: (indexes: any[]) => void;
 }

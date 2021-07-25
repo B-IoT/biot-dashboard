@@ -1,18 +1,22 @@
 import './InventoryPage.css';
 import LogOut from '../../components/LogOut/LogOut';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { emptyItem, getPrettyItems, Item } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
 import { useQuery } from 'react-query';
 import { getItems, REFETCH_INTERVAL } from '../../api/api';
 import { ToastContainer } from 'react-toastify';
+import ReactToPrint from 'react-to-print';
+import QRPrinter from '../../components/QRPrinter/QRPrinter';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
   const [newItem, setNewItem] = useState(null as Item | null);
   const [itemIndex, setItemIndex] = useState(-1);
+  const [checkedItems, setCheckedItems] = useState<any[]>([]);
+  const componentRef = useRef<HTMLDivElement>(null);
   const { data } = useQuery('items', getItems, {
     refetchInterval: REFETCH_INTERVAL,
   });
@@ -92,10 +96,28 @@ export default function InventoryPage() {
             items={items}
             itemIndex={itemIndex}
             setItemIndex={setItemIndex}
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
           />
-          <div className='white-button add-button' onClick={addHandler}>
-            <img className='white-button-icon' src={'/img/plus.svg'} alt='Add item' />
-            <div className='axiforma-regular-blue-semi-bold-14px'>Ajouter un objet</div>
+          <div className='hover-buttons'>
+            <div className='white-button' onClick={addHandler}>
+              <img className='white-button-icon' src={'/img/plus.svg'} alt='Add item' />
+              <div className='axiforma-regular-blue-semi-bold-14px'>Ajouter un objet</div>
+            </div>
+            {
+              checkedItems.length > 0 &&
+              <div>
+                <ReactToPrint
+                  trigger={() =>
+                    <div className='white-button'>
+                      <img className='white-button-icon' src={'/img/printer.svg'} alt='Print checked items' />
+                      <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer les objets choisis</div>
+                    </div>}
+                  content={() => componentRef.current}
+                />
+                <QRPrinter itemIds={checkedItems.map(value => items[value].id)} componentRef={componentRef}/>
+              </div>
+            }
           </div>
         </div>
         {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && <div className={'glass item-info'}>

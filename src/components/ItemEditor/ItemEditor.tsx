@@ -27,11 +27,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { MuiThemeProvider } from '@material-ui/core';
+import QRPrinter from '../QRPrinter/QRPrinter';
 import ReactToPrint from 'react-to-print';
-import QRCode from 'qrcode.react';
 
-
-const QR_CODE_ELEMENT_ID = 'qr';
 toast.configure();
 
 /**
@@ -309,27 +307,16 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   return (
     <div className='max-width'>
-      {qrCodeValue && (
-        <div>
-          <ReactToPrint
-            trigger={() =>
-              <div className='print-button'>
-                <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer le QR code</div>
-              </div>}
-            content={() => componentRef.current}
-          />
-          <div className='qr-code' ref={componentRef}>
-            <QRCode
-              id={QR_CODE_ELEMENT_ID}
-              value={qrCodeValue + ''}
-              size={48}
-              level={'L'}
-              includeMargin={false}
-            />
-            <div className='axiforma-regular-normal-eerie-black-12px'>{qrCodeValue}</div>
-          </div>
-        </div>
-      )}
+      <div>
+        <ReactToPrint
+          trigger={() =>
+            <div className='print-button'>
+              <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer le QR code</div>
+            </div>}
+          content={() => componentRef.current}
+        />
+        <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef}/>
+      </div>
       {inputs}
       <div className='button-wrapper'>
         {fieldError && (
