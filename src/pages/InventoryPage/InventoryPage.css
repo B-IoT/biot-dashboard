@@ -36,8 +36,8 @@
 }
 
 .hover-buttons {
-    bottom: 8%;
-    position: fixed;
+    bottom: 0;
+    position: sticky;
     z-index: 999;
     display: flex;
 }
