@@ -226,6 +226,17 @@ export default function ItemEditor(props: ItemEditorProps) {
       setIsLoading(true);
       updateItemMutation.mutate(editedValues, {
         onSuccess: ({ data }) => {
+          const copyItemData = (
+            from: Record<string, unknown>,
+            to: Record<string, unknown>
+          ) => {
+            for (const key in to) {
+              if (to.hasOwnProperty(key)) {
+                to[key] = from[key];
+              }
+            }
+          };
+
           if (data && data !== '') {
             const valuesCopy = { ...editedValues };
             valuesCopy.id = data;
@@ -238,19 +249,11 @@ export default function ItemEditor(props: ItemEditorProps) {
             toast.success("L'objet a bien été créé");
 
             // Need to be done with valuesCopy since setEditedValues is asynchronous
-            for (const key in item) {
-              if (item.hasOwnProperty(key)) {
-                item[key] = valuesCopy[key];
-              }
-            }
+            copyItemData(valuesCopy, item);
           } else {
             toast.success('Les modifications ont été enregistrées');
 
-            for (const key in item) {
-              if (item.hasOwnProperty(key)) {
-                item[key] = editedValues[key];
-              }
-            }
+            copyItemData(editedValues, item);
           }
 
           setIsLoading(false);

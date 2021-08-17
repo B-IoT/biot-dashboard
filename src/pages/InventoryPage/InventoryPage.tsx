@@ -10,7 +10,6 @@ import {
 } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
-import { useQuery } from 'react-query';
 import { fetchToken, getItems, getUserInfo, SERVER_URL } from '../../api/api';
 import { ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
@@ -25,21 +24,6 @@ export default function InventoryPage() {
   const componentRef = useRef<HTMLDivElement>(null);
 
   const [eventBusClient, setEventBusClient] = useState<Client | null>(null);
-
-  const { data } = useQuery('items', getItems, {
-    refetchInterval: false,
-  });
-
-  useEffect(() => {
-    (async () => {
-      const result = await getUserInfo();
-      if (result) {
-        setEventBusClient(
-          new Client(`${SERVER_URL}/eventbus`, fetchToken()!, result.company)
-        );
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -59,12 +43,11 @@ export default function InventoryPage() {
               break;
             }
             case UpdateType.PUT: {
-              // Updated item put at the top
-              setItems(
-                [extractItem(content as unknown as Item)].concat(
-                  items.filter((item) => item.id !== id)
-                )
-              );
+              // Update item in place
+              const itemIdx = items.findIndex((item) => item.id === id);
+              const newItems = [...items];
+              newItems[itemIdx] = extractItem(content as unknown as Item);
+              setItems(newItems);
               break;
             }
           }
@@ -75,8 +58,26 @@ export default function InventoryPage() {
   }, [eventBusClient, items]);
 
   useEffect(() => {
-    if (data !== undefined && data.length > 0) setItems(getPrettyItems(data));
-  }, [data]);
+    (async () => {
+      const itemsFetched = await getItems();
+      if (itemsFetched !== undefined && itemsFetched.length > 0) {
+        setItems(getPrettyItems(itemsFetched));
+      }
+
+      if (eventBusClient == null) {
+        const userInfo = await getUserInfo();
+        if (userInfo) {
+          setEventBusClient(
+            new Client(
+              `${SERVER_URL}/eventbus`,
+              fetchToken()!,
+              userInfo.company
+            )
+          );
+        }
+      }
+    })();
+  }, [eventBusClient]);
 
   const refreshHandler = (item: Item | null) => {
     const newItems = Object.assign([], items);
