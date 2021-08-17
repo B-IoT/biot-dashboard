@@ -1,37 +1,37 @@
 import { MUIDataTableColumn } from 'mui-datatables';
 
 export interface Item {
-  id?: number,
-  beacon: string | null,
-  category: string | null,
-  service: string | null,
-  itemID: string | null,
-  brand: string | null,
-  model: string | null,
-  supplier: string | null,
-  purchaseDate: string | null,
-  purchasePrice: string | number | null,
-  originLocation: string | null,
-  currentLocation: string | null,
-  room: string | null,
-  contact: string | null,
-  currentOwner: string | null,
-  previousOwner: string | null,
-  orderNumber: string | null,
-  color: string | null,
-  serialNumber: string | null,
-  maintenanceDate: string | null,
-  comments: string | null,
-  lastModifiedDate: string | null,
-  lastModifiedBy: string | null,
-  timestamp: string | null,
-  battery: number | null,
-  status: string | null,
-  beaconStatus: string | null,
-  latitude: number | null,
-  longitude: number | null,
-  floor: number | null,
-  temperature: number | null,
+  id?: number;
+  beacon: string | null;
+  category: string | null;
+  service: string | null;
+  itemID: string | null;
+  brand: string | null;
+  model: string | null;
+  supplier: string | null;
+  purchaseDate: string | null;
+  purchasePrice: string | number | null;
+  originLocation: string | null;
+  currentLocation: string | null;
+  room: string | null;
+  contact: string | null;
+  currentOwner: string | null;
+  previousOwner: string | null;
+  orderNumber: string | null;
+  color: string | null;
+  serialNumber: string | null;
+  maintenanceDate: string | null;
+  comments: string | null;
+  lastModifiedDate: string | null;
+  lastModifiedBy: string | null;
+  timestamp: string | null;
+  battery: number | null;
+  status: string | null;
+  beaconStatus: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  floor: number | null;
+  temperature: number | null;
 }
 
 export const emptyItem = (): Item => ({
@@ -75,13 +75,13 @@ export const itemFieldTranslation: Record<string, string> = {
   brand: 'Marque',
   model: 'Modèle',
   supplier: 'Fournisseur',
-  purchaseDate: 'Date d\'achat',
-  purchasePrice: 'Prix d\'achat',
-  originLocation: 'Localisation d\'origine',
+  purchaseDate: "Date d'achat",
+  purchasePrice: "Prix d'achat",
+  originLocation: "Localisation d'origine",
   currentLocation: 'Localisation actuelle',
   room: 'Chambre',
   contact: 'Contact',
-  previousOwner: 'Propriétaire d\'origine',
+  previousOwner: "Propriétaire d'origine",
   currentOwner: 'Propriétaire actuel',
   orderNumber: 'Numéro de commande',
   color: 'Couleur',
@@ -92,7 +92,14 @@ export const itemFieldTranslation: Record<string, string> = {
   lastModifiedBy: 'Modifié par',
 };
 
-export const mandatoryFields = ['category', 'brand', 'model', 'supplier', 'purchaseDate', 'purchasePrice'];
+export const mandatoryFields = [
+  'category',
+  'brand',
+  'model',
+  'supplier',
+  'purchaseDate',
+  'purchasePrice',
+];
 
 export const underCreation = 'Under creation';
 
@@ -104,7 +111,7 @@ export const displayTextVersion: Record<string, string> = {
 
 export function getReadableDate(inputFormat: string) {
   function pad(s: number) {
-    return (s < 10) ? '0' + s : s;
+    return s < 10 ? '0' + s : s;
   }
 
   if (!inputFormat) {
@@ -118,18 +125,28 @@ export function convertDate(inputFormat: string) {
   if (!inputFormat || inputFormat === '') return null;
 
   const split = inputFormat.split('/');
-  return new Date(parseInt(split[2]), parseInt(split[1]) - 1, parseInt(split[0]));
+  return new Date(
+    parseInt(split[2]),
+    parseInt(split[1]) - 1,
+    parseInt(split[0])
+  );
+}
+
+export function extractItem(item: Item): Item {
+  return {
+    ...item,
+    purchaseDate: item.purchaseDate ? getReadableDate(item.purchaseDate) : null,
+    maintenanceDate: item.maintenanceDate
+      ? getReadableDate(item.maintenanceDate)
+      : null,
+    lastModifiedDate: item.lastModifiedDate
+      ? getReadableDate(item.lastModifiedDate)
+      : null,
+  };
 }
 
 export function getPrettyItems(items: Item[]): Item[] {
-  return items.map((item) => {
-    return {
-      ...item,
-      purchaseDate: item.purchaseDate ? getReadableDate(item.purchaseDate) : null,
-      maintenanceDate:  item.maintenanceDate ? getReadableDate(item.maintenanceDate) : null,
-      lastModifiedDate: item.lastModifiedDate ? getReadableDate(item.lastModifiedDate) : null,
-    };
-  });
+  return items.map(extractItem);
 }
 
 export const datatableLabels = (noMatchString: String) => {
@@ -137,7 +154,8 @@ export const datatableLabels = (noMatchString: String) => {
     body: {
       noMatch: noMatchString,
       toolTip: 'Trier',
-      columnHeaderTooltip: (column: MUIDataTableColumn) => `Trier par ${column.label}`,
+      columnHeaderTooltip: (column: MUIDataTableColumn) =>
+        `Trier par ${column.label}`,
     },
     pagination: {
       next: 'Page suivante',

@@ -1,16 +1,23 @@
 import axios from 'axios';
 import { convertDate, Item } from '../utils/items';
 
-const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
+export const SERVER_URL = 'https://api.b-iot.ch:8080';
 export const REFETCH_INTERVAL = 3000;
+const API = axios.create({ baseURL: SERVER_URL });
 
+/**
+ * Fetches the token from the local storage and returns it.
+ * 
+ * @return the auth token 
+ */
 export function fetchToken() {
   const token = localStorage.getItem('token');
   API.defaults.headers.common = { Authorization: 'Bearer ' + token };
+  return token;
 }
 
 /**
- * Request the authentication token
+ * Requests the authentication token.
  */
 export async function authenticate(username: string, password: string) {
   const credentials = {
@@ -42,6 +49,15 @@ export async function getItemsByCategory(category: string) {
     },
   };
   const { data } = await API.get('api/items', params);
+  return data;
+}
+
+/**
+ * Get the user information.
+ */
+export async function getUserInfo() {
+  fetchToken();
+  const { data } = await API.get('api/users/me');
   return data;
 }
 
@@ -117,9 +133,9 @@ export function cleanItem(item: Item): Record<string, unknown> {
     const cleanDate = convertDate(date);
     if (cleanDate) {
       cleanDate.setDate(cleanDate.getDate() + 1);
-      return cleanDate
+      return cleanDate;
     }
-    return null
+    return null;
   }
 
   function parseDate(date: Date) {
@@ -127,7 +143,9 @@ export function cleanItem(item: Item): Record<string, unknown> {
   }
 
   // Remove null fields
-  const clean = Object.fromEntries(Object.entries(item).filter(([_, v]) => v !== null));
+  const clean = Object.fromEntries(
+    Object.entries(item).filter(([_, v]) => v !== null)
+  );
 
   if (clean.purchaseDate) {
     // Extract date-only ISO string
@@ -143,8 +161,11 @@ export function cleanItem(item: Item): Record<string, unknown> {
 
   clean.lastModifiedDate = parseDate(new Date());
 
-    // Extract purchasePrice as float (was already validated before)
-  clean.purchasePrice = (clean.purchasePrice && clean.purchasePrice !== '') ? parseFloat(clean.purchasePrice) : 0;
+  // Extract purchasePrice as float (was already validated before)
+  clean.purchasePrice =
+    clean.purchasePrice && clean.purchasePrice !== ''
+      ? parseFloat(clean.purchasePrice)
+      : 0;
 
   return clean;
 }
