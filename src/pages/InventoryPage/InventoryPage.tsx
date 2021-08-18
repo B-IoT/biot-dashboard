@@ -1,7 +1,7 @@
 import './InventoryPage.css';
 import LogOut from '../../components/LogOut/LogOut';
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { emptyItem, getPrettyItems, Item } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
@@ -10,20 +10,24 @@ import { getItems, REFETCH_INTERVAL } from '../../api/api';
 import { ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
 import QRPrinter from '../../components/QRPrinter/QRPrinter';
+import Popup, { ONGOING_UPDATE_WARNING } from '../../components/Popup/Popup';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
   const [newItem, setNewItem] = useState(null as Item | null);
   const [itemIndex, setItemIndex] = useState(-1);
   const [checkedItems, setCheckedItems] = useState<any[]>([]);
+  const [changeItemPopupVisible, setChangeItemPopupVisible] = useState(false);
+  const [modifyingItem, setModifyingItem] = useState(false);
+
   const componentRef = useRef<HTMLDivElement>(null);
+
   const { data } = useQuery('items', getItems, {
     refetchInterval: REFETCH_INTERVAL,
   });
 
   useEffect(() => {
-    if (data !== undefined && data.length > 0)
-      setItems(getPrettyItems(data));
+    if (data !== undefined && data.length > 0) setItems(getPrettyItems(data));
   }, [data]);
 
   const refreshHandler = (item: Item | null) => {
@@ -45,36 +49,54 @@ export default function InventoryPage() {
     if (itemIndex >= 0) setNewItem(null);
   }, [itemIndex]);
 
-  function addHandler() {
+  function setupAndOpenItemEditorForCreation() {
     setItemIndex(-1);
     setNewItem(emptyItem());
+  }
+
+  function addHandler() {
+    if (modifyingItem) {
+      // Prompt user for confirmation, since it may lose all modifications
+      setChangeItemPopupVisible(true);
+    } else {
+      setupAndOpenItemEditorForCreation();
+    }
   }
 
   function cancelHandler() {
     setItemIndex(-1);
     setNewItem(null);
+    setModifyingItem(false);
   }
 
   return (
-    <div className='page-container'>
-      <img className='background-image' src={'/img/background.png'} alt={'background'} />
+    <div className="page-container">
+      <img
+        className="background-image"
+        src={'/img/background.png'}
+        alt={'background'}
+      />
 
-      <div className='glass side-bar'>
-        <div className='side-bar-top'>
-          <img className='logo' src={'/img/logoColor.png'} alt='BioT logo' />
+      <div className="glass side-bar">
+        <div className="side-bar-top">
+          <img className="logo" src={'/img/logoColor.png'} alt="BioT logo" />
 
           {/*<Link className='unselected-page' to={INVENTORY_PATH} style={{ textDecoration: 'none' }}>*/}
           {/*  <img className='page-icon' src={'/img/analyticsIconBlue.svg'} alt='analytics icon' />*/}
           {/*  <div className='axiforma-regular-normal-blue-16px'>{'Analyse'}</div>*/}
           {/*</Link>*/}
 
-          <div className='selected-page'>
-            <img className='page-icon' src={'/img/inventoryIconWhite.svg'} alt='inventory icon' />
-            <div className='axiforma-regular-normal-white-16px'>Inventaire</div>
+          <div className="selected-page">
+            <img
+              className="page-icon"
+              src={'/img/inventoryIconWhite.svg'}
+              alt="inventory icon"
+            />
+            <div className="axiforma-regular-normal-white-16px">Inventaire</div>
           </div>
         </div>
 
-        <div className='side-bar-bottom'>
+        <div className="side-bar-bottom">
           {/*<div className='utils-container'>*/}
           {/*  <img className='utils-icon' src={'/img/user-cog.png'} alt='parameters icon' />*/}
           {/*  <div className='utils-text axiforma-regular-normal-trout-16px'>{'Paramètres'}</div>*/}
@@ -89,46 +111,72 @@ export default function InventoryPage() {
         </div>
       </div>
 
-      <div className='widgets'>
-        <div className='glass item-table'>
-          <div className='widget-title axiforma-extra-bold-eerie-black-20px'>Matériel</div>
+      <div className="widgets">
+        <div className="glass item-table">
+          <div className="widget-title axiforma-extra-bold-eerie-black-20px">
+            Matériel
+          </div>
           <ItemsTable
             items={items}
             itemIndex={itemIndex}
             setItemIndex={setItemIndex}
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
+            modifyingItem={modifyingItem}
           />
-          <div className='hover-buttons'>
-            <div className='white-button' onClick={addHandler}>
-              <img className='white-button-icon' src={'/img/plus.svg'} alt='Add item' />
-              <div className='axiforma-regular-blue-semi-bold-14px'>Ajouter un objet</div>
+          <div className="hover-buttons">
+            <div className="white-button" onClick={addHandler}>
+              <img
+                className="white-button-icon"
+                src={'/img/plus.svg'}
+                alt="Add item"
+              />
+              <div className="axiforma-regular-blue-semi-bold-14px">
+                Ajouter un objet
+              </div>
             </div>
-            {
-              checkedItems.length > 0 &&
+            {checkedItems.length > 0 && (
               <div>
                 <ReactToPrint
-                  trigger={() =>
-                    <div className='white-button'>
-                      <img className='white-button-icon' src={'/img/printer.svg'} alt='Print checked items' />
-                      <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer les objets choisis</div>
-                    </div>}
+                  trigger={() => (
+                    <div className="white-button">
+                      <img
+                        className="white-button-icon"
+                        src={'/img/printer.svg'}
+                        alt="Print checked items"
+                      />
+                      <div className="axiforma-regular-blue-semi-bold-14px">
+                        Imprimer les objets choisis
+                      </div>
+                    </div>
+                  )}
                   content={() => componentRef.current}
                 />
-                <QRPrinter itemIds={checkedItems.map(value => items[value].id)} componentRef={componentRef}/>
+                <QRPrinter
+                  itemIds={checkedItems.map((value) => items[value].id)}
+                  componentRef={componentRef}
+                />
               </div>
-            }
+            )}
           </div>
         </div>
-        {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && <div className={'glass item-info'}>
-          <div className='widget-title-2 axiforma-extra-bold-eerie-black-20px'>Informations</div>
-          <ItemEditor item={newItem ? newItem : items[itemIndex]} refreshHandler={refreshHandler}
-                      cancelHandler={cancelHandler} />
-        </div>}
+        {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && (
+          <div className={'glass item-info'}>
+            <div className="widget-title-2 axiforma-extra-bold-eerie-black-20px">
+              Informations
+            </div>
+            <ItemEditor
+              item={newItem ? newItem : items[itemIndex]}
+              refreshHandler={refreshHandler}
+              cancelHandler={cancelHandler}
+              setModifyingItem={setModifyingItem}
+            />
+          </div>
+        )}
       </div>
       <ToastContainer
-        bodyClassName='toast-text'
-        position='top-center'
+        bodyClassName="toast-text"
+        position="top-center"
         autoClose={3000}
         hideProgressBar={true}
         newestOnTop
@@ -137,6 +185,17 @@ export default function InventoryPage() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+      />
+      {/* Popup visible if an item is been modified and the user tries to create a new item */}
+      <Popup
+        open={changeItemPopupVisible}
+        onClose={() => setChangeItemPopupVisible(false)}
+        text={ONGOING_UPDATE_WARNING}
+        onConfirm={() => {
+          setupAndOpenItemEditorForCreation();
+          setChangeItemPopupVisible(false);
+        }}
+        onUndo={() => setChangeItemPopupVisible(false)}
       />
     </div>
   );

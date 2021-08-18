@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 
 import { ItemEditorProps } from './ItemEditor.props';
@@ -20,15 +20,10 @@ import {
   underCreation,
 } from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
-import { dialogTheme } from '../../ui-styles';
 
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { MuiThemeProvider } from '@material-ui/core';
 import QRPrinter from '../QRPrinter/QRPrinter';
 import ReactToPrint from 'react-to-print';
+import Popup from '../Popup/Popup';
 
 toast.configure();
 
@@ -36,7 +31,7 @@ toast.configure();
  * Editor to modify and update an item on the backend
  */
 export default function ItemEditor(props: ItemEditorProps) {
-  const { item, cancelHandler, refreshHandler } = props;
+  const { item, cancelHandler, refreshHandler, setModifyingItem } = props;
   const [editedValues, setEditedValues] = useState({ ...item });
   const [inputs, setInputs] = useState([] as JSX.Element[]);
   const componentRef = useRef<HTMLDivElement>(null);
@@ -47,8 +42,16 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
 
-  const errorToast = () => toast.error('Une erreur s\'est produite, veuillez réessayer');
+  const errorToast = () =>
+    toast.error("Une erreur s'est produite, veuillez réessayer");
   const qrCodeValue = editedValues?.id;
+
+  const closeHandler = useCallback(() => {
+    setUpdatePopup(false);
+    setDeletePopup(false);
+    setUndoUpdatePopup(false);
+    setModifyingItem(false);
+  }, [setModifyingItem]);
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
@@ -57,7 +60,20 @@ export default function ItemEditor(props: ItemEditorProps) {
       setFieldError(false);
       closeHandler();
     }
-  }, [item]);
+  }, [closeHandler, editedValues.id, item]);
+
+  useEffect(() => {
+    for (const key in item) {
+      if (item.hasOwnProperty(key) && item[key] !== editedValues[key]) {
+        // A field has been updated
+        setModifyingItem(true);
+        return;
+      }
+
+      // No field has been updated
+      setModifyingItem(false);
+    }
+  }, [editedValues, item, setModifyingItem]);
 
   useMemo(() => {
     let result = [] as JSX.Element[];
@@ -68,14 +84,15 @@ export default function ItemEditor(props: ItemEditorProps) {
           const translation = itemFieldTranslation[key];
           let input = null;
 
-          if ((key === 'id' || key === 'lastModifiedDate') && !item[key]) continue;
+          if ((key === 'id' || key === 'lastModifiedDate') && !item[key])
+            continue;
           if (key === 'status' && item[key] !== underCreation) continue;
 
           switch (key) {
             case 'purchasePrice':
               input = (
                 <input
-                  className='axiforma-regular-black-regular-14px field-input'
+                  className="axiforma-regular-black-regular-14px field-input"
                   key={key + '-input'}
                   placeholder={translation}
                   value={editedValues[key] ? editedValues[key] : ''}
@@ -97,11 +114,11 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'purchaseDate':
               input = (
                 <DatePicker
-                  className='axiforma-regular-black-regular-14px field-input'
+                  className="axiforma-regular-black-regular-14px field-input"
                   key={key + '-input'}
-                  placeholderText='JJ/MM/AAAA'
+                  placeholderText="JJ/MM/AAAA"
                   selected={convertDate(editedValues[key])}
-                  dateFormat='dd/MM/yyyy'
+                  dateFormat="dd/MM/yyyy"
                   onChange={(date) => {
                     let newValues = { ...editedValues };
                     newValues[key] = date
@@ -115,7 +132,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'status':
               input = (
                 <div
-                  className='axiforma-regular-black-regular-14px field-text'
+                  className="axiforma-regular-black-regular-14px field-text"
                   key={key + '-input'}
                 >
                   {'En création'}
@@ -126,7 +143,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'lastModifiedDate':
               input = (
                 <div
-                  className='axiforma-regular-black-regular-14px field-text'
+                  className="axiforma-regular-black-regular-14px field-text"
                   key={key + '-input'}
                 >
                   {editedValues[key]}
@@ -136,7 +153,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             case 'comments':
               input = (
                 <textarea
-                  className='axiforma-regular-black-regular-14px field-input comments'
+                  className="axiforma-regular-black-regular-14px field-input comments"
                   key={key + '-input'}
                   placeholder={translation}
                   rows={5}
@@ -152,7 +169,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             default:
               input = (
                 <input
-                  className='axiforma-regular-black-regular-14px field-input'
+                  className="axiforma-regular-black-regular-14px field-input"
                   key={key + '-input'}
                   placeholder={translation}
                   value={editedValues[key] ? editedValues[key] : ''}
@@ -166,20 +183,25 @@ export default function ItemEditor(props: ItemEditorProps) {
           }
 
           result.push(
-            <div className='edit-row' key={key + '-div'}>
-              <div className='field-title-container'>
+            <div className="edit-row" key={key + '-div'}>
+              <div className="field-title-container">
                 <div
-                  className='axiforma-regular-blue-semi-bold-14px field-title'
+                  className="axiforma-regular-blue-semi-bold-14px field-title"
                   key={key + '-text'}
                 >
                   {translation}
                 </div>
-                {mandatoryFields.includes(key) && <div
-                  className='axiforma-regular-red-semi-bold-14px  field-title'
-                  key={key + '-mandatory'}>*</div>}
+                {mandatoryFields.includes(key) && (
+                  <div
+                    className="axiforma-regular-red-semi-bold-14px  field-title"
+                    key={key + '-mandatory'}
+                  >
+                    *
+                  </div>
+                )}
               </div>
               {input}
-            </div>,
+            </div>
           );
         }
       }
@@ -189,7 +211,10 @@ export default function ItemEditor(props: ItemEditorProps) {
   }, [editedValues, item]);
 
   const updateItemMutation = useMutation((item: { [key: string]: any }) =>
-    !item['id'] ? createItem(item as Item) : updateItem(item['id'], item as Item));
+    !item['id']
+      ? createItem(item as Item)
+      : updateItem(item['id'], item as Item)
+  );
 
   const deleteItemMutation = useMutation((id: number) => deleteItem(id));
 
@@ -225,7 +250,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             item.status = underCreation;
 
             setEditedValues(valuesCopy);
-            toast.success('L\'objet a bien été créé');
+            toast.success("L'objet a bien été créé");
           } else {
             toast.success('Les modifications ont été enregistrées');
           }
@@ -236,6 +261,7 @@ export default function ItemEditor(props: ItemEditorProps) {
           }
 
           setIsLoading(false);
+          setModifyingItem(false);
           refreshHandler(item as Item);
         },
 
@@ -250,18 +276,12 @@ export default function ItemEditor(props: ItemEditorProps) {
     setFieldError(false);
   }
 
-  function closeHandler() {
-    setUpdatePopup(false);
-    setDeletePopup(false);
-    setUndoUpdatePopup(false);
-  }
-
   function deleteHandler() {
     deleteItemMutation.mutate(editedValues['id'], {
       onSuccess: () => {
         refreshHandler(null);
         cancelHandler();
-        toast.success('L\'objet a bien été supprimé');
+        toast.success("L'objet a bien été supprimé");
       },
 
       onError: () => {
@@ -294,9 +314,9 @@ export default function ItemEditor(props: ItemEditorProps) {
     } else if (deletePopup) {
       setPopupText('Êtes vous sûr de supprimer cet objet ?');
     } else if (undoUpdatePopup) {
-      setPopupText('Êtes vous sûr d\'ignorer les modifications ?');
+      setPopupText("Êtes vous sûr d'ignorer les modifications ?");
     }
-  }, [updatePopup, deletePopup, undoUpdatePopup]);
+  }, [updatePopup, deletePopup, undoUpdatePopup, editedValues]);
 
   let popupHandler = cancelHandler;
   if (updatePopup) {
@@ -306,69 +326,52 @@ export default function ItemEditor(props: ItemEditorProps) {
   }
 
   return (
-    <div className='max-width'>
+    <div className="max-width">
       <div>
         <ReactToPrint
-          trigger={() =>
-            <div className='print-button'>
-              <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer le QR code</div>
-            </div>} 
+          trigger={() => (
+            <div className="print-button">
+              <div className="axiforma-regular-blue-semi-bold-14px">
+                Imprimer le QR code
+              </div>
+            </div>
+          )}
           content={() => componentRef.current}
         />
-        <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef}/>
+        <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef} />
       </div>
       {inputs}
-      <div className='button-wrapper'>
+      <div className="button-wrapper">
         {fieldError && (
-          <div
-            className='missing-fields-error error-text-thin'
-          >
+          <div className="missing-fields-error error-text-thin">
             Veuillez renseigner tous les champs obligatoires.
           </div>
         )}
         <LoadingButton isLoading={isLoading} onClick={() => editHandler()}>
-          <div className='axiforma-regular-normal-white-16px'>Valider</div>
+          <div className="axiforma-regular-normal-white-16px">Valider</div>
         </LoadingButton>
         {editedValues['id'] && (
           <div
-            className='margin-top cancel-button axiforma-regular-red-semi-bold-14px'
+            className="margin-top cancel-button axiforma-regular-red-semi-bold-14px"
             onClick={() => setDeletePopup(true)}
           >
             Supprimer
           </div>
         )}
         <div
-          className='margin-top cancel-button axiforma-regular-blue-semi-bold-14px'
+          className="margin-top cancel-button axiforma-regular-blue-semi-bold-14px"
           onClick={() => undoUpdateHandler()}
         >
           Annuler
         </div>
       </div>
-      <MuiThemeProvider theme={dialogTheme}>
-        <Dialog
-          open={updatePopup || deletePopup || undoUpdatePopup}
-          onClose={closeHandler}
-          aria-labelledby='alert-dialog-title'
-        >
-          <DialogTitle id='alert-dialog-title'>
-            <div className='axiforma-medium-eerie-black-16px'>{popupText}</div>
-          </DialogTitle>
-          <DialogActions>
-            <div className='popup-buttons'>
-              <Button onClick={popupHandler} autoFocus>
-                <div className='axiforma-regular-blue-semi-bold-14px'>
-                  Confirmer
-                </div>
-              </Button>
-              <Button onClick={closeHandler}>
-                <div className='axiforma-regular-blue-semi-bold-14px'>
-                  Annuler
-                </div>
-              </Button>
-            </div>
-          </DialogActions>
-        </Dialog>
-      </MuiThemeProvider>
+      <Popup
+        open={updatePopup || deletePopup || undoUpdatePopup}
+        onClose={closeHandler}
+        text={popupText}
+        onConfirm={popupHandler}
+        onUndo={closeHandler}
+      />
     </div>
   );
 }

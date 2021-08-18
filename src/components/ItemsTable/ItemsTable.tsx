@@ -6,14 +6,31 @@ import MUIDataTable, {
   MUIDataTableState,
 } from 'mui-datatables';
 
-import { datatableLabels, itemFieldTranslation, mandatoryFields, underCreation } from '../../utils/items';
+import {
+  datatableLabels,
+  itemFieldTranslation,
+  mandatoryFields,
+  underCreation,
+} from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
+import Popup, { ONGOING_UPDATE_WARNING } from '../Popup/Popup';
+
+const NO_MATCH_STRING = 'Aucun objet trouvé';
 
 /**
  * Interactive and editable item table.
  */
 export default function ItemsTable(props: ItemsTableProps) {
-  const { items, itemIndex, setItemIndex, checkedItems, setCheckedItems } = props;
+  const {
+    items,
+    itemIndex,
+    setItemIndex,
+    checkedItems,
+    setCheckedItems,
+    modifyingItem,
+  } = props;
+  const [changeItemPopupVisible, setChangeItemPopupVisible] = useState(false);
+  const [clickedIndex, setClickedIndex] = useState(-1);
 
   const cleanItems = items.map((item) => {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
@@ -44,9 +61,24 @@ export default function ItemsTable(props: ItemsTableProps) {
       setColumns(columns);
     } else {
       const displayedFields = mandatoryFields;
-      const hiddenFields = ['id', 'status', 'service', 'originLocation', 'currentLocation', 'room',
-        'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color', 'serialNumber',
-        'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
+      const hiddenFields = [
+        'id',
+        'status',
+        'service',
+        'originLocation',
+        'currentLocation',
+        'room',
+        'contact',
+        'previousOwner',
+        'currentOwner',
+        'orderNumber',
+        'color',
+        'serialNumber',
+        'maintenanceDate',
+        'comments',
+        'lastModifiedDate',
+        'lastModifiedBy',
+      ];
 
       for (const field of displayedFields) {
         columns.push({
@@ -74,18 +106,27 @@ export default function ItemsTable(props: ItemsTableProps) {
     }
   }, []);
 
-  const handleRowClick = (
-    _rowData: string[],
-    rowMeta: { dataIndex: number; rowIndex: number },
-  ) => {
-    if (rowMeta.dataIndex !== itemIndex) {
-      setItemIndex(rowMeta.dataIndex);
+  const changeItemIndex = (index: number) => {
+    if (index !== itemIndex) {
+      setItemIndex(index);
     } else {
       setItemIndex(-1);
     }
   };
 
-  const noMatchString = 'Aucun objet trouvé';
+  const handleRowClick = (
+    _rowData: string[],
+    rowMeta: { dataIndex: number; rowIndex: number }
+  ) => {
+    const index = rowMeta.dataIndex;
+    if (modifyingItem) {
+      // Prompt user for confirmation, since it may lose all modifications
+      setClickedIndex(rowMeta.dataIndex);
+      setChangeItemPopupVisible(true);
+    } else {
+      changeItemIndex(index);
+    }
+  };
 
   const options = {
     elevation: 1,
@@ -96,7 +137,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     fixedHeader: true,
     onRowClick: handleRowClick,
     setRowProps: (_row: any[], dataIndex: number, _rowIdx: number) => {
-      if (itemIndex === dataIndex)
+      if (itemIndex === dataIndex) {
         return {
           style: {
             background: 'var(--transparent-white)',
@@ -105,7 +146,7 @@ export default function ItemsTable(props: ItemsTableProps) {
             borderLeftColor: 'var(--blue)',
           },
         };
-      else if (items[dataIndex].status === underCreation) {
+      } else if (items[dataIndex].status === underCreation) {
         return {
           style: {
             background: 'var(--transparent-blue)',
@@ -118,17 +159,20 @@ export default function ItemsTable(props: ItemsTableProps) {
         },
       };
     },
-    textLabels: datatableLabels(noMatchString),
+    textLabels: datatableLabels(NO_MATCH_STRING),
     print: false,
     filterType: 'checkbox' as FilterType,
     rowsSelected: checkedItems,
-    onRowSelectionChange: (_currentRowsSelected: any[], _allRowsSelected: any[], rowsSelected?: any[]) => {
+    onRowSelectionChange: (
+      _currentRowsSelected: any[],
+      _allRowsSelected: any[],
+      rowsSelected?: any[]
+    ) => {
       setCheckedItems(rowsSelected ? rowsSelected : []);
     },
     onTableChange: (action: string, state: MUIDataTableState) => {
       if (action === 'viewColumnsChange') {
         if (state.columns.length > 0) {
-          console.log('WRITE', state.columns);
           localStorage.setItem('columns', JSON.stringify(state.columns));
         }
 
@@ -140,19 +184,35 @@ export default function ItemsTable(props: ItemsTableProps) {
     downloadOptions: {
       filename: 'inventaire.csv',
     },
-    onDownload: (buildHead: (columns: any) => string,
-                 buildBody: (data: any) => string,
-                 columns: any, data: any) => {
+    onDownload: (
+      buildHead: (columns: any) => string,
+      buildBody: (data: any) => string,
+      columns: any,
+      data: any
+    ) => {
       return '\uFEFF' + buildHead(columns) + buildBody(data);
     },
   };
 
   return (
-    <MUIDataTable
-      title={''}
-      data={cleanItems}
-      columns={columns}
-      options={options}
-    />
+    <div>
+      <MUIDataTable
+        title={''}
+        data={cleanItems}
+        columns={columns}
+        options={options}
+      />
+      {/* Popup visible if an item is been modified and the user tries to change item */}
+      <Popup
+        open={changeItemPopupVisible}
+        onClose={() => setChangeItemPopupVisible(false)}
+        text={ONGOING_UPDATE_WARNING}
+        onConfirm={() => {
+          changeItemIndex(clickedIndex);
+          setChangeItemPopupVisible(false);
+        }}
+        onUndo={() => setChangeItemPopupVisible(false)}
+      />
+    </div>
   );
 }
