@@ -174,6 +174,7 @@ export default function ItemsTable(props: ItemsTableProps) {
       return '\uFEFF' + buildHead(columns) + buildBody(data);
     },
     customSearch: (searchQuery: string, currentRow: any[], columns: any[]) => {
+      // Search even in hidden columns
       return columns.some((col, i) => {
         if (col.searchable) {
           const fieldValue = currentRow[i];
