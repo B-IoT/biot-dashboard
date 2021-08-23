@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { convertDate, Item } from '../utils/items';
 
-const API = axios.create({ baseURL: 'https://api.b-iot.ch:8080' });
+const API = axios.create({ baseURL: 'https://api.b-iot.ch:443' });
 export const REFETCH_INTERVAL = 3000;
 
 export function fetchToken() {
