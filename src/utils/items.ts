@@ -5,10 +5,10 @@ export interface Item {
   beacon: string | null;
   category: string | null;
   service: string | null;
-  itemID: string | null;
   brand: string | null;
   model: string | null;
   supplier: string | null;
+  itemID: string | null;
   purchaseDate: string | null;
   purchasePrice: string | number | null;
   originLocation: string | null;
@@ -38,10 +38,10 @@ export const emptyItem = (): Item => ({
   beacon: null,
   category: null,
   service: null,
-  itemID: null,
   brand: null,
   model: null,
   supplier: null,
+  itemID: null,
   purchaseDate: null,
   purchasePrice: null,
   originLocation: null,
@@ -75,6 +75,7 @@ export const itemFieldTranslation: Record<string, string> = {
   brand: 'Marque',
   model: 'Modèle',
   supplier: 'Fournisseur',
+  itemID: "Numéro d'article",
   purchaseDate: "Date d'achat",
   purchasePrice: "Prix d'achat",
   originLocation: "Localisation d'origine",
@@ -97,6 +98,7 @@ export const mandatoryFields = [
   'brand',
   'model',
   'supplier',
+  'itemID',
   'purchaseDate',
   'purchasePrice',
 ];

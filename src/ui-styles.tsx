@@ -46,7 +46,7 @@ export const theme = createMuiTheme({
     MuiTableCell: {
       root: {
         borderBottom: 'none',
-        fontFamily: '\'Axiforma-Regular\', Helvetica, Arial, serif',
+        fontFamily: "'Axiforma-Regular', Helvetica, Arial, serif",
       },
     },
     MUIDataTableHeadCell: {
@@ -64,7 +64,7 @@ export const theme = createMuiTheme({
     },
     MuiButton: {
       root: {
-        fontFamily: '\'Axiforma-Bold\', Helvetica, Arial, serif',
+        fontFamily: "'Axiforma-Bold', Helvetica, Arial, serif",
         color: 'var(--blue)',
       },
     },
@@ -82,7 +82,7 @@ export const theme = createMuiTheme({
         backgroundColor: 'var(--blue)',
       },
       title: {
-        fontFamily: '\'Axiforma-Bold\', Helvetica, Arial, serif',
+        fontFamily: "'Axiforma-Bold', Helvetica, Arial, serif",
         color: 'white',
       },
       iconButton: {
