@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 
 import { ItemEditorProps } from './ItemEditor.props';
@@ -20,15 +20,10 @@ import {
   underCreation,
 } from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
-import { dialogTheme } from '../../ui-styles';
 
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { MuiThemeProvider } from '@material-ui/core';
 import QRPrinter from '../QRPrinter/QRPrinter';
 import ReactToPrint from 'react-to-print';
+import Popup from '../Popup/Popup';
 
 toast.configure();
 
@@ -36,7 +31,7 @@ toast.configure();
  * Editor to modify and update an item on the backend
  */
 export default function ItemEditor(props: ItemEditorProps) {
-  const { item, cancelHandler, refreshHandler } = props;
+  const { item, cancelHandler, refreshHandler, setModifyingItem } = props;
   const [editedValues, setEditedValues] = useState({ ...item });
   const [inputs, setInputs] = useState([] as JSX.Element[]);
   const componentRef = useRef<HTMLDivElement>(null);
@@ -51,14 +46,34 @@ export default function ItemEditor(props: ItemEditorProps) {
     toast.error("Une erreur s'est produite, veuillez réessayer");
   const qrCodeValue = editedValues?.id;
 
+  const closeHandler = useCallback(() => {
+    setUpdatePopup(false);
+    setDeletePopup(false);
+    setUndoUpdatePopup(false);
+  }, []);
+
   useEffect(() => {
     if (item.id !== editedValues.id) {
       setEditedValues({ ...item });
       setIsLoading(false);
       setFieldError(false);
+      setModifyingItem(false);
       closeHandler();
     }
-  }, [editedValues.id, item]);
+  }, [closeHandler, editedValues.id, item, setModifyingItem]);
+
+  useEffect(() => {
+    for (const key in item) {
+      if (item.hasOwnProperty(key) && item[key] !== editedValues[key]) {
+        // A field has been updated
+        setModifyingItem(true);
+        return;
+      }
+
+      // No field has been updated
+      setModifyingItem(false);
+    }
+  }, [editedValues, item, setModifyingItem]);
 
   useMemo(() => {
     let result = [] as JSX.Element[];
@@ -257,6 +272,7 @@ export default function ItemEditor(props: ItemEditorProps) {
           }
 
           setIsLoading(false);
+          setModifyingItem(false);
           refreshHandler(item as Item);
         },
 
@@ -268,13 +284,8 @@ export default function ItemEditor(props: ItemEditorProps) {
     }
 
     closeHandler();
+    setModifyingItem(false);
     setFieldError(false);
-  }
-
-  function closeHandler() {
-    setUpdatePopup(false);
-    setDeletePopup(false);
-    setUndoUpdatePopup(false);
   }
 
   function deleteHandler() {
@@ -287,6 +298,7 @@ export default function ItemEditor(props: ItemEditorProps) {
 
       onError: () => {
         closeHandler();
+        setModifyingItem(false);
         errorToast();
       },
     });
@@ -317,7 +329,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     } else if (undoUpdatePopup) {
       setPopupText("Êtes vous sûr d'ignorer les modifications ?");
     }
-  }, [updatePopup, deletePopup, undoUpdatePopup]);
+  }, [updatePopup, deletePopup, undoUpdatePopup, editedValues]);
 
   let popupHandler = cancelHandler;
   if (updatePopup) {
@@ -328,19 +340,21 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   return (
     <div className="max-width">
-      <div>
-        <ReactToPrint
-          trigger={() => (
-            <div className="print-button">
-              <div className="axiforma-regular-blue-semi-bold-14px">
-                Imprimer le QR code
+      {editedValues['id'] && (
+        <div>
+          <ReactToPrint
+            trigger={() => (
+              <div className="print-button">
+                <div className="axiforma-regular-blue-semi-bold-14px">
+                  Imprimer le QR code
+                </div>
               </div>
-            </div>
-          )}
-          content={() => componentRef.current}
-        />
-        <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef} />
-      </div>
+            )}
+            content={() => componentRef.current}
+          />
+          <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef} />
+        </div>
+      )}
       {inputs}
       <div className="button-wrapper">
         {fieldError && (
@@ -366,31 +380,13 @@ export default function ItemEditor(props: ItemEditorProps) {
           Annuler
         </div>
       </div>
-      <MuiThemeProvider theme={dialogTheme}>
-        <Dialog
-          open={updatePopup || deletePopup || undoUpdatePopup}
-          onClose={closeHandler}
-          aria-labelledby="alert-dialog-title"
-        >
-          <DialogTitle id="alert-dialog-title">
-            <div className="axiforma-medium-eerie-black-16px">{popupText}</div>
-          </DialogTitle>
-          <DialogActions>
-            <div className="popup-buttons">
-              <Button onClick={popupHandler} autoFocus>
-                <div className="axiforma-regular-blue-semi-bold-14px">
-                  Confirmer
-                </div>
-              </Button>
-              <Button onClick={closeHandler}>
-                <div className="axiforma-regular-blue-semi-bold-14px">
-                  Annuler
-                </div>
-              </Button>
-            </div>
-          </DialogActions>
-        </Dialog>
-      </MuiThemeProvider>
+      <Popup
+        open={updatePopup || deletePopup || undoUpdatePopup}
+        onClose={closeHandler}
+        text={popupText}
+        onConfirm={popupHandler}
+        onUndo={closeHandler}
+      />
     </div>
   );
 }

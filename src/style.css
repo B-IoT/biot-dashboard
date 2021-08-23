@@ -207,6 +207,11 @@
   font-weight: 400;
 }
 
+.centered {
+    align-self: center;
+    text-align: center;
+}
+
 .glass {
   background: var(--firefox-white);
   border-radius: 45px;

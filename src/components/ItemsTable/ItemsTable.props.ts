@@ -25,4 +25,9 @@ export interface ItemsTableProps {
    * Setter of the checked items' indices
    */
   setCheckedItems: (indexes: any[]) => void;
+
+  /**
+   * True if we are modifying an item at the moment (with item editor open and some fields modified), false otherwise
+   */
+  modifyingItem: boolean;
 }

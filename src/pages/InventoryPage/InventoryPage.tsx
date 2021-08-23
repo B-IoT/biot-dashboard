@@ -14,6 +14,7 @@ import { fetchToken, getItems, getUserInfo, SERVER_URL } from '../../api/api';
 import { ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
 import QRPrinter from '../../components/QRPrinter/QRPrinter';
+import Popup, { ONGOING_UPDATE_WARNING } from '../../components/Popup/Popup';
 import { Client, UpdateType } from '@biot-dev/event-bus-client';
 
 export default function InventoryPage() {
@@ -21,6 +22,9 @@ export default function InventoryPage() {
   const [newItem, setNewItem] = useState(null as Item | null);
   const [itemIndex, setItemIndex] = useState(-1);
   const [checkedItems, setCheckedItems] = useState<any[]>([]);
+  const [changeItemPopupVisible, setChangeItemPopupVisible] = useState(false);
+  const [modifyingItem, setModifyingItem] = useState(false);
+
   const componentRef = useRef<HTMLDivElement>(null);
 
   const [eventBusClient, setEventBusClient] = useState<Client | null>(null);
@@ -98,14 +102,24 @@ export default function InventoryPage() {
     if (itemIndex >= 0) setNewItem(null);
   }, [itemIndex]);
 
-  function addHandler() {
+  function setupAndOpenItemEditorForCreation() {
     setItemIndex(-1);
     setNewItem(emptyItem());
+  }
+
+  function addHandler() {
+    if (modifyingItem) {
+      // Prompt user for confirmation, since it may lose all modifications
+      setChangeItemPopupVisible(true);
+    } else {
+      setupAndOpenItemEditorForCreation();
+    }
   }
 
   function cancelHandler() {
     setItemIndex(-1);
     setNewItem(null);
+    setModifyingItem(false);
   }
 
   return (
@@ -161,6 +175,7 @@ export default function InventoryPage() {
             setItemIndex={setItemIndex}
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
+            modifyingItem={modifyingItem}
           />
           <div className="hover-buttons">
             <div className="white-button" onClick={addHandler}>
@@ -207,6 +222,7 @@ export default function InventoryPage() {
               item={newItem ? newItem : items[itemIndex]}
               refreshHandler={refreshHandler}
               cancelHandler={cancelHandler}
+              setModifyingItem={setModifyingItem}
             />
           </div>
         )}
@@ -222,6 +238,17 @@ export default function InventoryPage() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+      />
+      {/* Popup visible if an item is been modified and the user tries to create a new item */}
+      <Popup
+        open={changeItemPopupVisible}
+        onClose={() => setChangeItemPopupVisible(false)}
+        text={ONGOING_UPDATE_WARNING}
+        onConfirm={() => {
+          setupAndOpenItemEditorForCreation();
+          setChangeItemPopupVisible(false);
+        }}
+        onUndo={() => setChangeItemPopupVisible(false)}
       />
     </div>
   );
