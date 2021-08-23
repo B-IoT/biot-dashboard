@@ -192,6 +192,24 @@ export default function ItemsTable(props: ItemsTableProps) {
     ) => {
       return '\uFEFF' + buildHead(columns) + buildBody(data);
     },
+    customSearch: (searchQuery: string, currentRow: any[], columns: any[]) => {
+      // Search even in hidden columns
+      return columns.some((col, i) => {
+        if (col.searchable) {
+          const fieldValue = currentRow[i];
+          if (
+            fieldValue &&
+            fieldValue
+              .toString()
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) >= 0
+          ) {
+            return true;
+          }
+        }
+        return false;
+      });
+    },
   };
 
   return (

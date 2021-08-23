@@ -1,204 +1,210 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
 
 @font-face {
-    font-family: "Axiforma-Regular";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Regular.ttf") format("truetype");
+  font-family: 'Axiforma-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Regular.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: 'Axiforma-Light';
-    font-weight: 1 1000;
-    src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Light.ttf') format('truetype');
+  font-family: 'Axiforma-Light';
+  font-weight: 1 1000;
+  src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Light.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: "Axiforma-SemiBold";
-    font-style: normal;
-    font-weight: 600;
-    src: url("https://anima-uploads.s3.amazonaws.com/5c59b0a881353e000dcaa8e8/Kastelov - Axiforma SemiBold.otf") format("opentype");
+  font-family: 'Axiforma-SemiBold';
+  font-style: normal;
+  font-weight: 600;
+  src: url('https://anima-uploads.s3.amazonaws.com/5c59b0a881353e000dcaa8e8/Kastelov - Axiforma SemiBold.otf')
+    format('opentype');
 }
 
 @font-face {
-    font-family: "Axiforma-ExtraBold";
-    font-style: normal;
-    font-weight: 700;
-    src: url("https://anima-uploads.s3.amazonaws.com/5c4753d5d7b7cc000a215345/Kastelov - Axiforma ExtraBold.otf") format("opentype");
+  font-family: 'Axiforma-ExtraBold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://anima-uploads.s3.amazonaws.com/5c4753d5d7b7cc000a215345/Kastelov - Axiforma ExtraBold.otf')
+    format('opentype');
 }
 
 @font-face {
-    font-family: "Axiforma-Medium";
-    font-style: normal;
-    font-weight: 500;
-    src: url("https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Medium.ttf") format("truetype");
+  font-family: 'Axiforma-Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Medium.ttf')
+    format('truetype');
 }
 
 @font-face {
-    font-family: "Axiforma-Bold";
-    font-style: normal;
-    font-weight: 700;
-    src: url("https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Bold.ttf") format("truetype");
+  font-family: 'Axiforma-Bold';
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://anima-uploads.s3.amazonaws.com/596db24aa0dc3c000d9a4ed2/Axiforma-Bold.ttf')
+    format('truetype');
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .axiforma-bold-blue-16px {
-    color: var(--blue);
-    font-family: "Axiforma-Bold", Helvetica, serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
+  color: var(--blue);
+  font-family: 'Axiforma-Bold', Helvetica, serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .axiforma-bold-white-16px {
-    color: var(--white);
-    font-family: "Axiforma-Bold", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
+  color: var(--white);
+  font-family: 'Axiforma-Bold', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .axiforma-extra-bold-eerie-black-16px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-ExtraBold", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
+  color: var(--eerie-black);
+  font-family: 'Axiforma-ExtraBold', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .axiforma-extra-bold-eerie-black-20px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-ExtraBold", Helvetica, sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
+  color: var(--eerie-black);
+  font-family: 'Axiforma-ExtraBold', Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .axiforma-medium-eerie-black-16px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-Medium", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
+  color: var(--eerie-black);
+  font-family: 'Axiforma-Medium', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .axiforma-regular-normal-blue-16px {
-    color: var(--blue);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--blue);
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-normal-blue-14px {
-    color: var(--blue);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--blue);
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-normal-eerie-black-16px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--eerie-black);
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-normal-eerie-black-12px {
-    color: var(--eerie-black);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--eerie-black);
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-normal-trout-16px {
-    color: var(--trout);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--trout);
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-normal-white-16px {
-    color: var(--white);
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--white);
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .toast-text {
-    color: var(--white);
-    font-family: "Axiforma-SemiBold", Helvetica, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
+  color: var(--white);
+  font-family: 'Axiforma-SemiBold', Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .axiforma-medium-blue-22px {
-    color: var(--blue);
-    font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 500;
+  color: var(--blue);
+  font-family: 'Axiforma-Medium', Helvetica, Arial, serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .axiforma-light-blue-21px {
-    color: var(--blue);
-    font-family: 'Axiforma-Light', Helvetica, Arial, serif;
-    font-size: 21px;
-    font-style: normal;
-    font-weight: 300;
+  color: var(--blue);
+  font-family: 'Axiforma-Light', Helvetica, Arial, serif;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .error-text {
-    color: var(--error-red);
-    font-family: 'Axiforma-Light', Helvetica, Arial, serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 300;
+  color: var(--error-red);
+  font-family: 'Axiforma-Light', Helvetica, Arial, serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .error-text-thin {
-    color: var(--error-red);
-    font-family: 'Axiforma-Regular', Helvetica, Arial, serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 300;
+  color: var(--error-red);
+  font-family: 'Axiforma-Regular', Helvetica, Arial, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .axiforma-regular-blue-semi-bold-14px {
-    color: var(--blue);
-    font-family: "Axiforma-SemiBold", Helvetica, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--blue);
+  font-family: 'Axiforma-SemiBold', Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-red-semi-bold-14px {
-    color: var(--error-red);
-    font-family: "Axiforma-SemiBold", Helvetica, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
+  color: var(--error-red);
+  font-family: 'Axiforma-SemiBold', Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .axiforma-regular-black-regular-14px {
-    color: black;
-    font-family: "Axiforma-Regular", Helvetica, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
+  color: black;
+  font-family: 'Axiforma-Regular', Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .centered {
@@ -207,51 +213,60 @@
 }
 
 .glass {
-    background: var(--firefox-white);
-    border-radius: 45px;
-    box-shadow: 0 0 20px var(--box-shadow);
+  background: var(--firefox-white);
+  border-radius: 45px;
+  box-shadow: 0 0 20px var(--box-shadow);
+  -ms-overflow-style: none; /* Hide scrollbars on IE and Edge */
+  scrollbar-width: none; /* Hide scrollbars on Firefox */
 }
 
-@supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
-    .glass {
-        -webkit-backdrop-filter: blur(15px) brightness(104%);
-        backdrop-filter: blur(15px) brightness(104%);
-        border-radius: 45px;
-        box-shadow: 0 0 20px var(--box-shadow);
-    }
+.glass::-webkit-scrollbar {
+  /* Hide scrollbars on Chrome, Safari and Opera */
+  display: none;
+}
+
+@supports (
+  (-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))
+) {
+  .glass {
+    -webkit-backdrop-filter: blur(15px) brightness(104%);
+    backdrop-filter: blur(15px) brightness(104%);
+    border-radius: 45px;
+    box-shadow: 0 0 20px var(--box-shadow);
+  }
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .hidden-keep-space {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 :root {
-    --blue: rgba(37, 114, 232, 1);
-    --caribbean-green: rgba(5, 227, 145, 1);
-    --error-red: rgb(255, 75, 76);
-    --box-shadow: rgba(0, 0, 0, 0.06);
-    --transparent-white: rgba(255, 255, 255, 0.85);
-    --transparent-blue: rgba(37, 114, 232, 0.15);
-    --overlay-white: rgb(255, 255, 255);
-    --firefox-white: rgba(255, 255, 255, 0.3);
-    --half-blue: rgb(143, 168, 207);
+  --blue: rgba(37, 114, 232, 1);
+  --caribbean-green: rgba(5, 227, 145, 1);
+  --error-red: rgb(255, 75, 76);
+  --box-shadow: rgba(0, 0, 0, 0.06);
+  --transparent-white: rgba(255, 255, 255, 0.85);
+  --transparent-blue: rgba(37, 114, 232, 0.15);
+  --overlay-white: rgb(255, 255, 255);
+  --firefox-white: rgba(255, 255, 255, 0.3);
+  --half-blue: rgb(143, 168, 207);
 
-    --blue-jeans: rgba(105, 165, 243, 1);
-    --eucalyptus: rgba(64, 232, 176, 1);
-    --eerie-black: rgba(29, 29, 26, 1);
-    --scarpa-flow: rgba(86, 97, 97, 1);
-    --trout: rgba(78, 81, 90, 1);
-    --white: rgba(255, 255, 255, 1);
-    --white-2: rgba(255, 255, 255, 0.54);
-    --zircon: rgba(245, 247, 255, 1);
+  --blue-jeans: rgba(105, 165, 243, 1);
+  --eucalyptus: rgba(64, 232, 176, 1);
+  --eerie-black: rgba(29, 29, 26, 1);
+  --scarpa-flow: rgba(86, 97, 97, 1);
+  --trout: rgba(78, 81, 90, 1);
+  --white: rgba(255, 255, 255, 1);
+  --white-2: rgba(255, 255, 255, 0.54);
+  --zircon: rgba(245, 247, 255, 1);
 
-    --light: rgb(249, 251, 255);
-    --shadow: rgb(227, 233, 245);
-    --darker-shadow: rgb(210, 220, 241);
-    --lighter-light: rgb(255, 255, 255);
-    --background: rgb(238, 242, 251);
+  --light: rgb(249, 251, 255);
+  --shadow: rgb(227, 233, 245);
+  --darker-shadow: rgb(210, 220, 241);
+  --lighter-light: rgb(255, 255, 255);
+  --background: rgb(238, 242, 251);
 }
