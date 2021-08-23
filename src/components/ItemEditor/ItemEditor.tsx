@@ -340,19 +340,21 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   return (
     <div className="max-width">
-      <div>
-        <ReactToPrint
-          trigger={() => (
-            <div className="print-button">
-              <div className="axiforma-regular-blue-semi-bold-14px">
-                Imprimer le QR code
+      {editedValues['id'] && (
+        <div>
+          <ReactToPrint
+            trigger={() => (
+              <div className="print-button">
+                <div className="axiforma-regular-blue-semi-bold-14px">
+                  Imprimer le QR code
+                </div>
               </div>
-            </div>
-          )}
-          content={() => componentRef.current}
-        />
-        <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef} />
-      </div>
+            )}
+            content={() => componentRef.current}
+          />
+          <QRPrinter itemIds={[qrCodeValue]} componentRef={componentRef} />
+        </div>
+      )}
       {inputs}
       <div className="button-wrapper">
         {fieldError && (

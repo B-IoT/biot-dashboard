@@ -16,7 +16,7 @@ export default function QRPrinter(props: QRPrinterProps) {
               id={'qr'}
               value={value + ''}
               size={48}
-              level={'L'}
+              level={'H'}
               includeMargin={false}
             />
             <div className='axiforma-regular-normal-eerie-black-12px'>{value}</div>
