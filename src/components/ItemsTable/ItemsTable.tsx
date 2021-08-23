@@ -6,14 +6,20 @@ import MUIDataTable, {
   MUIDataTableState,
 } from 'mui-datatables';
 
-import { datatableLabels, itemFieldTranslation, mandatoryFields, underCreation } from '../../utils/items';
+import {
+  datatableLabels,
+  itemFieldTranslation,
+  mandatoryFields,
+  underCreation,
+} from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
 
 /**
  * Interactive and editable item table.
  */
 export default function ItemsTable(props: ItemsTableProps) {
-  const { items, itemIndex, setItemIndex, checkedItems, setCheckedItems } = props;
+  const { items, itemIndex, setItemIndex, checkedItems, setCheckedItems } =
+    props;
 
   const cleanItems = items.map((item) => {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
@@ -44,9 +50,24 @@ export default function ItemsTable(props: ItemsTableProps) {
       setColumns(columns);
     } else {
       const displayedFields = mandatoryFields;
-      const hiddenFields = ['id', 'status', 'service', 'originLocation', 'currentLocation', 'room',
-        'contact', 'previousOwner', 'currentOwner', 'orderNumber', 'color', 'serialNumber',
-        'maintenanceDate', 'comments', 'lastModifiedDate', 'lastModifiedBy'];
+      const hiddenFields = [
+        'id',
+        'status',
+        'service',
+        'originLocation',
+        'currentLocation',
+        'room',
+        'contact',
+        'previousOwner',
+        'currentOwner',
+        'orderNumber',
+        'color',
+        'serialNumber',
+        'maintenanceDate',
+        'comments',
+        'lastModifiedDate',
+        'lastModifiedBy',
+      ];
 
       for (const field of displayedFields) {
         columns.push({
@@ -76,7 +97,7 @@ export default function ItemsTable(props: ItemsTableProps) {
 
   const handleRowClick = (
     _rowData: string[],
-    rowMeta: { dataIndex: number; rowIndex: number },
+    rowMeta: { dataIndex: number; rowIndex: number }
   ) => {
     if (rowMeta.dataIndex !== itemIndex) {
       setItemIndex(rowMeta.dataIndex);
@@ -122,7 +143,11 @@ export default function ItemsTable(props: ItemsTableProps) {
     print: false,
     filterType: 'checkbox' as FilterType,
     rowsSelected: checkedItems,
-    onRowSelectionChange: (_currentRowsSelected: any[], _allRowsSelected: any[], rowsSelected?: any[]) => {
+    onRowSelectionChange: (
+      _currentRowsSelected: any[],
+      _allRowsSelected: any[],
+      rowsSelected?: any[]
+    ) => {
       setCheckedItems(rowsSelected ? rowsSelected : []);
     },
     onTableChange: (action: string, state: MUIDataTableState) => {
@@ -140,10 +165,31 @@ export default function ItemsTable(props: ItemsTableProps) {
     downloadOptions: {
       filename: 'inventaire.csv',
     },
-    onDownload: (buildHead: (columns: any) => string,
-                 buildBody: (data: any) => string,
-                 columns: any, data: any) => {
+    onDownload: (
+      buildHead: (columns: any) => string,
+      buildBody: (data: any) => string,
+      columns: any,
+      data: any
+    ) => {
       return '\uFEFF' + buildHead(columns) + buildBody(data);
+    },
+    customSearch: (searchQuery: string, currentRow: any[], columns: any[]) => {
+      // Search even in hidden columns
+      return columns.some((col, i) => {
+        if (col.searchable) {
+          const fieldValue = currentRow[i];
+          if (
+            fieldValue &&
+            fieldValue
+              .toString()
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) >= 0
+          ) {
+            return true;
+          }
+        }
+        return false;
+      });
     },
   };
 
