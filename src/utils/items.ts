@@ -134,21 +134,21 @@ export function convertDate(inputFormat: string) {
   );
 }
 
+export function extractItem(item: Item): Item {
+  return {
+    ...item,
+    purchaseDate: item.purchaseDate ? getReadableDate(item.purchaseDate) : null,
+    maintenanceDate: item.maintenanceDate
+      ? getReadableDate(item.maintenanceDate)
+      : null,
+    lastModifiedDate: item.lastModifiedDate
+      ? getReadableDate(item.lastModifiedDate)
+      : null,
+  };
+}
+
 export function getPrettyItems(items: Item[]): Item[] {
-  return items.map((item) => {
-    return {
-      ...item,
-      purchaseDate: item.purchaseDate
-        ? getReadableDate(item.purchaseDate)
-        : null,
-      maintenanceDate: item.maintenanceDate
-        ? getReadableDate(item.maintenanceDate)
-        : null,
-      lastModifiedDate: item.lastModifiedDate
-        ? getReadableDate(item.lastModifiedDate)
-        : null,
-    };
-  });
+  return items.map(extractItem);
 }
 
 export const datatableLabels = (noMatchString: String) => {

@@ -153,7 +153,6 @@ export default function ItemsTable(props: ItemsTableProps) {
     onTableChange: (action: string, state: MUIDataTableState) => {
       if (action === 'viewColumnsChange') {
         if (state.columns.length > 0) {
-          console.log('WRITE', state.columns);
           localStorage.setItem('columns', JSON.stringify(state.columns));
         }
 

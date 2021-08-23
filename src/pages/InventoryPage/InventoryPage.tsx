@@ -1,15 +1,20 @@
 import './InventoryPage.css';
 import LogOut from '../../components/LogOut/LogOut';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { emptyItem, getPrettyItems, Item } from '../../utils/items';
+import { useEffect, useRef, useState } from 'react';
+import {
+  emptyItem,
+  extractItem,
+  getPrettyItems,
+  Item,
+} from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
-import { useQuery } from 'react-query';
-import { getItems, REFETCH_INTERVAL } from '../../api/api';
+import { fetchToken, getItems, getUserInfo, SERVER_URL } from '../../api/api';
 import { ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
 import QRPrinter from '../../components/QRPrinter/QRPrinter';
+import { Client, UpdateType } from '@biot-dev/event-bus-client';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
@@ -17,13 +22,62 @@ export default function InventoryPage() {
   const [itemIndex, setItemIndex] = useState(-1);
   const [checkedItems, setCheckedItems] = useState<any[]>([]);
   const componentRef = useRef<HTMLDivElement>(null);
-  const { data } = useQuery('items', getItems, {
-    refetchInterval: REFETCH_INTERVAL,
-  });
+
+  const [eventBusClient, setEventBusClient] = useState<Client | null>(null);
 
   useEffect(() => {
-    if (data !== undefined && data.length > 0) setItems(getPrettyItems(data));
-  }, [data]);
+    (async () => {
+      // This check is needed because sometimes the other useEffect runs before this one
+      if (eventBusClient) {
+        await eventBusClient.connect();
+
+        eventBusClient.onItemUpdate((type, id, content) => {
+          switch (type) {
+            case UpdateType.DELETE: {
+              setItems(items.filter((item) => item.id !== id));
+              break;
+            }
+            case UpdateType.POST: {
+              // New item put at the end
+              setItems(items.concat([extractItem(content as unknown as Item)]));
+              break;
+            }
+            case UpdateType.PUT: {
+              // Update item in place
+              const itemIdx = items.findIndex((item) => item.id === id);
+              const newItems = [...items];
+              newItems[itemIdx] = extractItem(content as unknown as Item);
+              setItems(newItems);
+              break;
+            }
+          }
+        });
+      }
+    })();
+    return () => eventBusClient?.disconnect();
+  }, [eventBusClient, items]);
+
+  useEffect(() => {
+    (async () => {
+      const itemsFetched = await getItems();
+      if (itemsFetched !== undefined && itemsFetched.length > 0) {
+        setItems(getPrettyItems(itemsFetched));
+      }
+
+      if (eventBusClient == null) {
+        const userInfo = await getUserInfo();
+        if (userInfo) {
+          setEventBusClient(
+            new Client(
+              `${SERVER_URL}/eventbus`,
+              fetchToken()!,
+              userInfo.company
+            )
+          );
+        }
+      }
+    })();
+  }, [eventBusClient]);
 
   const refreshHandler = (item: Item | null) => {
     const newItems = Object.assign([], items);
