@@ -22,8 +22,7 @@ export default function InventoryPage() {
   });
 
   useEffect(() => {
-    if (data !== undefined && data.length > 0)
-      setItems(getPrettyItems(data));
+    if (data !== undefined && data.length > 0) setItems(getPrettyItems(data));
   }, [data]);
 
   const refreshHandler = (item: Item | null) => {
@@ -56,25 +55,33 @@ export default function InventoryPage() {
   }
 
   return (
-    <div className='page-container'>
-      <img className='background-image' src={'/img/background.png'} alt={'background'} />
+    <div className="page-container">
+      <img
+        className="background-image"
+        src={'/img/background.png'}
+        alt={'background'}
+      />
 
-      <div className='glass side-bar'>
-        <div className='side-bar-top'>
-          <img className='logo' src={'/img/logoColor.png'} alt='BioT logo' />
+      <div className="glass side-bar">
+        <div className="side-bar-top">
+          <img className="logo" src={'/img/logoColor.png'} alt="BioT logo" />
 
           {/*<Link className='unselected-page' to={INVENTORY_PATH} style={{ textDecoration: 'none' }}>*/}
           {/*  <img className='page-icon' src={'/img/analyticsIconBlue.svg'} alt='analytics icon' />*/}
           {/*  <div className='axiforma-regular-normal-blue-16px'>{'Analyse'}</div>*/}
           {/*</Link>*/}
 
-          <div className='selected-page'>
-            <img className='page-icon' src={'/img/inventoryIconWhite.svg'} alt='inventory icon' />
-            <div className='axiforma-regular-normal-white-16px'>Inventaire</div>
+          <div className="selected-page">
+            <img
+              className="page-icon"
+              src={'/img/inventoryIconWhite.svg'}
+              alt="inventory icon"
+            />
+            <div className="axiforma-regular-normal-white-16px">Inventaire</div>
           </div>
         </div>
 
-        <div className='side-bar-bottom'>
+        <div className="side-bar-bottom">
           {/*<div className='utils-container'>*/}
           {/*  <img className='utils-icon' src={'/img/user-cog.png'} alt='parameters icon' />*/}
           {/*  <div className='utils-text axiforma-regular-normal-trout-16px'>{'Paramètres'}</div>*/}
@@ -89,9 +96,11 @@ export default function InventoryPage() {
         </div>
       </div>
 
-      <div className='widgets'>
-        <div className='glass item-table'>
-          <div className='widget-title axiforma-extra-bold-eerie-black-20px'>Matériel</div>
+      <div className="widgets">
+        <div className="glass item-table">
+          <div className="widget-title axiforma-extra-bold-eerie-black-20px">
+            Matériel
+          </div>
           <ItemsTable
             items={items}
             itemIndex={itemIndex}
@@ -99,36 +108,58 @@ export default function InventoryPage() {
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
           />
-          <div className='hover-buttons'>
-            <div className='white-button' onClick={addHandler}>
-              <img className='white-button-icon' src={'/img/plus.svg'} alt='Add item' />
-              <div className='axiforma-regular-blue-semi-bold-14px'>Ajouter un objet</div>
+          <div className="hover-buttons">
+            <div className="white-button" onClick={addHandler}>
+              <img
+                className="white-button-icon"
+                src={'/img/plus.svg'}
+                alt="Add item"
+              />
+              <div className="axiforma-regular-blue-semi-bold-14px">
+                Ajouter un objet
+              </div>
             </div>
-            {
-              checkedItems.length > 0 &&
+            {checkedItems.length > 0 && (
               <div>
                 <ReactToPrint
-                  trigger={() =>
-                    <div className='white-button'>
-                      <img className='white-button-icon' src={'/img/printer.svg'} alt='Print checked items' />
-                      <div className='axiforma-regular-blue-semi-bold-14px'>Imprimer les objets choisis</div>
-                    </div>}
+                  trigger={() => (
+                    <div className="white-button">
+                      <img
+                        className="white-button-icon"
+                        src={'/img/printer.svg'}
+                        alt="Print checked items"
+                      />
+                      <div className="axiforma-regular-blue-semi-bold-14px">
+                        Imprimer les objets choisis
+                      </div>
+                    </div>
+                  )}
                   content={() => componentRef.current}
                 />
-                <QRPrinter itemIds={checkedItems.map(value => items[value].id)} componentRef={componentRef}/>
+                <QRPrinter
+                  itemIds={checkedItems.map((value) => items[value].id)}
+                  componentRef={componentRef}
+                />
               </div>
-            }
+            )}
           </div>
         </div>
-        {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && <div className={'glass item-info'}>
-          <div className='widget-title-2 axiforma-extra-bold-eerie-black-20px'>Informations</div>
-          <ItemEditor item={newItem ? newItem : items[itemIndex]} refreshHandler={refreshHandler}
-                      cancelHandler={cancelHandler} />
-        </div>}
+        {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && (
+          <div className={'glass item-info'}>
+            <div className="widget-title-2 axiforma-extra-bold-eerie-black-20px">
+              Informations
+            </div>
+            <ItemEditor
+              item={newItem ? newItem : items[itemIndex]}
+              refreshHandler={refreshHandler}
+              cancelHandler={cancelHandler}
+            />
+          </div>
+        )}
       </div>
       <ToastContainer
-        bodyClassName='toast-text'
-        position='top-center'
+        bodyClassName="toast-text"
+        position="top-center"
         autoClose={3000}
         hideProgressBar={true}
         newestOnTop
