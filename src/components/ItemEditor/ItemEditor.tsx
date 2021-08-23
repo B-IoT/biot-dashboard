@@ -50,17 +50,17 @@ export default function ItemEditor(props: ItemEditorProps) {
     setUpdatePopup(false);
     setDeletePopup(false);
     setUndoUpdatePopup(false);
-    setModifyingItem(false);
-  }, [setModifyingItem]);
+  }, []);
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
       setEditedValues({ ...item });
       setIsLoading(false);
       setFieldError(false);
+      setModifyingItem(false);
       closeHandler();
     }
-  }, [closeHandler, editedValues.id, item]);
+  }, [closeHandler, editedValues.id, item, setModifyingItem]);
 
   useEffect(() => {
     for (const key in item) {
@@ -273,6 +273,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     }
 
     closeHandler();
+    setModifyingItem(false);
     setFieldError(false);
   }
 
@@ -286,6 +287,7 @@ export default function ItemEditor(props: ItemEditorProps) {
 
       onError: () => {
         closeHandler();
+        setModifyingItem(false);
         errorToast();
       },
     });

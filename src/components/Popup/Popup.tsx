@@ -8,7 +8,7 @@ import { dialogTheme } from '../../ui-styles';
 import { PopupProps } from './Popup.props';
 
 export const ONGOING_UPDATE_WARNING =
-  'Toute modification sera perdue. Confirmez-vous ?';
+  'Êtes vous sûr de changer de sélection? Toute modification sera perdue';
 
 /**
  * A confirmation popup with two buttons and a text.
@@ -26,7 +26,7 @@ export default function Popup(popupProps: PopupProps) {
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title">
-          <div className="axiforma-medium-eerie-black-16px">{text}</div>
+          <div className="axiforma-medium-eerie-black-16px centered">{text}</div>
         </DialogTitle>
         <DialogActions>
           <div className="popup-buttons">
