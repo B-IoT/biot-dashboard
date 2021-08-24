@@ -1,9 +1,21 @@
 import { MUIDataTableColumn } from 'mui-datatables';
 
+/**
+ * An item category.
+ */
+export interface Category {
+  id: number;
+  name: string;
+}
+
+/**
+ * An item.
+ */
 export interface Item {
   id?: number;
   beacon: string | null;
   category: string | null;
+  categoryID?: number | null;
   service: string | null;
   brand: string | null;
   model: string | null;
@@ -34,9 +46,13 @@ export interface Item {
   temperature: number | null;
 }
 
+/**
+ * Returns an empty item.
+ */
 export const emptyItem = (): Item => ({
   beacon: null,
   category: null,
+  categoryID: null,
   service: null,
   brand: null,
   model: null,
@@ -110,6 +126,17 @@ export const displayTextVersion: Record<string, string> = {
   unavailable: 'indisponible',
   needMaintenance: 'à réparer',
 };
+
+/**
+ * Extracts the category name given the string. The string can either be of the form "group.category" or simply "category".
+ * 
+ * @param s the string containing the category and eventually its group
+ * @return the category name without group, if any
+ */
+export function extractCategoryName(s: string): string {
+  const split = s.split('.');
+  return split.length > 1 ? split[1] : split[0];
+}
 
 export function getReadableDate(inputFormat: string) {
   function pad(s: number) {

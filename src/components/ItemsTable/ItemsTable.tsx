@@ -8,6 +8,7 @@ import MUIDataTable, {
 
 import {
   datatableLabels,
+  extractCategoryName,
   itemFieldTranslation,
   mandatoryFields,
   underCreation,
@@ -34,6 +35,9 @@ export default function ItemsTable(props: ItemsTableProps) {
 
   const cleanItems = items.map((item) => {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
+    if (item.category) {
+      item.category = extractCategoryName(item.category);
+    }
     return item;
   });
 

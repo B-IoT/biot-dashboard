@@ -4,15 +4,23 @@ import { useEffect, useMemo, useState } from 'react';
 import { ItemEditorProps } from './ItemEditor.props';
 import 'react-toastify/dist/ReactToastify.css';
 import './ItemEditor.css';
+import './Dropdown.css';
 
 import { useMutation } from 'react-query';
 import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { createItem, deleteItem, updateItem } from '../../api/api';
 import {
+  createItem,
+  deleteItem,
+  getCategories,
+  updateItem,
+} from '../../api/api';
+import {
+  Category,
   convertDate,
+  extractCategoryName,
   getReadableDate,
   Item,
   itemFieldTranslation,
@@ -24,6 +32,8 @@ import LoadingButton from '../LoadingButton/LoadingButton';
 import QRPrinter from '../QRPrinter/QRPrinter';
 import ReactToPrint from 'react-to-print';
 import Popup from '../Popup/Popup';
+import SelectSearch, { SelectSearchOption } from 'react-select-search';
+import { groupBy } from '../../utils';
 
 toast.configure();
 
@@ -42,6 +52,11 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
 
+  const [categoryOptions, setCategoryOptions] = useState<
+    Array<SelectSearchOption>
+  >([]);
+  const [categories, setCategories] = useState(new Array<Category>());
+
   const errorToast = () =>
     toast.error("Une erreur s'est produite, veuillez réessayer");
   const qrCodeValue = editedValues?.id;
@@ -53,14 +68,38 @@ export default function ItemEditor(props: ItemEditorProps) {
   }, []);
 
   useEffect(() => {
+    (async () => {
+      const categoriesFetched = await getCategories();
+      if (categoriesFetched) {
+        setCategories(categoriesFetched);
+
+        const options = Object.entries(
+          groupBy(categoriesFetched, (c) => c.name.split('.')[0])
+        ).map(([group, categories]) => ({
+          name: group,
+          value: group,
+          type: 'group',
+          items: categories.map((c) => {
+            const categoryName = extractCategoryName(c.name);
+            return { value: c.name, name: categoryName };
+          }),
+        }));
+
+        setCategoryOptions(options);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
     if (item.id !== editedValues.id) {
-      setEditedValues({ ...item });
+      const categoryID = categories.find((c) => c.name === item.category)?.id;
+      setEditedValues({ ...item, categoryID });
       setIsLoading(false);
       setFieldError(false);
       setModifyingItem(false);
       closeHandler();
     }
-  }, [closeHandler, editedValues.id, item, setModifyingItem]);
+  }, [categories, closeHandler, editedValues.id, item, setModifyingItem]);
 
   useEffect(() => {
     for (const key in item) {
@@ -79,7 +118,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     let result = [] as JSX.Element[];
 
     if (item && editedValues) {
-      for (let key in itemFieldTranslation) {
+      for (const key in itemFieldTranslation) {
         if (itemFieldTranslation.hasOwnProperty(key)) {
           const translation = itemFieldTranslation[key];
           let input = null;
@@ -166,6 +205,28 @@ export default function ItemEditor(props: ItemEditorProps) {
                 />
               );
               break;
+            case 'category':
+              input = (
+                <SelectSearch
+                  key={key + '-input'}
+                  options={categoryOptions}
+                  placeholder={translation}
+                  value={
+                    editedValues[key]
+                      ? extractCategoryName(editedValues[key])
+                      : ''
+                  }
+                  onChange={(selected) => {
+                    let newValues = { ...editedValues };
+                    newValues[key] = selected;
+                    newValues.categoryID = categories.find(
+                      (c) => c.name === (selected as unknown as string)
+                    )?.id;
+                    setEditedValues(newValues);
+                  }}
+                />
+              );
+              break;
             default:
               input = (
                 <input
@@ -208,7 +269,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     }
 
     setInputs(result);
-  }, [editedValues, item]);
+  }, [categories, categoryOptions, editedValues, item]);
 
   const updateItemMutation = useMutation((item: { [key: string]: any }) =>
     !item['id']
