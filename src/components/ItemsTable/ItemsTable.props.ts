@@ -30,4 +30,9 @@ export interface ItemsTableProps {
    * True if we are modifying an item at the moment (with item editor open and some fields modified), false otherwise
    */
   modifyingItem: boolean;
+
+  /**
+   * Function used to set whether an item is being modified.
+   */
+  setModifyingItem: (v: boolean) => void;
 }

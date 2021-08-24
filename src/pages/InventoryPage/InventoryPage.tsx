@@ -176,6 +176,7 @@ export default function InventoryPage() {
             checkedItems={checkedItems}
             setCheckedItems={setCheckedItems}
             modifyingItem={modifyingItem}
+            setModifyingItem={setModifyingItem}
           />
           <div className="hover-buttons">
             <div className="white-button" onClick={addHandler}>
@@ -247,6 +248,7 @@ export default function InventoryPage() {
         onConfirm={() => {
           setupAndOpenItemEditorForCreation();
           setChangeItemPopupVisible(false);
+          setModifyingItem(false);
         }}
         onUndo={() => setChangeItemPopupVisible(false)}
       />

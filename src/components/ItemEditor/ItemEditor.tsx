@@ -293,12 +293,12 @@ export default function ItemEditor(props: ItemEditorProps) {
       onSuccess: () => {
         refreshHandler(null);
         cancelHandler();
+        setModifyingItem(false);
         toast.success("L'objet a bien été supprimé");
       },
 
       onError: () => {
         closeHandler();
-        setModifyingItem(false);
         errorToast();
       },
     });
