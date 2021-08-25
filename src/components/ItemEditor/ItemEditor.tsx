@@ -13,6 +13,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import { createItem, deleteItem, updateItem } from '../../api/api';
 import {
+  Category,
   convertDate,
   extractCategoryName,
   getReadableDate,
@@ -31,13 +32,24 @@ import { groupBy } from '../../utils';
 
 toast.configure();
 
+const addCategoryIDToItem = (
+  categories: Category[],
+  item: { [key: string]: any }
+): { [key: string]: any } => {
+  const categoryID =
+    categories.find((c) => c.name === item.fullCategory)?.id || null;
+  return { ...item, categoryID };
+};
+
 /**
  * Editor to modify and update an item on the backend
  */
 export default function ItemEditor(props: ItemEditorProps) {
   const { item, categories, cancelHandler, refreshHandler, setModifyingItem } =
     props;
-  const [editedValues, setEditedValues] = useState({ ...item });
+  const [editedValues, setEditedValues] = useState(
+    addCategoryIDToItem(categories, item)
+  );
   const [inputs, setInputs] = useState([] as JSX.Element[]);
   const componentRef = useRef<HTMLDivElement>(null);
 
@@ -81,10 +93,7 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
-      const categoryID = categories.find(
-        (c) => c.name === item.fullCategory
-      )?.id;
-      setEditedValues({ ...item, categoryID });
+      setEditedValues(addCategoryIDToItem(categories, item));
       setIsLoading(false);
       setFieldError(false);
       setModifyingItem(false);
@@ -94,7 +103,13 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   useEffect(() => {
     for (const key in item) {
-      if (item.hasOwnProperty(key) && item[key] !== editedValues[key]) {
+      const itemValue = item[key];
+      const editedValue = editedValues[key];
+      if (
+        item.hasOwnProperty(key) &&
+        itemValue !== editedValue &&
+        !(itemValue === null && editedValue === '') // by default fields have value null at the server
+      ) {
         // A field has been updated
         setModifyingItem(true);
         return;

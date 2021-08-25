@@ -15,6 +15,9 @@ export interface Item {
   id?: number;
   beacon: string | null;
   category: string | null;
+  /**
+   * Contains category and subcategory strings.
+   */
   fullCategory?: string | null;
   categoryID?: number | null;
   service: string | null;
