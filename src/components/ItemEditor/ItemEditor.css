@@ -50,10 +50,22 @@
 
 .field-input {
   border-radius: 15px;
-  border-width: 0;
+  border: 1px solid transparent;
   padding: 6px 6px 6px 12px;
   background: var(--transparent-white);
   width: 100%;
+}
+
+.field-input:hover {
+  border: 1px solid transparent;
+  border-color: var(--blue);
+}
+
+/**
+ * Remove border color on focus
+ */
+.field-input:focus {
+  border: 1px solid transparent;
 }
 
 .edit-row {
