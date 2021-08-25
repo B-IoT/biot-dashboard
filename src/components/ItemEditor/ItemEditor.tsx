@@ -11,14 +11,8 @@ import DatePicker from 'react-datepicker';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { createItem, deleteItem, updateItem } from '../../api/api';
 import {
-  createItem,
-  deleteItem,
-  getCategories,
-  updateItem,
-} from '../../api/api';
-import {
-  Category,
   convertDate,
   extractCategoryName,
   getReadableDate,
@@ -41,7 +35,8 @@ toast.configure();
  * Editor to modify and update an item on the backend
  */
 export default function ItemEditor(props: ItemEditorProps) {
-  const { item, cancelHandler, refreshHandler, setModifyingItem } = props;
+  const { item, categories, cancelHandler, refreshHandler, setModifyingItem } =
+    props;
   const [editedValues, setEditedValues] = useState({ ...item });
   const [inputs, setInputs] = useState([] as JSX.Element[]);
   const componentRef = useRef<HTMLDivElement>(null);
@@ -55,7 +50,6 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [categoryOptions, setCategoryOptions] = useState<
     Array<SelectSearchOption>
   >([]);
-  const [categories, setCategories] = useState(new Array<Category>());
 
   const errorToast = () =>
     toast.error("Une erreur s'est produite, veuillez réessayer");
@@ -69,12 +63,9 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   useEffect(() => {
     (async () => {
-      const categoriesFetched = await getCategories();
-      if (categoriesFetched) {
-        setCategories(categoriesFetched);
-
+      if (categories) {
         const options = Object.entries(
-          groupBy(categoriesFetched, (c) => c.name.split('.')[0])
+          groupBy(categories, (c) => c.name.split('.')[0])
         ).map(([group, categories]) => ({
           name: group,
           value: group,
@@ -88,11 +79,13 @@ export default function ItemEditor(props: ItemEditorProps) {
         setCategoryOptions(options);
       }
     })();
-  }, []);
+  }, [categories]);
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
-      const categoryID = categories.find((c) => c.name === item.category)?.id;
+      const categoryID = categories.find(
+        (c) => c.name === item.fullCategory
+      )?.id;
       setEditedValues({ ...item, categoryID });
       setIsLoading(false);
       setFieldError(false);
@@ -211,17 +204,26 @@ export default function ItemEditor(props: ItemEditorProps) {
                   key={key + '-input'}
                   options={categoryOptions}
                   placeholder={translation}
-                  value={
-                    editedValues[key]
-                      ? extractCategoryName(editedValues[key])
-                      : ''
-                  }
+                  value={editedValues.fullCategory || ''}
+                  renderValue={(valueProps, _, className) => {
+                    const { value, ...props } = valueProps;
+                    return (
+                      // @ts-ignore
+                      <input
+                        value={extractCategoryName(value)}
+                        {...props}
+                        className={className}
+                      />
+                    );
+                  }}
                   onChange={(selected) => {
                     let newValues = { ...editedValues };
-                    newValues[key] = selected;
+                    const selectedString = selected as unknown as string;
+                    newValues[key] = extractCategoryName(selectedString);
                     newValues.categoryID = categories.find(
-                      (c) => c.name === (selected as unknown as string)
+                      (c) => c.name === selectedString
                     )?.id;
+                    newValues.fullCategory = selected;
                     setEditedValues(newValues);
                   }}
                 />

@@ -4,8 +4,13 @@
   margin-bottom: 15%;
   margin-top: 10%;
   border: 0;
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
   background: transparent;
-  padding: 0;
   text-align: start;
   cursor: pointer;
+}
+
+.log-out:hover {
+  background: var(--transparent-blue);
 }

@@ -3,14 +3,22 @@ import LogOut from '../../components/LogOut/LogOut';
 
 import { useEffect, useRef, useState } from 'react';
 import {
+  Category,
   emptyItem,
+  extractCategoryName,
   extractItem,
   getPrettyItems,
   Item,
 } from '../../utils/items';
 import ItemsTable from '../../components/ItemsTable/ItemsTable';
 import ItemEditor from '../../components/ItemEditor/ItemEditor';
-import { fetchToken, getItems, getUserInfo, SERVER_URL } from '../../api/api';
+import {
+  fetchToken,
+  getCategories,
+  getItems,
+  getUserInfo,
+  SERVER_URL,
+} from '../../api/api';
 import { ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
 import QRPrinter from '../../components/QRPrinter/QRPrinter';
@@ -19,6 +27,7 @@ import { Client, UpdateType } from '@biot-dev/event-bus-client';
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
+  const [categories, setCategories] = useState([] as Category[]);
   const [newItem, setNewItem] = useState(null as Item | null);
   const [itemIndex, setItemIndex] = useState(-1);
   const [checkedItems, setCheckedItems] = useState<any[]>([]);
@@ -29,6 +38,14 @@ export default function InventoryPage() {
 
   const [eventBusClient, setEventBusClient] = useState<Client | null>(null);
 
+  const cleanCategory = (item: Item) => {
+    const newItem = { ...item };
+    if (newItem.category) {
+      newItem.category = extractCategoryName(newItem.category);
+    }
+    return newItem;
+  };
+
   useEffect(() => {
     (async () => {
       // This check is needed because sometimes the other useEffect runs before this one
@@ -38,19 +55,27 @@ export default function InventoryPage() {
         eventBusClient.onItemUpdate((type, id, content) => {
           switch (type) {
             case UpdateType.DELETE: {
-              setItems(items.filter((item) => item.id !== id));
+              setItems(
+                items.filter((item) => item.id !== id).map(cleanCategory)
+              );
               break;
             }
             case UpdateType.POST: {
               // New item put at the end
-              setItems(items.concat([extractItem(content as unknown as Item)]));
+              setItems(
+                items.concat([
+                  cleanCategory(extractItem(content as unknown as Item)),
+                ])
+              );
               break;
             }
             case UpdateType.PUT: {
               // Update item in place
               const itemIdx = items.findIndex((item) => item.id === id);
               const newItems = [...items];
-              newItems[itemIdx] = extractItem(content as unknown as Item);
+              newItems[itemIdx] = cleanCategory(
+                extractItem(content as unknown as Item)
+              );
               setItems(newItems);
               break;
             }
@@ -67,6 +92,8 @@ export default function InventoryPage() {
       if (itemsFetched !== undefined && itemsFetched.length > 0) {
         setItems(getPrettyItems(itemsFetched));
       }
+
+      setCategories(await getCategories());
 
       if (eventBusClient == null) {
         const userInfo = await getUserInfo();
@@ -221,6 +248,7 @@ export default function InventoryPage() {
             </div>
             <ItemEditor
               item={newItem ? newItem : items[itemIndex]}
+              categories={categories}
               refreshHandler={refreshHandler}
               cancelHandler={cancelHandler}
               setModifyingItem={setModifyingItem}

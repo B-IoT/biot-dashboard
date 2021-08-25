@@ -1,10 +1,15 @@
-import { Item } from '../../utils/items';
+import { Category, Item } from '../../utils/items';
 
 export interface ItemEditorProps {
   /**
    * The item to edit
    */
   item: { [key: string]: any };
+
+  /**
+   * The item categories
+   */
+  categories: Array<Category>;
 
   /**
    * Function called to cancel the edition

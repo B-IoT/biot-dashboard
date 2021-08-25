@@ -62,6 +62,10 @@
 
 .button-wrapper {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .margin-top {
@@ -75,6 +79,13 @@
 
 .cancel-button {
   cursor: pointer;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+}
+
+.cancel-button:hover {
+  background: var(--transparent-blue);
 }
 
 .popup-buttons {
@@ -100,7 +111,7 @@ textarea {
 }
 
 .print-button:hover {
-    background: var(--transparent-blue);
+  background: var(--transparent-blue);
 }
 
 .Toastify__toast {
