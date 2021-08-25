@@ -80,7 +80,7 @@ export default function ItemEditor(props: ItemEditorProps) {
       ).map(([group, categories]) => ({
         name: group,
         value: group,
-        type: 'group',
+        type: group !== categories[0].name ? 'group' : 'null', // categories without group are possible
         items: categories.map((c) => {
           const categoryName = extractCategoryName(c.name);
           return { value: c.name, name: categoryName };
