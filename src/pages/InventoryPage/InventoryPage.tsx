@@ -156,7 +156,6 @@ export default function InventoryPage() {
         src={'/img/background.png'}
         alt={'background'}
       />
-
       <div className="glass side-bar">
         <div className="side-bar-top">
           <img className="logo" src={'/img/logoColor.png'} alt="BioT logo" />
@@ -190,7 +189,6 @@ export default function InventoryPage() {
           <LogOut />
         </div>
       </div>
-
       <div className="widgets">
         <div className="glass item-table">
           <div className="widget-title axiforma-extra-bold-eerie-black-20px">

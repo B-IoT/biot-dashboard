@@ -62,23 +62,21 @@ export default function ItemEditor(props: ItemEditorProps) {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      if (categories) {
-        const options = Object.entries(
-          groupBy(categories, (c) => c.name.split('.')[0])
-        ).map(([group, categories]) => ({
-          name: group,
-          value: group,
-          type: 'group',
-          items: categories.map((c) => {
-            const categoryName = extractCategoryName(c.name);
-            return { value: c.name, name: categoryName };
-          }),
-        }));
+    if (categories) {
+      const options = Object.entries(
+        groupBy(categories, (c) => c.name.split('.')[0])
+      ).map(([group, categories]) => ({
+        name: group,
+        value: group,
+        type: 'group',
+        items: categories.map((c) => {
+          const categoryName = extractCategoryName(c.name);
+          return { value: c.name, name: categoryName };
+        }),
+      }));
 
-        setCategoryOptions(options);
-      }
-    })();
+      setCategoryOptions(options);
+    }
   }, [categories]);
 
   useEffect(() => {
@@ -199,35 +197,36 @@ export default function ItemEditor(props: ItemEditorProps) {
               );
               break;
             case 'category':
-              input = (
-                <SelectSearch
-                  key={key + '-input'}
-                  options={categoryOptions}
-                  placeholder={translation}
-                  value={editedValues.fullCategory || ''}
-                  renderValue={(valueProps, _, className) => {
-                    const { value, ...props } = valueProps;
-                    return (
-                      // @ts-ignore
-                      <input
-                        value={extractCategoryName(value)}
-                        {...props}
-                        className={className}
-                      />
-                    );
-                  }}
-                  onChange={(selected) => {
-                    let newValues = { ...editedValues };
-                    const selectedString = selected as unknown as string;
-                    newValues[key] = extractCategoryName(selectedString);
-                    newValues.categoryID = categories.find(
-                      (c) => c.name === selectedString
-                    )?.id;
-                    newValues.fullCategory = selected;
-                    setEditedValues(newValues);
-                  }}
-                />
-              );
+              input =
+                categoryOptions.length > 0 ? (
+                  <SelectSearch
+                    key={key + '-input'}
+                    options={categoryOptions}
+                    placeholder={translation}
+                    value={editedValues.fullCategory || ''}
+                    renderValue={(valueProps, _, className) => {
+                      const { value, ...props } = valueProps;
+                      return (
+                        // @ts-ignore
+                        <input
+                          value={extractCategoryName(value)}
+                          {...props}
+                          className={className}
+                        />
+                      );
+                    }}
+                    onChange={(selected) => {
+                      let newValues = { ...editedValues };
+                      const selectedString = selected as unknown as string;
+                      newValues[key] = extractCategoryName(selectedString);
+                      newValues.categoryID = categories.find(
+                        (c) => c.name === selectedString
+                      )?.id;
+                      newValues.fullCategory = selected;
+                      setEditedValues(newValues);
+                    }}
+                  />
+                ) : null;
               break;
             default:
               input = (
