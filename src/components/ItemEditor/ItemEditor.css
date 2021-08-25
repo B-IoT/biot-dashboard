@@ -99,6 +99,10 @@ textarea {
   margin-bottom: 30px;
 }
 
+.print-button:hover {
+    background: var(--transparent-blue);
+}
+
 .Toastify__toast {
   border-radius: 150px;
   padding: 0 25px;

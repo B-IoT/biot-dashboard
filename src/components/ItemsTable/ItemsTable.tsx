@@ -29,6 +29,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     checkedItems,
     setCheckedItems,
     modifyingItem,
+    setModifyingItem,
   } = props;
   const [changeItemPopupVisible, setChangeItemPopupVisible] = useState(false);
   const [clickedIndex, setClickedIndex] = useState(-1);
@@ -230,6 +231,7 @@ export default function ItemsTable(props: ItemsTableProps) {
         onClose={() => setChangeItemPopupVisible(false)}
         text={ONGOING_UPDATE_WARNING}
         onConfirm={() => {
+          setModifyingItem(false);
           changeItemIndex(clickedIndex);
           setChangeItemPopupVisible(false);
         }}
