@@ -27,11 +27,17 @@ import LoadingButton from '../LoadingButton/LoadingButton';
 import QRPrinter from '../QRPrinter/QRPrinter';
 import ReactToPrint from 'react-to-print';
 import Popup from '../Popup/Popup';
-import SelectSearch, { SelectSearchOption } from 'react-select-search';
+import SelectSearch, {
+  fuzzySearch,
+  SelectSearchOption,
+} from 'react-select-search';
 import { groupBy } from '../../utils';
 
 toast.configure();
 
+/**
+ * Adds the category ID field to the item and returns it.
+ */
 const addCategoryIDToItem = (
   categories: Category[],
   item: { [key: string]: any }
@@ -40,6 +46,8 @@ const addCategoryIDToItem = (
     categories.find((c) => c.name === item.fullCategory)?.id || null;
   return { ...item, categoryID };
 };
+
+const NO_CATEGORY_FOUND = 'Aucune catégorie trouvée';
 
 /**
  * Editor to modify and update an item on the backend
@@ -218,6 +226,9 @@ export default function ItemEditor(props: ItemEditorProps) {
                     key={key + '-input'}
                     options={categoryOptions}
                     placeholder={translation}
+                    search
+                    filterOptions={fuzzySearch}
+                    emptyMessage={NO_CATEGORY_FOUND}
                     value={editedValues.fullCategory || ''}
                     renderValue={(valueProps, _, className) => {
                       const { value, ...props } = valueProps;
