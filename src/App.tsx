@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';

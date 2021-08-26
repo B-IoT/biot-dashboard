@@ -1,6 +1,6 @@
 {
-  "short_name": "BIoT - Localisation du matériel",
-  "name": "Localisez le matériel que vous cherchez",
+  "short_name": "Inventaire BioT",
+  "name": "Digitalisez votre inventaire",
   "icons": [
     {
       "src": "favicon.ico",
