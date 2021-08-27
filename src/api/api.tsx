@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Category, convertDate, Item } from '../utils/items';
 
-export const SERVER_URL = 'http://localhost:8080';
+export const SERVER_URL = 'https://api.b-iot.ch:443';
 export const REFETCH_INTERVAL = 3000;
 const API = axios.create({ baseURL: SERVER_URL });
 
