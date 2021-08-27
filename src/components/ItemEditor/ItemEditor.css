@@ -1,138 +1,159 @@
 .max-width {
-    width: 100%;
+  width: 100%;
 }
 
 .qr-code {
-    display: none;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
-@page
-{
-    size: auto;
-    margin: 0 0 0 0;
+@page {
+  size: auto;
+  margin: 0 0 0 0;
 }
 
 @media print {
-    .qr-code {
-        display: flex;
-        flex-direction: column;
-    }
+  .qr-code {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .react-datepicker__input-container {
-    width: inherit;
+  width: inherit;
 }
 
 .react-datepicker-wrapper {
-    width: 100%;
+  width: 100%;
 }
 
 .field-title-container {
-    display: flex;
+  display: flex;
 }
 
 .field-title {
-    margin-bottom: 5px;
-    margin-left: 2px;
+  margin-bottom: 5px;
+  margin-left: 2px;
 }
 
 .field-text {
-    padding-left: 10px;
-    width: 100%;
+  padding-left: 10px;
+  width: 100%;
 }
 
 .comments {
-    padding: 10px;
+  padding: 12px;
 }
 
 .field-input {
-    border-radius: 15px;
-    border-width: 0;
-    padding-left: 10px;
-    background: var(--transparent-white);
-    width: 100%;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  padding: 6px 6px 6px 12px;
+  background: var(--transparent-white);
+  width: 100%;
+}
+
+.field-input:hover {
+  border: 1px solid transparent;
+  border-color: var(--blue);
+}
+
+/**
+ * Remove border color on focus
+ */
+.field-input:focus {
+  border: 1px solid transparent;
 }
 
 .edit-row {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .button-wrapper {
-    text-align: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .margin-top {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .missing-fields-error {
-    margin-top: 20px;
-    margin-bottom: -20px;
+  margin-top: 20px;
+  margin-bottom: -20px;
 }
 
 .cancel-button {
-    cursor: pointer;
+  cursor: pointer;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+}
+
+.cancel-button:hover {
+  background: var(--transparent-blue);
 }
 
 .popup-buttons {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 .print-button {
-    cursor: pointer;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 20px;
-    border: 2px solid var(--blue);
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 20px;
+  border: 2px solid var(--blue);
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .print-button:hover {
-    background: var(--transparent-blue);
+  background: var(--transparent-blue);
 }
 
 .Toastify__toast {
-    border-radius: 150px;
-    padding: 0 25px;
-    align-items: center;
+  border-radius: 150px;
+  padding: 0 25px;
+  align-items: center;
 }
 
 .Toastify__toast-body {
-    padding: 0;
-    margin: 0;
-    flex: none;
+  padding: 0;
+  margin: 0;
+  flex: none;
 }
 
 .Toastify__close-button {
-    align-self: center;
+  align-self: center;
 }
 
 .Toastify__toast-container {
-    width: 400px;
+  width: 400px;
 }
 
 .Toastify__toast--error {
-    background: var(--error-red);
+  background: var(--error-red);
 }
 
-
 @page :left {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 @page :right {
-    margin-right: 0;
+  margin-right: 0;
 }

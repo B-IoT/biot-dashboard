@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { convertDate, Item } from '../utils/items';
+import { Category, convertDate, Item } from '../utils/items';
 
 export const SERVER_URL = 'https://api.b-iot.ch:443';
 export const REFETCH_INTERVAL = 3000;
@@ -7,8 +7,8 @@ const API = axios.create({ baseURL: SERVER_URL });
 
 /**
  * Fetches the token from the local storage and returns it.
- * 
- * @return the auth token 
+ *
+ * @return the auth token
  */
 export function fetchToken() {
   const token = localStorage.getItem('token');
@@ -82,9 +82,9 @@ export async function getItem(itemID: number) {
 }
 
 /**
- * Get the list of categories having at least one item.
+ * Get the list of categories.
  */
-export async function getCategories() {
+export async function getCategories(): Promise<Array<Category>> {
   fetchToken();
   const { data } = await API.get(`api/items/categories`);
   return data;
