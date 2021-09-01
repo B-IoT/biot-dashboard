@@ -85,14 +85,16 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   useEffect(() => {
     if (categories) {
-      const categoryGroups = categories
+      // Extract the category groups, which are before the dot in the category string
+      const categoryGroupOptions = categories
         .map((c) => c.name.split('.'))
         .filter((cs) => cs.length > 1)
         .map((cs) => ({ name: cs[0], value: cs[0] }))
         .filter((v, i, a) => a.findIndex((t) => t.value === v.value) === i); // Remove duplicates
-      setCategoryGroupOptions(categoryGroups);
+      setCategoryGroupOptions(categoryGroupOptions);
 
-      const options = categories
+      // Extract the category options, keeping only those for the currently selected category group, if any
+      const categoryOptions = categories
         .filter((c) =>
           editedValues.categoryGroup
             ? c.name.split('.')[0] === editedValues.categoryGroup
@@ -102,7 +104,7 @@ export default function ItemEditor(props: ItemEditorProps) {
           name: extractCategoryName(c.name),
           value: c.name,
         }));
-      setCategoryOptions(options);
+      setCategoryOptions(categoryOptions);
     }
   }, [categories, editedValues.categoryGroup]);
 
@@ -251,7 +253,7 @@ export default function ItemEditor(props: ItemEditorProps) {
               input =
                 categoryOptions.length > 0 &&
                 categoryOptions.find((o) =>
-                  editedValues.fullCategory
+                  editedValues.fullCategory // if the category is defined, show the dropdown only if the options include it
                     ? o.value === editedValues.fullCategory
                     : true
                 ) ? (
