@@ -14,6 +14,7 @@ export interface Category {
 export interface Item {
   id?: number;
   beacon: string | null;
+  categoryGroup?: string | null;
   category: string | null;
   /**
    * Contains category and subcategory strings.
@@ -90,7 +91,8 @@ export const emptyItem = (): Item => ({
 export const itemFieldTranslation: Record<string, string> = {
   id: 'Code',
   status: 'Statut',
-  category: 'Catégorie',
+  categoryGroup: 'Catégorie',
+  category: 'Sous-catégorie',
   service: 'Service',
   brand: 'Marque',
   model: 'Modèle',
@@ -114,6 +116,7 @@ export const itemFieldTranslation: Record<string, string> = {
 };
 
 export const mandatoryFields = [
+  'categoryGroup',
   'category',
   'brand',
   'model',
@@ -133,7 +136,7 @@ export const displayTextVersion: Record<string, string> = {
 
 /**
  * Extracts the category name given the string. The string can either be of the form "group.category" or simply "category".
- * 
+ *
  * @param s the string containing the category and eventually its group
  * @return the category name without group, if any
  */

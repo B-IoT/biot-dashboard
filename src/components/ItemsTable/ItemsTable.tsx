@@ -37,8 +37,11 @@ export default function ItemsTable(props: ItemsTableProps) {
   const cleanItems = items.map((item) => {
     item.purchasePrice = item.purchasePrice === 0 ? '' : item.purchasePrice;
     if (item.category && !item.fullCategory) {
-      item.fullCategory = item.category;
-      item.category = extractCategoryName(item.category);
+      const category = item.category;
+      const categorySplit = category.split('.');
+      item.categoryGroup = categorySplit.length > 1 ? categorySplit[0] : '';
+      item.fullCategory = category;
+      item.category = extractCategoryName(category);
     }
     return item;
   });
