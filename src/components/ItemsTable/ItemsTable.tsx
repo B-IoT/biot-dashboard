@@ -169,6 +169,7 @@ export default function ItemsTable(props: ItemsTableProps) {
     print: false,
     filterType: 'checkbox' as FilterType,
     rowsSelected: checkedItems,
+    tableBodyHeight: '600px',
     onRowSelectionChange: (
       _currentRowsSelected: any[],
       _allRowsSelected: any[],

@@ -51,12 +51,15 @@ export const theme = createMuiTheme({
     },
     MUIDataTableHeadCell: {
       fixedHeader: {
-        backgroundColor: 'none',
+        backgroundColor: 'var(--white)',
       },
     },
     MUIDataTableSelectCell: {
+      root: {
+        backgroundColor: 'var(--white)',
+      },
       headerCell: {
-        backgroundColor: 'none',
+        backgroundColor: 'var(--white)',
       },
       checked: {
         color: 'var(--blue) !important',
