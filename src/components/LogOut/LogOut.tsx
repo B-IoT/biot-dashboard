@@ -1,6 +1,11 @@
 import './LogOut.css';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_PATH } from '../../App';
+import { translate } from '../../i18n';
+
+const strings = {
+  logout: translate('logout'),
+};
 
 /**
  * Button that logs out the user.
@@ -15,6 +20,8 @@ export default function LogOut() {
   }
 
   return (
-    <button className='log-out axiforma-bold-blue-16px' onClick={handleLogOut}>{'Déconnexion'}</button>
+    <button className="log-out axiforma-bold-blue-16px" onClick={handleLogOut}>
+      {strings.logout}
+    </button>
   );
 }

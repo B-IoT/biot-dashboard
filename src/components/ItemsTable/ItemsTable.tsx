@@ -11,12 +11,17 @@ import {
   extractCategoryName,
   itemFieldTranslation,
   mandatoryFields,
-  underCreation,
+  UNDER_CREATION,
 } from '../../utils/items';
 import { ItemsTableProps } from './ItemsTable.props';
-import Popup, { ONGOING_UPDATE_WARNING } from '../Popup/Popup';
+import Popup from '../Popup/Popup';
+import { translate } from '../../i18n';
 
-const NO_MATCH_STRING = 'Aucun objet trouvé';
+const strings = {
+  noItemFound: translate('noItemFound'),
+  inventory: translate('inventory'),
+  allUpdatesWillBeLost: translate('allUpdatesWillBeLost'),
+};
 
 /**
  * Interactive and editable item table.
@@ -152,7 +157,7 @@ export default function ItemsTable(props: ItemsTableProps) {
             borderLeftColor: 'var(--blue)',
           },
         };
-      } else if (items[dataIndex].status === underCreation) {
+      } else if (items[dataIndex].status === UNDER_CREATION) {
         return {
           style: {
             background: 'var(--transparent-blue)',
@@ -165,7 +170,7 @@ export default function ItemsTable(props: ItemsTableProps) {
         },
       };
     },
-    textLabels: datatableLabels(NO_MATCH_STRING),
+    textLabels: datatableLabels(strings.noItemFound!),
     print: false,
     filterType: 'checkbox' as FilterType,
     rowsSelected: checkedItems,
@@ -188,7 +193,7 @@ export default function ItemsTable(props: ItemsTableProps) {
       }
     },
     downloadOptions: {
-      filename: 'inventaire.csv',
+      filename: `${strings.inventory}.csv`,
     },
     onDownload: (
       buildHead: (columns: any) => string,
@@ -230,7 +235,7 @@ export default function ItemsTable(props: ItemsTableProps) {
       <Popup
         open={changeItemPopupVisible}
         onClose={() => setChangeItemPopupVisible(false)}
-        text={ONGOING_UPDATE_WARNING}
+        text={strings.allUpdatesWillBeLost!}
         onConfirm={() => {
           setModifyingItem(false);
           changeItemIndex(clickedIndex);

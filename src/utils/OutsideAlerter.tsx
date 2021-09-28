@@ -39,7 +39,7 @@ function useOutsideAlerter(
       // Unbind the event listener on clean up
       document.removeEventListener('mouseup', handleClickOutside);
     };
-  }, [ref, value]);
+  }, [detectDrag, ref, setValue, value]);
 }
 
 /**

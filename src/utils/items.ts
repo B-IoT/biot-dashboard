@@ -1,4 +1,48 @@
 import { MUIDataTableColumn } from 'mui-datatables';
+import { translate } from '../i18n';
+
+const strings = {
+  code: translate('code'),
+  category: translate('category'),
+  brand: translate('brand'),
+  model: translate('model'),
+  supplier: translate('supplier'),
+  purchaseDate: translate('purchaseDate'),
+  purchasePrice: translate('purchasePrice'),
+  originalOwner: translate('originalOwner'),
+  currentOwner: translate('currentOwner'),
+  service: translate('service'),
+  originalLocation: translate('originalLocation'),
+  currentLocation: translate('currentLocation'),
+  room: translate('room'),
+  contact: translate('contact'),
+  orderNumber: translate('orderNumber'),
+  color: translate('color'),
+  serialNumber: translate('serialNumber'),
+  maintenanceDate: translate('maintenanceDate'),
+  comments: translate('comments'),
+  lastModifiedDate: translate('lastModifiedDate'),
+  lastModifiedBy: translate('lastModifiedBy'),
+  status: translate('status'),
+  itemID: translate('itemID'),
+  sort: translate('sort'),
+  sortBy: translate('sortBy'),
+  nextPage: translate('nextPage'),
+  previousPage: translate('previousPage'),
+  print: translate('print'),
+  filterTable: translate('filterTable'),
+  all: translate('all'),
+  filters: translate('filters'),
+  reset: translate('reset'),
+  showHideColumns: translate('showHideColumns'),
+  deleteLine: translate('deleteLine'),
+  itemsPerPage: translate('itemsPerPage'),
+  search: translate('search'),
+  downloadCSV: translate('downloadCSV'),
+  showColumns: translate('showColumns'),
+  chosenLines: translate('chosenLines'),
+  delete: translate('delete'),
+};
 
 /**
  * An item category.
@@ -88,29 +132,29 @@ export const emptyItem = (): Item => ({
 });
 
 export const itemFieldTranslation: Record<string, string> = {
-  id: 'Code',
-  status: 'Statut',
-  category: 'Catégorie',
-  service: 'Service',
-  brand: 'Marque',
-  model: 'Modèle',
-  supplier: 'Fournisseur',
-  itemID: "Numéro d'article",
-  purchaseDate: "Date d'achat",
-  purchasePrice: "Prix d'achat",
-  originLocation: "Localisation d'origine",
-  currentLocation: 'Localisation actuelle',
-  room: 'Chambre',
-  contact: 'Contact',
-  previousOwner: "Propriétaire d'origine",
-  currentOwner: 'Propriétaire actuel',
-  orderNumber: 'Numéro de commande',
-  color: 'Couleur',
-  serialNumber: 'Numéro de série',
-  maintenanceDate: 'Date de maintenance',
-  comments: 'Commentaire',
-  lastModifiedDate: 'Date de modification',
-  lastModifiedBy: 'Modifié par',
+  id: strings.code!,
+  status: strings.status!,
+  category: strings.category!,
+  service: strings.service!,
+  brand: strings.brand!,
+  model: strings.model!,
+  supplier: strings.supplier!,
+  itemID: strings.itemID!,
+  purchaseDate: strings.purchaseDate!,
+  purchasePrice: strings.purchasePrice!,
+  originLocation: strings.originalLocation!,
+  currentLocation: strings.currentLocation!,
+  room: strings.room!,
+  contact: strings.contact!,
+  previousOwner: strings.originalOwner!,
+  currentOwner: strings.currentOwner!,
+  orderNumber: strings.orderNumber!,
+  color: strings.color!,
+  serialNumber: strings.serialNumber!,
+  maintenanceDate: strings.maintenanceDate!,
+  comments: strings.comments!,
+  lastModifiedDate: strings.lastModifiedDate!,
+  lastModifiedBy: strings.lastModifiedBy!,
 };
 
 export const mandatoryFields = [
@@ -123,7 +167,7 @@ export const mandatoryFields = [
   'purchasePrice',
 ];
 
-export const underCreation = 'Under creation';
+export const UNDER_CREATION = 'Under creation';
 
 export const displayTextVersion: Record<string, string> = {
   available: 'disponible',
@@ -133,7 +177,7 @@ export const displayTextVersion: Record<string, string> = {
 
 /**
  * Extracts the category name given the string. The string can either be of the form "group.category" or simply "category".
- * 
+ *
  * @param s the string containing the category and eventually its group
  * @return the category name without group, if any
  */
@@ -186,36 +230,36 @@ export const datatableLabels = (noMatchString: String) => {
   return {
     body: {
       noMatch: noMatchString,
-      toolTip: 'Trier',
+      toolTip: strings.sort!,
       columnHeaderTooltip: (column: MUIDataTableColumn) =>
-        `Trier par ${column.label}`,
+        `${strings.sortBy} ${column.label}`,
     },
     pagination: {
-      next: 'Page suivante',
-      previous: 'Page précédente',
-      rowsPerPage: 'Objets par page:',
+      next: strings.nextPage!,
+      previous: strings.previousPage!,
+      rowsPerPage: `${strings.itemsPerPage}:`,
       displayRows: '/',
     },
     toolbar: {
-      search: 'Rechercher',
-      downloadCsv: 'Télécharger CSV',
-      print: 'Imprimer',
-      viewColumns: 'Afficher les colonnes',
-      filterTable: 'Filtrer le tableau',
+      search: strings.search!,
+      downloadCsv: strings.downloadCSV!,
+      print: strings.print!,
+      viewColumns: strings.showColumns!,
+      filterTable: strings.filterTable!,
     },
     filter: {
-      all: 'Tous',
-      title: 'FILTRES',
-      reset: 'RÉINITIALISER',
+      all: strings.all!,
+      title: strings.filters!,
+      reset: strings.reset!,
     },
     viewColumns: {
-      title: 'Afficher les colonnes',
-      titleAria: 'Afficher/Cacher les colonnes',
+      title: strings.showColumns!,
+      titleAria: strings.showHideColumns!,
     },
     selectedRows: {
-      text: 'ligne(s) selectionée(s)',
-      delete: 'Éliminer',
-      deleteAria: 'Éliminer la ligne choisie',
+      text: strings.chosenLines!,
+      delete: strings.delete!,
+      deleteAria: strings.deleteLine!,
     },
   };
 };
