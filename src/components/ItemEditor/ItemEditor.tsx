@@ -31,7 +31,6 @@ import SelectSearch, {
   fuzzySearch,
   SelectSearchOption,
 } from 'react-select-search';
-import { groupBy } from '../../utils';
 
 toast.configure();
 
@@ -67,6 +66,9 @@ export default function ItemEditor(props: ItemEditorProps) {
   const [deletePopup, setDeletePopup] = useState(false);
   const [undoUpdatePopup, setUndoUpdatePopup] = useState(false);
 
+  const [categoryGroupOptions, setCategoryGroupOptions] = useState<
+    Array<SelectSearchOption>
+  >([]);
   const [categoryOptions, setCategoryOptions] = useState<
     Array<SelectSearchOption>
   >([]);
@@ -83,21 +85,28 @@ export default function ItemEditor(props: ItemEditorProps) {
 
   useEffect(() => {
     if (categories) {
-      const options = Object.entries(
-        groupBy(categories, (c) => c.name.split('.')[0])
-      ).map(([group, categories]) => ({
-        name: group,
-        value: group,
-        type: group !== categories[0].name ? 'group' : 'null', // categories without group are possible
-        items: categories.map((c) => {
-          const categoryName = extractCategoryName(c.name);
-          return { value: c.name, name: categoryName };
-        }),
-      }));
+      // Extract the category groups, which are before the dot in the category string
+      const categoryGroupOptions = categories
+        .map((c) => c.name.split('.'))
+        .filter((cs) => cs.length > 1)
+        .map((cs) => ({ name: cs[0], value: cs[0] }))
+        .filter((v, i, a) => a.findIndex((t) => t.value === v.value) === i); // Remove duplicates
+      setCategoryGroupOptions(categoryGroupOptions);
 
-      setCategoryOptions(options);
+      // Extract the category options, keeping only those for the currently selected category group, if any
+      const categoryOptions = categories
+        .filter((c) =>
+          editedValues.categoryGroup
+            ? c.name.split('.')[0] === editedValues.categoryGroup
+            : true
+        )
+        .map((c) => ({
+          name: extractCategoryName(c.name),
+          value: c.name,
+        }));
+      setCategoryOptions(categoryOptions);
     }
-  }, [categories]);
+  }, [categories, editedValues.categoryGroup]);
 
   useEffect(() => {
     if (item.id !== editedValues.id) {
@@ -219,14 +228,41 @@ export default function ItemEditor(props: ItemEditorProps) {
                 />
               );
               break;
+            case 'categoryGroup':
+              input =
+                categoryGroupOptions.length > 0 ? (
+                  <SelectSearch
+                    key={key + '-input'}
+                    options={categoryGroupOptions}
+                    placeholder={translation}
+                    search
+                    filterOptions={fuzzySearch}
+                    emptyMessage={NO_CATEGORY_FOUND}
+                    value={editedValues.categoryGroup || ''}
+                    onChange={(selected) => {
+                      let newValues = { ...editedValues };
+                      const selectedString = selected as unknown as string;
+                      newValues[key] = selectedString;
+                      newValues.fullCategory = '';
+                      setEditedValues(newValues);
+                    }}
+                  />
+                ) : null;
+              break;
             case 'category':
               input =
-                categoryOptions.length > 0 ? (
+                categoryOptions.length > 0 &&
+                categoryOptions.find((o) =>
+                  editedValues.fullCategory // if the category is defined, show the dropdown only if the options include it
+                    ? o.value === editedValues.fullCategory
+                    : true
+                ) ? (
                   <SelectSearch
                     key={key + '-input'}
                     options={categoryOptions}
                     placeholder={translation}
                     search
+                    disabled={!editedValues.categoryGroup}
                     filterOptions={fuzzySearch}
                     emptyMessage={NO_CATEGORY_FOUND}
                     value={editedValues.fullCategory || ''}
@@ -296,7 +332,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     }
 
     setInputs(result);
-  }, [categories, categoryOptions, editedValues, item]);
+  }, [categories, categoryGroupOptions, categoryOptions, editedValues, item]);
 
   const updateItemMutation = useMutation((item: { [key: string]: any }) =>
     !item['id']
@@ -333,8 +369,8 @@ export default function ItemEditor(props: ItemEditorProps) {
             from: Record<string, unknown>,
             to: Record<string, unknown>
           ) => {
-            for (const key in to) {
-              if (to.hasOwnProperty(key)) {
+            for (const key in from) {
+              if (from.hasOwnProperty(key)) {
                 to[key] = from[key];
               }
             }
@@ -349,14 +385,13 @@ export default function ItemEditor(props: ItemEditorProps) {
             item.status = underCreation;
 
             setEditedValues(valuesCopy);
-            toast.success("L'objet a bien été créé");
-
             // Need to be done with valuesCopy since setEditedValues is asynchronous
             copyItemData(valuesCopy, item);
-          } else {
-            toast.success('Les modifications ont été enregistrées');
 
+            toast.success("L'objet a bien été créé");
+          } else {
             copyItemData(editedValues, item);
+            toast.success('Les modifications ont été enregistrées');
           }
 
           setIsLoading(false);
