@@ -22,8 +22,18 @@ import {
 import { ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
 import QRPrinter from '../../components/QRPrinter/QRPrinter';
-import Popup, { ONGOING_UPDATE_WARNING } from '../../components/Popup/Popup';
+import Popup from '../../components/Popup/Popup';
 import { Client, UpdateType } from '@biot-dev/event-bus-client';
+import { translate } from '../../i18n';
+
+const strings = {
+  material: translate('material'),
+  addItem: translate('addItem'),
+  printChosenItems: translate('printChosenItems'),
+  information: translate('information'),
+  allUpdatesWillBeLost: translate('allUpdatesWillBeLost'),
+  inventory: translate('inventory'),
+};
 
 export default function InventoryPage() {
   const [items, setItems] = useState([] as Item[]);
@@ -171,7 +181,9 @@ export default function InventoryPage() {
               src={'/img/inventoryIconWhite.svg'}
               alt="inventory icon"
             />
-            <div className="axiforma-regular-normal-white-16px">Inventaire</div>
+            <div className="axiforma-regular-normal-white-16px">
+              {strings.inventory}
+            </div>
           </div>
         </div>
 
@@ -192,7 +204,7 @@ export default function InventoryPage() {
       <div className="widgets">
         <div className="glass item-table">
           <div className="widget-title axiforma-extra-bold-eerie-black-20px">
-            Matériel
+            {strings.material}
           </div>
           <ItemsTable
             items={items}
@@ -211,7 +223,7 @@ export default function InventoryPage() {
                 alt="Add item"
               />
               <div className="axiforma-regular-blue-semi-bold-14px">
-                Ajouter un objet
+                {strings.addItem}
               </div>
             </div>
             {checkedItems.length > 0 && (
@@ -225,7 +237,7 @@ export default function InventoryPage() {
                         alt="Print checked items"
                       />
                       <div className="axiforma-regular-blue-semi-bold-14px">
-                        Imprimer les objets choisis
+                        {strings.printChosenItems}
                       </div>
                     </div>
                   )}
@@ -242,7 +254,7 @@ export default function InventoryPage() {
         {(newItem || (itemIndex >= 0 && items[itemIndex] !== undefined)) && (
           <div className={'glass item-info'}>
             <div className="widget-title-2 axiforma-extra-bold-eerie-black-20px">
-              Informations
+              {strings.information}
             </div>
             <ItemEditor
               item={newItem ? newItem : items[itemIndex]}
@@ -270,7 +282,7 @@ export default function InventoryPage() {
       <Popup
         open={changeItemPopupVisible}
         onClose={() => setChangeItemPopupVisible(false)}
-        text={ONGOING_UPDATE_WARNING}
+        text={strings.allUpdatesWillBeLost!}
         onConfirm={() => {
           setupAndOpenItemEditorForCreation();
           setChangeItemPopupVisible(false);

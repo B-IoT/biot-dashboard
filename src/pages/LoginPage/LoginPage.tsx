@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import './LoginPage.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import { authenticate } from '../../api/api';
 import { useHistory } from 'react-router-dom';
+import { translate } from '../../i18n';
+
+const strings = {
+  username: translate("username"),
+  password: translate("password"),
+  wrongCredentials: translate("wrongCredentials"),
+  login: translate("login")
+}
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -24,12 +32,12 @@ function LoginPage() {
 
   return (
     <div className="center-login">
-      <a href="https://biot.webflow.io">
+      <a href="https://www.b-iot.ch">
         <img className="login-logo" src={'/img/logoColor.png'} alt="BIoT logo" />
       </a>
       <Input
         setKeyword={setUsername}
-        defaultText="Nom d'utilisateur"
+        defaultText={strings.username!}
         width={350}
         style={{}}
         isPassword={false}
@@ -37,7 +45,7 @@ function LoginPage() {
       />
       <Input
         setKeyword={setPassword}
-        defaultText="Mot de passe"
+        defaultText={strings.password!}
         width={350}
         style={{ marginTop: 15 }}
         isPassword={true}
@@ -45,11 +53,11 @@ function LoginPage() {
       />
       {showError && (
         <div className="error-text login-error">
-          {'Identifiant ou mot de passe incorrect.'}
+          {strings.wrongCredentials}
         </div>
       )}
       <Button
-        text="Connexion"
+        text={strings.login!}
         onClick={() => handleSignIn()}
         width={200}
         style={{ marginTop: 35 }}

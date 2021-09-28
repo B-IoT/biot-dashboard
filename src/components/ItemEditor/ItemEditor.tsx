@@ -20,7 +20,7 @@ import {
   Item,
   itemFieldTranslation,
   mandatoryFields,
-  underCreation,
+  UNDER_CREATION,
 } from '../../utils/items';
 import LoadingButton from '../LoadingButton/LoadingButton';
 
@@ -32,8 +32,27 @@ import SelectSearch, {
   SelectSearchOption,
 } from 'react-select-search';
 import { groupBy } from '../../utils';
+import { translate } from '../../i18n';
 
 toast.configure();
+
+const strings = {
+  noCategoryFound: translate('noCategoryFound'),
+  errorTryAgain: translate('errorTryAgain'),
+  underCreation: translate('underCreation'),
+  itemCreated: translate('itemCreated'),
+  itemDeleted: translate('itemDeleted'),
+  updatesSaved: translate('updatesSaved'),
+  cancel: translate('cancel'),
+  delete: translate('delete'),
+  validate: translate('validate'),
+  areYouSureToUpdateThisItem: translate('areYouSureToUpdateThisItem'),
+  areYouSureToCreateThisItem: translate('areYouSureToCreateThisItem'),
+  areYouSureToDeleteThisItem: translate('areYouSureToDeleteThisItem'),
+  areYouSureToIgnoreUpdates: translate('areYouSureToIgnoreUpdates'),
+  printQrCode: translate('printQrCode'),
+  fillMandatoryFields: translate('fillMandatoryFields'),
+};
 
 /**
  * Adds the category ID field to the item and returns it.
@@ -46,8 +65,6 @@ const addCategoryIDToItem = (
     categories.find((c) => c.name === item.fullCategory)?.id || null;
   return { ...item, categoryID };
 };
-
-const NO_CATEGORY_FOUND = 'Aucune catégorie trouvée';
 
 /**
  * Editor to modify and update an item on the backend
@@ -71,8 +88,7 @@ export default function ItemEditor(props: ItemEditorProps) {
     Array<SelectSearchOption>
   >([]);
 
-  const errorToast = () =>
-    toast.error("Une erreur s'est produite, veuillez réessayer");
+  const errorToast = () => toast.error(strings.errorTryAgain);
   const qrCodeValue = editedValues?.id;
 
   const closeHandler = useCallback(() => {
@@ -139,7 +155,7 @@ export default function ItemEditor(props: ItemEditorProps) {
 
           if ((key === 'id' || key === 'lastModifiedDate') && !item[key])
             continue;
-          if (key === 'status' && item[key] !== underCreation) continue;
+          if (key === 'status' && item[key] !== UNDER_CREATION) continue;
 
           switch (key) {
             case 'purchasePrice':
@@ -188,7 +204,7 @@ export default function ItemEditor(props: ItemEditorProps) {
                   className="axiforma-regular-black-regular-14px field-text"
                   key={key + '-input'}
                 >
-                  {'En création'}
+                  {strings.underCreation}
                 </div>
               );
               break;
@@ -228,7 +244,7 @@ export default function ItemEditor(props: ItemEditorProps) {
                     placeholder={translation}
                     search
                     filterOptions={fuzzySearch}
-                    emptyMessage={NO_CATEGORY_FOUND}
+                    emptyMessage={strings.noCategoryFound!}
                     value={editedValues.fullCategory || ''}
                     renderValue={(valueProps, _, className) => {
                       const { value, ...props } = valueProps;
@@ -343,18 +359,18 @@ export default function ItemEditor(props: ItemEditorProps) {
           if (data && data !== '') {
             const valuesCopy = { ...editedValues };
             valuesCopy.id = data;
-            valuesCopy.status = underCreation;
+            valuesCopy.status = UNDER_CREATION;
 
             item.id = data;
-            item.status = underCreation;
+            item.status = UNDER_CREATION;
 
             setEditedValues(valuesCopy);
-            toast.success("L'objet a bien été créé");
+            toast.success(strings.itemCreated);
 
             // Need to be done with valuesCopy since setEditedValues is asynchronous
             copyItemData(valuesCopy, item);
           } else {
-            toast.success('Les modifications ont été enregistrées');
+            toast.success(strings.updatesSaved);
 
             copyItemData(editedValues, item);
           }
@@ -382,7 +398,7 @@ export default function ItemEditor(props: ItemEditorProps) {
         refreshHandler(null);
         cancelHandler();
         setModifyingItem(false);
-        toast.success("L'objet a bien été supprimé");
+        toast.success(strings.itemDeleted);
       },
 
       onError: () => {
@@ -408,14 +424,14 @@ export default function ItemEditor(props: ItemEditorProps) {
   useEffect(() => {
     if (updatePopup) {
       if (editedValues['id']) {
-        setPopupText('Êtes vous sûr de modifier cet objet ?');
+        setPopupText(strings.areYouSureToUpdateThisItem!);
       } else {
-        setPopupText('Êtes vous sûr de créer cet objet ?');
+        setPopupText(strings.areYouSureToCreateThisItem!);
       }
     } else if (deletePopup) {
-      setPopupText('Êtes vous sûr de supprimer cet objet ?');
+      setPopupText(strings.areYouSureToDeleteThisItem!);
     } else if (undoUpdatePopup) {
-      setPopupText("Êtes vous sûr d'ignorer les modifications ?");
+      setPopupText(strings.areYouSureToIgnoreUpdates!);
     }
   }, [updatePopup, deletePopup, undoUpdatePopup, editedValues]);
 
@@ -434,7 +450,7 @@ export default function ItemEditor(props: ItemEditorProps) {
             trigger={() => (
               <div className="print-button">
                 <div className="axiforma-regular-blue-semi-bold-14px">
-                  Imprimer le QR code
+                  {strings.printQrCode}
                 </div>
               </div>
             )}
@@ -447,25 +463,27 @@ export default function ItemEditor(props: ItemEditorProps) {
       <div className="button-wrapper">
         {fieldError && (
           <div className="missing-fields-error error-text-thin">
-            Veuillez renseigner tous les champs obligatoires.
+            {strings.fillMandatoryFields}
           </div>
         )}
         <LoadingButton isLoading={isLoading} onClick={() => editHandler()}>
-          <div className="axiforma-regular-normal-white-16px">Valider</div>
+          <div className="axiforma-regular-normal-white-16px">
+            {strings.validate}
+          </div>
         </LoadingButton>
         {editedValues['id'] && (
           <div
             className="margin-top cancel-button axiforma-regular-red-semi-bold-14px"
             onClick={() => setDeletePopup(true)}
           >
-            Supprimer
+            {strings.delete}
           </div>
         )}
         <div
           className="margin-top cancel-button axiforma-regular-blue-semi-bold-14px"
           onClick={() => undoUpdateHandler()}
         >
-          Annuler
+          {strings.cancel}
         </div>
       </div>
       <Popup
