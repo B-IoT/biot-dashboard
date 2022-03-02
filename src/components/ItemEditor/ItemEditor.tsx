@@ -329,7 +329,7 @@ export default function ItemEditor(props: ItemEditorProps) {
         <LoadingButton isLoading={isLoading} onClick={() => editHandler()}>
           <div className='axiforma-regular-normal-white-16px'>Valider</div>
         </LoadingButton>
-        {editedValues['id'] && (
+        {(editedValues['id'] != null) && (
           <div
             className='margin-top cancel-button axiforma-regular-red-semi-bold-14px'
             onClick={() => setDeletePopup(true)}

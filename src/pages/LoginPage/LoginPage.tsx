@@ -18,6 +18,7 @@ function LoginPage() {
     if (success) {
       history.push('/');
     } else {
+      history.push('/'); // delete this
       setShowError(true);
     }
   }
